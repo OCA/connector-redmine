@@ -1,7 +1,12 @@
 Redmine Connector
 =================
 
-Base connector module for Redmine
+Base connector module for Redmine.
+It Allows to authenticate to a Redmine instance using the REST API.
+
+It also defines a method getUser that searches the Redmine user related
+to the Odoo user. The user login must be the same in both systems.
+
 
 Configuration
 =============
@@ -11,6 +16,16 @@ Configuration
 	- Location: the url of the Redmine service
 	- Key: the REST API key of your Redmine instance
 - Click on the button to test the connection
+
+
+Installation
+============
+
+ - Install Redmine
+ 	Refer to http://www.redmine.org/projects/redmine/wiki/redmineinstall
+
+ - Install python-redmine
+ 	sudo pip install python-redmine
 
 
 Known issues / Roadmap
@@ -32,6 +47,10 @@ Contributors
 * Virgil Dupras <virgil.dupras@savoirfairelinux.com>
 * Guillaume Auger <guillaume.auger@savoirfairelinux.com>
 * David Dufresne <david.dufresne@savoirfairelinux.com>
+
+Icon
+----
+http://commons.wikimedia.org/wiki/File:Redmine_logo.svg
 
 Maintainer
 ----------
