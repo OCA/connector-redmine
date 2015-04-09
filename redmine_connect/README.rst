@@ -29,6 +29,7 @@ Contributors
    :target: http://www.savoirfairelinux.com
 
 * Maxime Chambreuil <maxime.chambreuil@savoirfairelinux.com>
+* Virgil Dupras <virgil.dupras@savoirfairelinux.com>
 * Guillaume Auger <guillaume.auger@savoirfairelinux.com>
 * David Dufresne <david.dufresne@savoirfairelinux.com>
 
