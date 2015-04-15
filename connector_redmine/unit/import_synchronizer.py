@@ -24,8 +24,6 @@ import logging
 from openerp.addons.connector.unit.synchronizer import ImportSynchronizer
 from openerp.addons.connector.queue.job import job
 from openerp.addons.connector_redmine.connector import get_environment
-from openerp.addons.connector_redmine.backend import redmine13
-from datetime import datetime
 
 _logger = logging.getLogger(__name__)
 
