@@ -13,8 +13,8 @@ Configuration
 
 - Go to Connectors -> Redmine -> Backends
 - Create a backend
-	- Location: the url of the Redmine service
-	- Key: the REST API key of your Redmine instance
+    - Location: the url of the Redmine service
+    - Key: the REST API key of your Redmine instance
 - Click on the button to test the connection
 
 
@@ -22,10 +22,10 @@ Installation
 ============
 
  - Install Redmine
- 	Refer to http://www.redmine.org/projects/redmine/wiki/redmineinstall
+     Refer to http://www.redmine.org/projects/redmine/wiki/redmineinstall
 
  - Install python-redmine
- 	sudo pip install python-redmine
+     sudo pip install python-redmine
 
 
 Known issues / Roadmap

@@ -20,8 +20,9 @@
 #
 ##############################################################################
 
-from openerp.addons.connector.connector import (Environment,
-                                                install_in_connector)
+from openerp.addons.connector.connector import (
+    Environment, install_in_connector)
+from openerp.addons.connector.checkpoint import checkpoint
 
 
 install_in_connector()
@@ -35,3 +36,8 @@ def get_environment(session, model_name, backend_id):
     lang_code = lang.code if lang else 'en_US'
     env.set_lang(code=lang_code)
     return env
+
+
+def add_checkpoint(session, model_name, record_id, backend_id):
+    return checkpoint.add_checkpoint(
+        session, model_name, record_id, 'redmine.backend', backend_id)

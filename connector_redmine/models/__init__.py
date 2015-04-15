@@ -21,3 +21,4 @@
 ##############################################################################
 
 from . import redmine_backend
+from . import redmine_binding

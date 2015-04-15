@@ -27,4 +27,4 @@ redmine = backend.Backend('redmine')
 """ Generic Redmine Backend """
 
 redmine13 = backend.Backend(parent=redmine, version='1.3')
-""" Redmine Backend for version 1.3 and up"""
+""" Redmine Backend for version 1.3 and up """

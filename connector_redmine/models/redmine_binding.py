@@ -20,7 +20,22 @@
 #
 ##############################################################################
 
-from . import connector
-from . import backend
-from . import models
-from . import unit
+from openerp.osv import orm, fields
+
+
+class RedmineBinding(orm.AbstractModel):
+    _name = 'redmine.binding'
+    _inherit = 'external.binding'
+    _description = 'Redmine Binding (Abstract)'
+
+    _columns = {
+        'backend_id': fields.many2one(
+            'redmine.backend', 'Redmine Backend', required=True,
+            ondelete='restrict'
+        ),
+        'redmine_id': fields.integer('ID in Redmine', required=True),
+        'sync_date': fields.datetime(
+            'Last Synchronization Date', required=True),
+        'updated_on': fields.datetime('Last Update in Redmine')
+
+    }

@@ -22,7 +22,9 @@
 
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
-from redmine import Redmine, exceptions
+from openerp.addons.connector.connector import Environment
+from openerp.addons.connector.session import ConnectorSession
+from ..unit.backend_adapter import RedmineAdapter
 
 
 class redmine_backend(orm.Model):
@@ -50,69 +52,35 @@ class redmine_backend(orm.Model):
             string='Version',
             required=True
         ),
+        'default_lang_id': fields.many2one(
+            'res.lang',
+            'Default Language',
+            help="If a default language is selected, the records "
+                 "will be imported in the translation of this language.\n"
+                 "Note that a similar configuration exists "
+                 "for each storeview."),
     }
 
-    def _auth(self, cr, uid, ids, context=None):
-        """ Authenticate with Redmine """
-        if context is None:
-            context = self.pool['res.users'].context_get(cr, uid)
-        # Get the location, user and password or key for Redmine
-        if not ids:
-            raise orm.except_orm(
-                _('Internal Error'),
-                _('_auth() called without any ids.')
-            )
-        if type(ids) is not list:
-            ids = [ids]
-        res = self.read(
-            cr, uid, ids, [
-                'location',
-                'key',
-            ], context=context
-        )[0]
-        location = res['location']
-        key = res['key']
+    def _get_base_adapter(self, cr, uid, ids, context=None):
+        """
+        Get an adapter to test the backend connection
+        """
+        backend = self.browse(cr, uid, ids[0], context=context)
+        session = ConnectorSession(cr, uid, context=context)
+        environment = Environment(backend, session, None)
 
-        try:
-            redmine = Redmine(
-                location,
-                key=key,
-            )
-            redmine.auth()
-        except exceptions.AuthError:
-            raise orm.except_orm(_('Redmine connection Error!'),
-                                 _('Invalid authentications key.'))
-        except exceptions.ServerError:
-            raise orm.except_orm(_('Redmine connection Error!'),
-                                 _('Redmine internal error.'))
-        except exceptions.UnknownError:
-            raise orm.except_orm(_('Redmine connection Error!'),
-                                 _('Redmine returned an unknown error.'))
-
-        return redmine
+        return RedmineAdapter(environment)
 
     def check_auth(self, cr, uid, ids, context=None):
         """ Check the authentication with Redmine """
-        if context is None:
-            context = self.pool['res.users'].context_get(cr, uid)
-        self._auth(cr, uid, ids, context=context)
+
+        adapter = self._get_base_adapter(cr, uid, ids, context=context)
+
+        try:
+            adapter._auth()
+        except Exception:
+            raise orm.except_orm(
+                _('Error'), _('Could not connect to Redmine'))
+
         raise orm.except_orm(_('Connection test succeeded!'),
                              _('Everything seems properly set up!'))
-
-    def getUser(self, cr, uid, ids, login, redmine=False, context=None):
-        """
-        Get a redmine user from a given odoo user login
-        """
-        if not redmine:
-            redmine = self._auth(cr, uid, ids, context=context)
-
-        users = redmine.user.filter(name=login)
-        user = next((user for user in users if user.login == login), False)
-
-        if not user:
-            raise orm.except_orm(
-                _('Error'),
-                _('No user found in the Redmine database with '
-                    'the following login: %s') % login)
-
-        return user

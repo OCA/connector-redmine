@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-09 17:30+0000\n"
-"PO-Revision-Date: 2015-04-09 13:35-0500\n"
+"POT-Creation-Date: 2015-04-15 13:54+0000\n"
+"PO-Revision-Date: 2015-04-15 09:58-0500\n"
 "Last-Translator: David Dufresne <david.dufresne@savoirfairelinux.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,54 +16,75 @@ msgstr ""
 "Plural-Forms: \n"
 "X-Generator: Poedit 1.5.4\n"
 
-#. module: redmine_connect
-#: field:redmine.backend,version:0
-msgid "Version"
-msgstr "Version"
+#. module: connector_redmine
+#: model:ir.ui.menu,name:connector_redmine.menu_redmine_root
+msgid "Redmine"
+msgstr "Redmine"
 
-#. module: redmine_connect
-#: field:redmine.backend,name:0
-msgid "Name"
-msgstr "Nom"
-
-#. module: redmine_connect
-#: view:redmine.backend:0
-msgid "Test Authentication"
-msgstr "Tester l'authentification"
-
-#. module: redmine_connect
-#: model:ir.actions.act_window,name:redmine_connect.action_redmine_backend
-#: model:ir.model,name:redmine_connect.model_redmine_backend
-#: view:redmine.backend:0
+#. module: connector_redmine
+#: model:ir.actions.act_window,name:connector_redmine.action_redmine_backend
+#: model:ir.model,name:connector_redmine.model_redmine_backend
+#: view:redmine.backend:0 field:redmine.binding,backend_id:0
 msgid "Redmine Backend"
 msgstr "Backend Redmine"
 
-#. module: redmine_connect
+#. module: connector_redmine
+#: field:redmine.backend,default_lang_id:0
+msgid "Default Language"
+msgstr "Langage par défaut"
+
+#. module: connector_redmine
 #: view:redmine.backend:0
 msgid "Redmine Configuration"
 msgstr "Configuration de Redmine"
 
-#. module: redmine_connect
-#: model:ir.ui.menu,name:redmine_connect.menu_redmine_root
-msgid "Redmine"
-msgstr "Redmine"
+#. module: connector_redmine
+#: field:redmine.binding,sync_date:0
+msgid "Last Synchronization Date"
+msgstr "Dernière date de mise-à-jour"
 
-#. module: redmine_connect
-#: model:ir.ui.menu,name:redmine_connect.menu_redmine_backend
+#. module: connector_redmine
+#: field:redmine.binding,updated_on:0
+msgid "Last Update in Redmine"
+msgstr "Dernière mise-à-jour dans Redmine"
+
+#. module: connector_redmine
+#: model:ir.ui.menu,name:connector_redmine.menu_redmine_backend
 msgid "Backends"
 msgstr "Backends"
 
-#. module: redmine_connect
-#: field:redmine.backend,location:0
-msgid "Location"
-msgstr "Adresse"
+#. module: connector_redmine
+#: view:redmine.backend:0
+msgid "Test Authentication"
+msgstr "Tester l'authentification"
 
-#. module: redmine_connect
-#: field:redmine.backend,key:0
-msgid "Key"
-msgstr "Clé"
+#. module: connector_redmine
+#: model:ir.model,name:connector_redmine.model_connector_redmine_installed
+msgid "connector_redmine.installed"
+msgstr "connector_redmine.installed"
 
-#. module: redmine_connect
+#. module: connector_redmine
+#: model:ir.model,name:connector_redmine.model_redmine_binding
+msgid "Redmine Binding (Abstract)"
+msgstr "Binding Redmine (Abstract)"
+
+#. module: connector_redmine
 #: view:redmine.backend:0
 msgid "e.g. http://localhost:8081/redmine"
 msgstr "e.g. http://localhost:8081/redmine"
+
+#. module: connector_redmine
+#: help:redmine.backend,default_lang_id:0
+msgid ""
+"If a default language is selected, the records will be imported in the "
+"translation of this language.\n"
+"Note that a similar configuration exists for each storeview."
+msgstr ""
+"Si une langue par défaut est sélectionnée, les enregistements seront "
+"importés dans la traduction de cette langue. Note: une configuration "
+"similaire peut être définie sur chaque vue magasin."
+
+#. module: connector_redmine
+#: field:redmine.binding,redmine_id:0
+msgid "ID in Redmine"
+msgstr "ID dans Redmine"

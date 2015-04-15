@@ -20,7 +20,7 @@
 #
 ##############################################################################
 
-from . import connector
-from . import backend
-from . import models
-from . import unit
+from . import backend_adapter
+from . import binder
+from . import import_synchronizer
+from . import mapper
