@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="ir_cron_time_entry_import" model="ir.cron">
+            <field name="name">Import Time Entries From Redmine</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">2</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model">redmine.backend</field>
+            <field name="function">prepare_time_entry_import</field>
+            <field name="priority">10</field>
+            <field name="args">()</field>
+        </record>
+
+    </data>
+</openerp>

@@ -37,6 +37,9 @@ class RedmineAdapter(CRUDAdapter):
     Read methods must return a python dictionary and search methods a list
     of ids.
 
+    If a Redmine record is not found in a read method, the return value
+    must be None.
+
     This is important because it allows to mock the adapter easily
     in unit tests.
     """
