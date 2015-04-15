@@ -33,8 +33,7 @@ Known issues / Roadmap
 ======================
 
 The Redmine API does not allow to fetch time entry records based on the last update field.
-For this reason, the connector fetches every records for a period of time (e.g. 2 weeks), then it
-filters the records with the last update field.
+For this reason, the connector fetches every records for a period of time (e.g. 2 weeks) as explained in Configuration.
 
 Credits
 =======
