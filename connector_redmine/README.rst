@@ -8,16 +8,6 @@ It also defines a method getUser that searches the Redmine user related
 to the Odoo user. The user login must be the same in both systems.
 
 
-Configuration
-=============
-
-- Go to Connectors -> Redmine -> Backends
-- Create a backend
-    - Location: the url of the Redmine service
-    - Key: the REST API key of your Redmine instance
-- Click on the button to test the connection
-
-
 Installation
 ============
 
@@ -26,6 +16,16 @@ Installation
 
  - Install python-redmine
      sudo pip install python-redmine
+
+
+Configuration
+=============
+
+- Go to Connectors -> Redmine -> Backends
+- Create a backend
+    - Location: the url of the Redmine service
+    - Key: the REST API key of your Redmine instance
+- Click on the button to test the connection
 
 
 Known issues / Roadmap
