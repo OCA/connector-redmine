@@ -79,8 +79,6 @@ class RedmineImportSynchronizer(ImportSynchronizer):
             '%s %d updated from Redmine record %s',
             self.model._name, binding_id, self.redmine_id)
 
-        return
-
     def run(self, redmine_id, options=None):
         """ Run the synchronization
 
