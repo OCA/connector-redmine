@@ -20,10 +20,12 @@
 #
 ##############################################################################
 
-from datetime import datetime
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 from openerp.addons.connector.connector import Binder
 from ..backend import redmine13
+
+from datetime import datetime
+from tools import ustr
 
 
 @redmine13
@@ -44,7 +46,7 @@ class RedmineModelBinder(Binder):
         """
         with self.session.change_context({'active_test': False}):
             binding_ids = self.session.search(self.model._name, [
-                ('redmine_id', '=', str(external_id)),
+                ('redmine_id', '=', ustr(external_id)),
                 ('backend_id', '=', self.backend_record.id)
             ])
 
@@ -101,7 +103,7 @@ class RedmineModelBinder(Binder):
 
         self.environment.model.write(
             self.session.cr, self.session.uid, binding_id, {
-                'redmine_id': str(external_id),
+                'redmine_id': ustr(external_id),
                 'sync_date': now_fmt
             }, context=context)
 

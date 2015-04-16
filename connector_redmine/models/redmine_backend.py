@@ -82,5 +82,5 @@ class redmine_backend(orm.Model):
             raise orm.except_orm(
                 _('Error'), _('Could not connect to Redmine'))
 
-        raise orm.except_orm(_('Connection test succeeded!'),
-                             _('Everything seems properly set up!'))
+        raise orm.except_orm(_('Connection test succeeded'),
+                             _('Everything seems properly set up'))

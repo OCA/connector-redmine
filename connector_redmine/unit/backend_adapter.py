@@ -26,7 +26,8 @@ from openerp.addons.connector.exception import (
 from openerp.addons.connector.unit.backend_adapter import CRUDAdapter
 from redmine import Redmine, exceptions
 from requests.exceptions import ConnectionError
-from ..backend import redmine13
+
+from tools import ustr
 
 
 class RedmineAdapter(CRUDAdapter):
@@ -51,29 +52,15 @@ class RedmineAdapter(CRUDAdapter):
 
         except (exceptions.AuthError, ConnectionError) as err:
             raise FailedJobError(
-                _('Redmine connection Error!: '
+                _('Redmine connection Error: '
                     'Invalid authentications key.'))
 
         except (exceptions.UnknownError, exceptions.ServerError) as err:
             raise NetworkRetryableError(
                 _('A network error caused the failure of the job: '
-                    '%s') % err)
+                    '%s') % ustr(err))
 
         self.redmine_api = redmine_api
-
-    def search(self, filters=None):
-        """
-        Search records according to some criterias
-        and returns a list of ids
-        """
-        self._auth()
-
-    def read(self, redmine_id):
-        """
-        Search records according to some criterias
-        and returns their information
-        """
-        self._auth()
 
     def search_user(self, login):
         """
