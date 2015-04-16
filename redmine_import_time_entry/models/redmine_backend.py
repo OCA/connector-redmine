@@ -30,6 +30,8 @@ from openerp.tools import DEFAULT_SERVER_DATE_FORMAT, \
 
 from datetime import datetime, timedelta
 
+from tools import ustr
+
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -60,6 +62,10 @@ class redmine_backend(orm.Model):
     _defaults = {
         'time_entry_import_activate': True,
         'time_entry_number_of_days': 14,
+
+        # At the first import, this field must have a value so that the
+        # update_on field on Redmine time entries can be compared to it
+        # Comparing False with a datetime object raises an error.
         'time_entry_last_update': datetime(1900, 1, 1).strftime(
             DEFAULT_SERVER_DATETIME_FORMAT),
     }
@@ -73,9 +79,9 @@ class redmine_backend(orm.Model):
 
         try:
             adapter._auth()
-        except Exception:
+        except Exception as e:
             raise orm.except_orm(
-                _('Error'), _('Could not connect to Redmine'))
+                type(e), _('Could not connect to Redmine: %s') % ustr(e))
 
         projects = adapter.redmine_api.project.all()
         exist = False

@@ -33,6 +33,7 @@ from openerp.addons.connector_redmine.unit.import_synchronizer import (
     import_record)
 
 from datetime import datetime
+from tools import ustr
 
 
 @redmine13
@@ -116,4 +117,4 @@ def import_single_user_time_entries(
         raise orm.except_orm(
             _('Error !'),
             _("An error was encountered while importing timesheets from "
-                "Redmine: %s") % repr(err))
+                "Redmine: %s") % ustr(err))
