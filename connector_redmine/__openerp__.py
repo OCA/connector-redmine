@@ -34,6 +34,7 @@ Add the Redmine Backend
 """,
     'depends': [
         'connector',
+        'hr_timesheet_sheet',
     ],
     'external_dependencies': {
         'python': ['redmine'],

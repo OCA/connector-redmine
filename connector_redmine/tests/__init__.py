@@ -20,6 +20,8 @@
 #
 ##############################################################################
 
-from . import redmine_backend
-from . import redmine_binding
-from . import redmine_hr_analytic_timesheet
+from . import test_connector_redmine
+
+checks = [
+    test_connector_redmine
+]

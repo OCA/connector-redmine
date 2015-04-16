@@ -20,6 +20,18 @@
 #
 ##############################################################################
 
-from . import redmine_backend
-from . import redmine_binding
-from . import redmine_hr_analytic_timesheet
+from openerp.osv import orm, fields
+
+
+class RedmineTimeEntry(orm.Model):
+    _name = 'redmine.hr.analytic.timesheet'
+    _description = 'Redmine Time Entry Binding'
+    _inherit = 'redmine.binding'
+    _inherits = {'hr.analytic.timesheet': 'openerp_id'}
+
+    _columns = {
+        'openerp_id': fields.many2one(
+            'hr.analytic.timesheet', 'Timesheet', required=True,
+            ondelete='cascade'
+        ),
+    }
