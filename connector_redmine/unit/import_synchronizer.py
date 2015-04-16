@@ -81,10 +81,11 @@ class RedmineImportSynchronizer(ImportSynchronizer):
 
         return
 
-    def run(self, redmine_id):
+    def run(self, redmine_id, options=None):
         """ Run the synchronization
 
         :param redmine_id: identifier of the record on Redmine
+        :param options: dict of parameters used by the synchronizer
         """
         self.redmine_id = redmine_id
         self.redmine_record = self._get_redmine_data()
@@ -105,21 +106,21 @@ class RedmineImportSynchronizer(ImportSynchronizer):
 
 
 class RedmineBatchImportSynchronizer(ImportSynchronizer):
-    def run(self, filters=None):
+    def run(self, filters=None, options=None):
         raise NotImplementedError
 
 
 @job
-def import_batch(session, model_name, backend_id, filters=None):
+def import_batch(session, model_name, backend_id, filters=None, options=None):
     """ Prepare a batch import of records from Redmine """
     env = get_environment(session, model_name, backend_id)
     importer = env.get_connector_unit(RedmineBatchImportSynchronizer)
-    importer.run(filters=filters)
+    importer.run(filters=filters, options=options)
 
 
 @job
-def import_record(session, model_name, backend_id, redmine_id, force=False):
+def import_record(session, model_name, backend_id, redmine_id, options=None):
     """ Import a record from Redmine """
     env = get_environment(session, model_name, backend_id)
     importer = env.get_connector_unit(RedmineImportSynchronizer)
-    importer.run(redmine_id)
+    importer.run(redmine_id, options=options)
