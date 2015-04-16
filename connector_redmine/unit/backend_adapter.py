@@ -22,10 +22,11 @@
 
 from openerp.tools.translate import _
 from openerp.addons.connector.exception import (
-    NetworkRetryableError, FailedJobError)
+    NetworkRetryableError, FailedJobError, InvalidDataError)
 from openerp.addons.connector.unit.backend_adapter import CRUDAdapter
 from redmine import Redmine, exceptions
 from requests.exceptions import ConnectionError
+from ..backend import redmine13
 
 
 class RedmineAdapter(CRUDAdapter):
@@ -73,3 +74,18 @@ class RedmineAdapter(CRUDAdapter):
         and returns their information
         """
         self._auth()
+
+    def search_user(self, login):
+        """
+        Get a Redmine user id from a Odoo login
+        """
+        users = self.redmine_api.user.filter(name=login)
+
+        user_id = next(
+            (user.id for user in users if user.login == login), False)
+
+        if not user_id:
+            raise InvalidDataError(
+                _("No user with login %s found in Redmine.") % login)
+
+        return user_id
