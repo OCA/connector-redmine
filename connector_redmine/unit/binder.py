@@ -115,6 +115,7 @@ class RedmineModelBinder(Binder):
 
         :param browse: when True, returns a browse_record instance
                        rather than an ID
+        :return: the ID of the openerp object
         """
         binding = self.session.read(
             self.model._name, binding_id, ['openerp_id'])
