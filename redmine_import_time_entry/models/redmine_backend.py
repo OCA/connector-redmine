@@ -86,9 +86,10 @@ class redmine_backend(orm.Model):
         projects = adapter.redmine_api.project.all()
         exist = False
 
-        for cs in projects[0].custom_fields:
-            if cs['name'] == backend.contract_ref:
-                exist = True
+        if projects:
+            for cs in projects[0].custom_fields:
+                if cs['name'] == backend.contract_ref:
+                    exist = True
 
         if exist is True:
             raise orm.except_orm(_('Connection test succeeded!'),
