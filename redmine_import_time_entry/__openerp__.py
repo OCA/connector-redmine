@@ -40,6 +40,7 @@ Import time entries from Redmine to the employee's analytic timesheet.
     'data': [
         'data/ir_cron_data.xml',
         'views/redmine_backend_view.xml',
+        'views/hr_timesheet_sheet_view.xml',
     ],
     'application': True,
     'installable': True,

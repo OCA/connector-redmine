@@ -21,5 +21,6 @@
 ##############################################################################
 
 from . import hr_analytic_timesheet
+from . import hr_timesheet_sheet
 from . import redmine_backend
 from . import redmine_hr_analytic_timesheet

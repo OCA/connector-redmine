@@ -20,6 +20,30 @@
 #
 ##############################################################################
 
-from . import models
-from . import unit
-from . import connector
+from openerp.osv import orm
+from openerp.tools.translate import _
+from openerp.addons.connector.session import ConnectorSession
+from ..unit.import_synchronizer import import_single_user_time_entries
+
+
+class HrTimesheetSheet(orm.Model):
+    _inherit = 'hr_timesheet_sheet.sheet'
+
+    def import_timesheets_from_redmine(self, cr, uid, ids, context=None):
+        timesheet = self.browse(cr, uid, ids[0], context=context)
+
+        session = ConnectorSession(cr, uid, context)
+        backend_id = self.pool['redmine.backend'].search(
+            cr, uid, [('time_entry_import_activate', '=', True)],
+            context=context)[0]
+
+        employee = timesheet.employee_id
+
+        if not employee:
+            raise orm.except_orm(
+                _('Error!'),
+                _('The employee %s is not related to a user') % employee.name)
+
+        import_single_user_time_entries(
+            session, backend_id, employee.user_id.login,
+            timesheet.date_from, timesheet.date_to)

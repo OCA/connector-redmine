@@ -21,6 +21,7 @@
 ##############################################################################
 
 from openerp.tests import common
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 from openerp.addons.connector.connector import Environment
 from openerp.addons.connector.session import ConnectorSession
@@ -31,6 +32,7 @@ from openerp.addons.connector_redmine.unit.import_synchronizer import (
 
 from ..unit.mapper import TimeEntryImportMapper
 from ..unit.backend_adapter import TimeEntryAdapter
+from ..unit.import_synchronizer import import_single_user_time_entries
 
 from mock import patch
 from datetime import datetime
@@ -143,19 +145,21 @@ class test_import_time_entries(common.TransactionCase):
         self.assertEqual(res['account_id'], self.account_2_id)
 
     @patch(import_job_path, side_effect=mock_delay)
-    def import_time_entry_batch(self, record_id, defaults, job_decorator):
-        with patch.object(TimeEntryAdapter, 'read') as read:
-            with patch.object(TimeEntryAdapter, 'search') as search:
+    def import_time_entry_batch(
+        self, record_id, defaults, job_decorator, options=None
+    ):
+        with patch.object(TimeEntryAdapter, 'read') as read, \
+                patch.object(TimeEntryAdapter, 'search') as search:
 
-                search.return_value = [record_id]
-                read.return_value = defaults
+            search.return_value = [record_id]
+            read.return_value = defaults
 
-                import_batch(
-                    self.session, 'redmine.hr.analytic.timesheet',
-                    self.backend_id, filters={
-                        'from_date': '2015-01-01',
-                        'to_date': '2015-01-07',
-                    })
+            import_batch(
+                self.session, 'redmine.hr.analytic.timesheet',
+                self.backend_id, filters={
+                    'from_date': '2015-01-01',
+                    'to_date': '2015-01-07',
+                }, options=options)
 
     def test_binder(self):
         binder = RedmineModelBinder(self.environment)
@@ -191,6 +195,12 @@ class test_import_time_entries(common.TransactionCase):
         defaults['spent_on'] = '2015-01-02'
         self.import_time_entry_batch(123, defaults)
 
+        self.backend.refresh()
+        self.assertEqual(
+            self.backend.time_entry_last_update,
+            datetime(2015, 4, 8, 20, 38, 31).strftime(
+                DEFAULT_SERVER_DATETIME_FORMAT))
+
         timesheet.refresh()
         self.assertEqual(timesheet.account_id, self.account_2)
         self.assertEqual(timesheet.unit_amount, 10)
@@ -202,3 +212,26 @@ class test_import_time_entries(common.TransactionCase):
         """
         cr, uid, context = self.cr, self.uid, self.context
         self.backend_model.prepare_time_entry_import(cr, uid, context=context)
+
+    def test_import_single_user_time_entries(self):
+        with patch.object(TimeEntryAdapter, 'search_user') as search_user, \
+                patch.object(TimeEntryAdapter, 'read') as read, \
+                patch.object(TimeEntryAdapter, 'search') as search:
+
+            defaults = self.get_time_entry_defaults()
+
+            updated_on = self.backend.time_entry_last_update
+
+            search_user.return_value = 1
+            search.return_value = [1]
+            read.return_value = defaults
+
+            import_single_user_time_entries(
+                self.session, self.backend_id,
+                self.user.login, '2015-01-01', '2015-01-07')
+
+            self.backend.refresh()
+
+            # Backend field time_entry_last_update must not be updated when
+            # querying timesheets for a single user
+            self.assertEqual(updated_on, self.backend.time_entry_last_update)
