@@ -45,7 +45,7 @@ class TimeEntryAdapter(RedmineAdapter):
         """
         Get all time entry that were updated between the interval of time
         """
-        super(TimeEntryAdapter, self).search(filters)
+        self._auth()
 
         if updated_from:
             return [
@@ -62,7 +62,7 @@ class TimeEntryAdapter(RedmineAdapter):
             ]
 
     def read(self, redmine_id):
-        super(TimeEntryAdapter, self).read(redmine_id)
+        self._auth()
 
         try:
             entry = self.redmine_api.time_entry.get(redmine_id)
