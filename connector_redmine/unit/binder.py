@@ -22,13 +22,13 @@
 
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 from openerp.addons.connector.connector import Binder
-from ..backend import redmine13
+from ..backend import redmine
 
 from datetime import datetime
 from tools import ustr
 
 
-@redmine13
+@redmine
 class RedmineModelBinder(Binder):
     _model_name = [
         'redmine.hr.analytic.timesheet',
