@@ -32,7 +32,7 @@ from tools import ustr
 
 class RedmineAdapter(CRUDAdapter):
     """
-    Time Entry Backend Adapter for Redmine
+    Backend Adapter for Redmine
 
     Read methods must return a python dictionary and search methods a list
     of ids.

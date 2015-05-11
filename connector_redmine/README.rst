@@ -48,9 +48,6 @@ Contributors
 * Guillaume Auger <guillaume.auger@savoirfairelinux.com>
 * David Dufresne <david.dufresne@savoirfairelinux.com>
 
-Icon
-----
-http://commons.wikimedia.org/wiki/File:Redmine_logo.svg
 
 Maintainer
 ----------
