@@ -140,4 +140,14 @@ msgstr ""
 msgid "The field %s is not set in Redmine for project %s."
 msgstr ""
 
+#. module: redmine_import_time_entry
+#: code:addons/redmine_import_time_entry/models/hr_timesheet_sheet.py:0
+#, python-format
+msgid "Their is no Redmine backend configured to import time entries."
+msgstr ""
 
+#. module: redmine_import_time_entry
+#: code:addons/redmine_import_time_entry/models/hr_timesheet_sheet.py:0
+#, python-format
+msgid "Warning"
+msgstr ""

@@ -30,7 +30,8 @@ class HrTimesheetSheet(orm.Model):
     _inherit = 'hr_timesheet_sheet.sheet'
 
     def import_timesheets_from_redmine(self, cr, uid, ids, context=None):
-        timesheet = self.browse(cr, uid, ids[0], context=context)
+        if isinstance(ids, (int, long)):
+            ids = [ids]
 
         session = ConnectorSession(cr, uid, context)
         backend_ids = self.pool['redmine.backend'].search(
@@ -38,17 +39,23 @@ class HrTimesheetSheet(orm.Model):
             context=context)
 
         if not backend_ids:
-            return
+            raise orm.except_orm(
+                _('Warning'),
+                _('Their is no Redmine backend configured '
+                    'to import time entries.'))
 
         backend_id = backend_ids[0]
 
-        employee = timesheet.employee_id
+        for timesheet in self.browse(cr, uid, ids, context=context):
+            employee = timesheet.employee_id
 
-        if not employee:
-            raise orm.except_orm(
-                _('Error!'),
-                _('The employee %s is not related to a user') % employee.name)
+            if not employee.user_id:
+                raise orm.except_orm(
+                    _('Warning'),
+                    _(
+                        'The employee %s is not related to a user') %
+                    employee.name)
 
-        import_single_user_time_entries(
-            session, backend_id, employee.user_id.login,
-            timesheet.date_from, timesheet.date_to)
+            import_single_user_time_entries(
+                session, backend_id, employee.user_id.login,
+                timesheet.date_from, timesheet.date_to)
