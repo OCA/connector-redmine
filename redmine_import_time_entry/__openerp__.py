@@ -34,7 +34,6 @@ Import time entries from Redmine to the employee's analytic timesheet.
 """,
     'depends': [
         'connector_redmine',
-        'hr_timesheet_sheet',
     ],
     'external_dependencies': {},
     'data': [

@@ -33,9 +33,14 @@ class HrTimesheetSheet(orm.Model):
         timesheet = self.browse(cr, uid, ids[0], context=context)
 
         session = ConnectorSession(cr, uid, context)
-        backend_id = self.pool['redmine.backend'].search(
+        backend_ids = self.pool['redmine.backend'].search(
             cr, uid, [('time_entry_import_activate', '=', True)],
-            context=context)[0]
+            context=context)
+
+        if not backend_ids:
+            return
+
+        backend_id = backend_ids[0]
 
         employee = timesheet.employee_id
 

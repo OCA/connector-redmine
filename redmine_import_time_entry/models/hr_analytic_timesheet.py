@@ -26,13 +26,16 @@ from openerp.osv import orm
 class HrAnalyticTimesheet(orm.Model):
     _inherit = 'hr.analytic.timesheet'
 
-    def create(self, cr, uid, vals, context):
+    def create(self, cr, uid, vals, context=None):
         """
         The base create method checks in context for the user_id.
 
         By default, the mapper passes the fields through vals,
         so need to update the context.
         """
+        if context is None:
+            context = {}
+
         if not context.get('user_id', False):
             context['user_id'] = vals.get('user_id', False)
 
