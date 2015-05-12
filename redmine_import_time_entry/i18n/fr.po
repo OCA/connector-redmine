@@ -86,3 +86,10 @@ msgstr "Dernière mise-à-jour d'entrée de temps"
 #: field:redmine.hr.analytic.timesheet,redmine_id:0
 msgid "ID in Redmine"
 msgstr "ID dans Redmine"
+
+#. module: redmine_import_time_entries
+#: sql_constraint:account.analytic.account:0
+#: code:addons/redmine_import_time_entries/models/account_analytic_account.py:33
+#, python-format
+msgid "Reference must be unique"
+msgstr "La référence doit être unique"

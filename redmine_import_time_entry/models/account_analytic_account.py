@@ -20,7 +20,15 @@
 #
 ##############################################################################
 
-from . import account_analytic_account
-from . import hr_analytic_timesheet
-from . import hr_timesheet_sheet
-from . import redmine_backend
+from openerp.osv import orm
+from openerp.tools.translate import _
+
+
+class AccountAnalyticAccount(orm.Model):
+    _inherit = 'account.analytic.account'
+
+    _sql_constraints = [(
+        'account_analytic_unique_reference',
+        'unique(code)',
+        _('Reference must be unique')
+    )]

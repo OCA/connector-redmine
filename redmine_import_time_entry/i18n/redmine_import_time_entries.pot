@@ -86,3 +86,9 @@ msgstr ""
 msgid "ID in Redmine"
 msgstr ""
 
+#. module: redmine_import_time_entries
+#: sql_constraint:account.analytic.account:0
+#: code:addons/redmine_import_time_entries/models/account_analytic_account.py:33
+#, python-format
+msgid "Reference must be unique"
+msgstr ""
