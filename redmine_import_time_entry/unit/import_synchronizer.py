@@ -50,9 +50,6 @@ class TimeEntryBatchImportSynchronizer(RedmineBatchImportSynchronizer):
             self.backend_record.time_entry_last_update,
             DEFAULT_SERVER_DATETIME_FORMAT)
 
-        record_ids = self.backend_adapter.search(
-            updated_from, filters)
-
         if options.get('single_user', False):
             func = import_record
 
@@ -62,6 +59,9 @@ class TimeEntryBatchImportSynchronizer(RedmineBatchImportSynchronizer):
 
         else:
             func = import_record.delay
+
+        record_ids = self.backend_adapter.search(
+            updated_from, filters)
 
         session = self.session
         model_name = self._model_name
