@@ -21,7 +21,6 @@
 ##############################################################################
 
 from openerp.osv import orm
-from openerp.tools.translate import _
 
 
 class AccountAnalyticAccount(orm.Model):
@@ -30,5 +29,5 @@ class AccountAnalyticAccount(orm.Model):
     _sql_constraints = [(
         'account_analytic_unique_reference',
         'unique(code)',
-        _('Reference must be unique')
+        'Reference must be unique'
     )]

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-15 13:59+0000\n"
-"PO-Revision-Date: 2015-04-15 10:06-0500\n"
+"PO-Revision-Date: 2015-05-12 12:50-0500\n"
 "Last-Translator: David Dufresne <david.dufresne@savoirfairelinux.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -89,7 +89,57 @@ msgstr "ID dans Redmine"
 
 #. module: redmine_import_time_entries
 #: sql_constraint:account.analytic.account:0
-#: code:addons/redmine_import_time_entries/models/account_analytic_account.py:33
 #, python-format
 msgid "Reference must be unique"
 msgstr "La référence doit être unique"
+
+#. module: redmine_import_time_entry
+#: code:addons/redmine_import_time_entry/unit/mapper.py:0
+#, python-format
+msgid " Issue #%s - %s"
+msgstr " Ticket #%s - %s"
+
+#. module: redmine_import_time_entry
+#: code:addons/redmine_import_time_entry/unit/mapper.py:0
+#, python-format
+msgid "No analytic account found for the Redmine project %s - %s."
+msgstr "Aucun compte analytique n'a été trouvé pour le projet Redmine %s - %s."
+
+#. module: redmine_import_time_entry
+#: code:addons/redmine_import_time_entry/unit/mapper.py:0
+#, python-format
+msgid "No user found with login %s."
+msgstr "Aucun usager ayant comme nom d'utilisateur %s n'a été trouvé."
+
+#. module: redmine_import_time_entry
+#: code:addons/redmine_import_time_entry/unit/mapper.py:0
+#, python-format
+msgid "User %s has no related employee."
+msgstr "L'usager %s n'a aucun employé associé."
+
+#. module: redmine_import_time_entry
+#: code:addons/redmine_import_time_entry/unit/mapper.py:0
+#, python-format
+msgid "Employee %s has no analytic account."
+msgstr "L'employé %s n'a pas de compte analytique de défini."
+
+#. module: redmine_import_time_entry
+#: code:addons/redmine_import_time_entry/unit/import_synchronizer.py:0
+#, python-format
+msgid "An error was encountered while importing timesheets from Redmine: %s"
+msgstr ""
+"Une erreur est survenue durant l'import des feuilles de temps de Redmine: %s"
+
+#. module: redmine_import_time_entry
+#: code:addons/redmine_import_time_entry/unit/backend_adapter.py:0
+#, python-format
+msgid ""
+"The time entry with id %s does not exist anymore in the Redmine backend."
+msgstr ""
+"La feuille de temps ayant comme id %s n'existe plus dans le backend Redmine."
+
+#. module: redmine_import_time_entry
+#: code:addons/redmine_import_time_entry/unit/backend_adapter.py:0
+#, python-format
+msgid "The field %s is not set in Redmine for project %s."
+msgstr "Le champ %s n'est pas configuré pour le projet %s dans Redmine."

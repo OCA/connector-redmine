@@ -88,3 +88,21 @@ msgstr ""
 #: field:redmine.binding,redmine_id:0
 msgid "ID in Redmine"
 msgstr "ID dans Redmine"
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/unit/backend_adapter.py:0
+#, python-format
+msgid "Redmine connection Error: Invalid authentications key."
+msgstr "Erreur de connection à Redmine: clé d'authentification invalide"
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/unit/backend_adapter.py:0
+#, python-format
+msgid "A network error caused the failure of the job: "
+msgstr "Un erreur de réseau a causé l'arrêt de la job: "
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/unit/backend_adapter.py:0
+#, python-format
+msgid "No user found with login %s."
+msgstr "Aucun usager ayant comme nom d'utilisateur %s n'a été trouvé dans Redmine."

@@ -88,7 +88,56 @@ msgstr ""
 
 #. module: redmine_import_time_entries
 #: sql_constraint:account.analytic.account:0
-#: code:addons/redmine_import_time_entries/models/account_analytic_account.py:33
 #, python-format
 msgid "Reference must be unique"
 msgstr ""
+
+#. module: redmine_import_time_entry
+#: code:addons/redmine_import_time_entry/unit/mapper.py:0
+#, python-format
+msgid " Issue #%s - %s"
+msgstr ""
+
+#. module: redmine_import_time_entry
+#: code:addons/redmine_import_time_entry/unit/mapper.py:0
+#, python-format
+msgid "No analytic account found for the Redmine project %s - %s."
+msgstr ""
+
+#. module: redmine_import_time_entry
+#: code:addons/redmine_import_time_entry/unit/mapper.py:0
+#, python-format
+msgid "No user found with login %s."
+msgstr ""
+
+#. module: redmine_import_time_entry
+#: code:addons/redmine_import_time_entry/unit/mapper.py:0
+#, python-format
+msgid "User %s has no related employee."
+msgstr ""
+
+#. module: redmine_import_time_entry
+#: code:addons/redmine_import_time_entry/unit/mapper.py:0
+#, python-format
+msgid "Employee %s has no analytic account."
+msgstr ""
+
+#. module: redmine_import_time_entry
+#: code:addons/redmine_import_time_entry/unit/import_synchronizer.py:0
+#, python-format
+msgid "An error was encountered while importing timesheets from Redmine: %s"
+msgstr ""
+
+#. module: redmine_import_time_entry
+#: code:addons/redmine_import_time_entry/unit/backend_adapter.py:0
+#, python-format
+msgid "The time entry with id %s does not exist anymore in the Redmine backend."
+msgstr ""
+
+#. module: redmine_import_time_entry
+#: code:addons/redmine_import_time_entry/unit/backend_adapter.py:0
+#, python-format
+msgid "The field %s is not set in Redmine for project %s."
+msgstr ""
+
+
