@@ -43,7 +43,6 @@ Add the Redmine Backend
         'security/ir.model.access.csv',
         'views/redmine_backend_view.xml',
         'views/redmine_menu.xml',
-        'views/demo_view.xml',
     ],
 
     'application': True,
