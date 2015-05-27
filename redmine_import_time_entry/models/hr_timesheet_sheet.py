@@ -36,7 +36,7 @@ class HrTimesheetSheet(orm.Model):
         session = ConnectorSession(cr, uid, context)
         backend_ids = self.pool['redmine.backend'].search(
             cr, uid, [('time_entry_import_activate', '=', True)],
-            context=context)
+            limit=1, context=context)
 
         if not backend_ids:
             raise orm.except_orm(

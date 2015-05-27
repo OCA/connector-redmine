@@ -21,13 +21,13 @@
 ##############################################################################
 
 from openerp.tools.translate import _
-from openerp.addons.connector_redmine.backend import redmine13
+from openerp.addons.connector_redmine.backend import redmine
 from openerp.addons.connector_redmine.unit.mapper import RedmineImportMapper
 from openerp.addons.connector.unit.mapper import mapping
 from openerp.addons.connector.exception import MappingError
 
 
-@redmine13
+@redmine
 class TimeEntryImportMapper(RedmineImportMapper):
     _model_name = 'redmine.hr.analytic.timesheet'
 

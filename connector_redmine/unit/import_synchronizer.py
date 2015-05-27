@@ -88,6 +88,10 @@ class RedmineImportSynchronizer(ImportSynchronizer):
         self.redmine_id = redmine_id
         self.redmine_record = self._get_redmine_data()
 
+        # Case where the redmine record is not found in the backend.
+        if self.redmine_record is None:
+            return
+
         binding_id = self._get_binding_id()
 
         map_record = self._map_data()

@@ -157,3 +157,8 @@ msgstr "Il n'y a aucun backend Redmine configuré pour importer les "
 msgid "Warning"
 msgstr "Avertissement"
 
+#. module: redmine_import_time_entry
+#: constraint:redmine.backend:0
+msgid "You can not have more that one Redmine backend with time entry import activated."
+msgstr "Vous ne pouvez pas avoir plus d'un backend Redmine avec l'import de feuilles "
+"de temps activé."

@@ -151,3 +151,8 @@ msgstr ""
 #, python-format
 msgid "Warning"
 msgstr ""
+
+#. module: redmine_import_time_entry
+#: constraint:redmine.backend:0
+msgid "You can not have more that one Redmine backend with time entry import activated."
+msgstr ""

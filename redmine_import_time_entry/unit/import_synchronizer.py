@@ -26,7 +26,7 @@ from openerp.tools.translate import _
 
 from openerp.addons.connector.exception import ConnectorException
 
-from openerp.addons.connector_redmine.backend import redmine13
+from openerp.addons.connector_redmine.backend import redmine
 from openerp.addons.connector_redmine.connector import get_environment
 from openerp.addons.connector_redmine.unit.import_synchronizer import (
     RedmineBatchImportSynchronizer, RedmineImportSynchronizer,
@@ -36,7 +36,7 @@ from datetime import datetime
 from tools import ustr
 
 
-@redmine13
+@redmine
 class TimeEntryBatchImportSynchronizer(RedmineBatchImportSynchronizer):
 
     _model_name = 'redmine.hr.analytic.timesheet'
@@ -71,7 +71,7 @@ class TimeEntryBatchImportSynchronizer(RedmineBatchImportSynchronizer):
             func(session, model_name, backend_id, record_id, options=options)
 
 
-@redmine13
+@redmine
 class TimeEntryImportSynchronizer(RedmineImportSynchronizer):
 
     _model_name = 'redmine.hr.analytic.timesheet'
@@ -93,8 +93,10 @@ class TimeEntryImportSynchronizer(RedmineImportSynchronizer):
 
         backend = self.backend_record
 
-        if self.updated_on > backend.time_entry_last_update and \
-                not options.get('single_user', False):
+        if (
+            self.updated_on > backend.time_entry_last_update and
+            not options.get('single_user', False)
+        ):
             backend.write({'time_entry_last_update': self.updated_on})
 
 

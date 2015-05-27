@@ -21,15 +21,14 @@
 ##############################################################################
 
 from openerp.tools.translate import _
-from openerp.addons.connector.exception import (
-    NothingToDoJob, InvalidDataError)
+from openerp.addons.connector.exception import InvalidDataError
 from redmine import exceptions
-from openerp.addons.connector_redmine.unit.backend_adapter import \
-    RedmineAdapter
-from openerp.addons.connector_redmine.backend import redmine13
+from openerp.addons.connector_redmine.unit.backend_adapter import (
+    RedmineAdapter)
+from openerp.addons.connector_redmine.backend import redmine
 
 
-@redmine13
+@redmine
 class TimeEntryAdapter(RedmineAdapter):
     """
     Time Entry Backend Adapter for Redmine
@@ -67,9 +66,7 @@ class TimeEntryAdapter(RedmineAdapter):
         try:
             entry = self.redmine_api.time_entry.get(redmine_id)
         except exceptions.ResourceNotFoundError:
-            raise NothingToDoJob(
-                _("The time entry with id %s does not exist anymore in "
-                    "the Redmine backend") % redmine_id)
+            return None
 
         issue = 'issue' in dir(entry) and self.redmine_api.issue.get(
             entry.issue.id)

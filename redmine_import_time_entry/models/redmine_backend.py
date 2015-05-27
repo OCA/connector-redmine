@@ -25,8 +25,8 @@ from openerp.tools.translate import _
 from openerp.addons.connector_redmine.unit.import_synchronizer import (
     import_batch)
 from openerp.addons.connector.session import ConnectorSession
-from openerp.tools import DEFAULT_SERVER_DATE_FORMAT, \
-    DEFAULT_SERVER_DATETIME_FORMAT
+from openerp.tools import (
+    DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT)
 
 from datetime import datetime, timedelta
 
@@ -70,10 +70,31 @@ class redmine_backend(orm.Model):
             DEFAULT_SERVER_DATETIME_FORMAT),
     }
 
+    def _check_time_entry_import_activate(
+        self, cr, uid, ids, context=None
+    ):
+        backend_ids = self.search(cr, uid, [
+            ('time_entry_import_activate', '=', True)], context=context)
+
+        if len(backend_ids) > 1:
+            return False
+
+        return True
+
+    _constraints = [
+        (
+            _check_time_entry_import_activate,
+            "You can not have more that one Redmine backend with "
+            "time entry import activated."
+            ['time_entry_import_activate'],
+        ),
+    ]
+
     def check_contract_ref(self, cr, uid, ids, context=None):
         """
         Check if the contract_ref field exists in redmine
         """
+        assert len(ids) == 1, "Only 1 id expected"
         backend = self.browse(cr, uid, ids[0], context=context)
         adapter = self._get_base_adapter(cr, uid, ids, context=context)
 
