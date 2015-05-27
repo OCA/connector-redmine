@@ -23,7 +23,7 @@ from openerp import models, fields
 
 class RedmineBinding(models.AbstractModel):
 
-    _name = 'redmine.bindings'
+    _name = 'redmine.binding'
     _inherit = 'external.binding'
     _description = 'Redmine Binding (Abstract)'
 
