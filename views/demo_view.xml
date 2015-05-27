@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <record id="view_redmine_binding_form1" model="ir.ui.view">
+      <field name="name">redmine.binding.form1</field>
+      <field name="model">redmine.bindings</field>
+      <field name="arch" type="xml">
+        <form string="Redmine binding">
+          <sheet>
+              <group colspan="4" col="4">
+                <field name="backend_id"/>
+                <field name="redmine_id"/>
+                <field name="sync_date"/>
+                <field name="updated_on"/>
+              </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="view_redmine_binding_tree1" model="ir.ui.view">
+      <field name="name">redmine.binding.tree1</field>
+      <field name="model">redmine.bindings</field>
+      <field name="arch" type="xml">
+        <tree string="Redmine Binding">
+                <field name="backend_id"/>
+                <field name="redmine_id"/>
+                <field name="sync_date"/>
+                <field name="updated_on"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="action_redmine_binding1" model="ir.actions.act_window">
+      <field name="name">Redmine binding</field>
+      <field name="res_model">redmine.bindings</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    
+    <menuitem id="menu_redmine_binding1" name="Binding" />
+    <menuitem id="menu_redmine_binding2" name="Bind" parent="menu_redmine_binding1" />
+    <menuitem id="menu_redmine_binding3" name="Binding" parent="menu_redmine_binding2" action="action_redmine_binding1"/>
+
+
+<!-- timesheet-->
+    <record id="view_mytimesheet_form1" model="ir.ui.view">
+      <field name="name">mytimesheet.form1</field>
+      <field name="model">redmine.hr.analytic.timesheet</field>
+      <field name="arch" type="xml">
+        <form string="mytimesheet" >
+          <sheet>
+              <group colspan="4" col="4">
+                <field name="backend_id"/>
+                <field name="openerp_id"/>
+              </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="view_mytimesheet_tree1" model="ir.ui.view">
+      <field name="name">mytimesheet.tree1</field>
+      <field name="model">redmine.hr.analytic.timesheet</field>
+      <field name="arch" type="xml">
+        <tree string="mytimesheet" >
+                <field name="backend_id"/>
+                
+        </tree>
+      </field>
+    </record>
+
+    <record id="action_mytimesheet1" model="ir.actions.act_window">
+      <field name="name">Mytimesheet</field>
+      <field name="res_model">redmine.hr.analytic.timesheet</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+<menuitem id="menu_action_mytimesheet1" name="Timesheet" parent="menu_redmine_binding2" action="action_mytimesheet1"/>
+
+
+  </data>
+</openerp>
