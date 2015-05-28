@@ -117,6 +117,6 @@ def import_single_user_time_entries(
         importer.run(filters=filters, options={'single_user': True})
     except ConnectorException as err:
         raise orm.except_orm(
-            _('Error !'),
+            _('Error'),
             _("An error was encountered while importing timesheets from "
                 "Redmine: %s") % ustr(err))

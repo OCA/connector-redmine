@@ -85,7 +85,7 @@ class redmine_backend(orm.Model):
         (
             _check_time_entry_import_activate,
             "You can not have more that one Redmine backend with "
-            "time entry import activated."
+            "time entry import activated.",
             ['time_entry_import_activate'],
         ),
     ]
@@ -113,11 +113,11 @@ class redmine_backend(orm.Model):
                     exist = True
 
         if exist is True:
-            raise orm.except_orm(_('Connection test succeeded!'),
-                                 _('Everything seems properly set up!'))
+            raise orm.except_orm(_('Connection test succeeded'),
+                                 _('Everything seems properly set up'))
         else:
             raise orm.except_orm(
-                _('Redmine backend configuration error!'),
+                _('Redmine backend configuration error'),
                 _("The contract # field name doesn't exist.")
             )
 

@@ -17,11 +17,6 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 
 #. module: redmine_import_time_entries
-#: model:ir.model,name:redmine_import_time_entries.model_redmine_import_time_entries_installed
-msgid "redmine_import_time_entries.installed"
-msgstr "redmine_import_time_entries.installed"
-
-#. module: redmine_import_time_entries
 #: model:ir.model,name:redmine_import_time_entries.model_redmine_hr_analytic_timesheet
 msgid "Redmine Time Entry Binding"
 msgstr "Binding d'entrée de temps Redmine"
@@ -96,14 +91,16 @@ msgstr "La référence doit être unique"
 #. module: redmine_import_time_entry
 #: code:addons/redmine_import_time_entry/unit/mapper.py:0
 #, python-format
-msgid " Issue #%s - %s"
-msgstr " Ticket #%s - %s"
+msgid "Issue"
+msgstr "Ticket"
 
 #. module: redmine_import_time_entry
 #: code:addons/redmine_import_time_entry/unit/mapper.py:0
 #, python-format
-msgid "No analytic account found for the Redmine project %s - %s."
-msgstr "Aucun compte analytique n'a été trouvé pour le projet Redmine %s - %s."
+msgid "No analytic account found for the Redmine project "
+"%(contract_ref)s - %(project_name)s."
+msgstr "Aucun compte analytique n'a été trouvé pour le projet Redmine "
+"%(contract_ref)s - %(project_name)s."
 
 #. module: redmine_import_time_entry
 #: code:addons/redmine_import_time_entry/unit/mapper.py:0
@@ -141,8 +138,8 @@ msgstr ""
 #. module: redmine_import_time_entry
 #: code:addons/redmine_import_time_entry/unit/backend_adapter.py:0
 #, python-format
-msgid "The field %s is not set in Redmine for project %s."
-msgstr "Le champ %s n'est pas configuré pour le projet %s dans Redmine."
+msgid "The field %(field)s is not set in Redmine for project %(project)s."
+msgstr "Le champ %(field)s n'est pas configuré pour le projet %(project)s dans Redmine."
 
 #. module: redmine_import_time_entry
 #: code:addons/redmine_import_time_entry/models/hr_timesheet_sheet.py:0

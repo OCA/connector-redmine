@@ -44,7 +44,8 @@ class TimeEntryImportMapper(RedmineImportMapper):
         issue_id = record['issue_id']
 
         if issue_id:
-            name += _(' Issue #%s - %s') % (issue_id, record['issue_subject'])
+            name += _('Issue') + ' ' + ('#%d - %s') % (
+                issue_id, record['issue_subject'])
 
         return {'name': name}
 
@@ -61,8 +62,10 @@ class TimeEntryImportMapper(RedmineImportMapper):
         if not account_ids:
             raise MappingError(
                 _('No analytic account found for the Redmine project '
-                    '%s - %s.') % (
-                    record['contract_ref'], record['project_name']))
+                    '%(contract_ref)s - %(project_name)s.') % {
+                    'contract_ref': record['contract_ref'],
+                    'project_name': record['project_name'],
+                })
 
         return {'account_id': account_ids[0]}
 
