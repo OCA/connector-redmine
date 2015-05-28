@@ -3,16 +3,23 @@ language: python
 python:
   - "2.7"
 
+addons:
+  apt:
+    packages:
+      - expect-dev  # provides unbuffer utility
+      - python-lxml  # because pip installation is slow
+
 env:
-  - VERSION="7.0" LINT_CHECK="1"
-  - VERSION="7.0" ODOO_REPO="odoo/odoo" LINT_CHECK="0"
-  - VERSION="7.0" ODOO_REPO="OCA/OCB" LINT_CHECK="0"
-# either use the two lines above or the two below. Don't change the default if
-# it's not necessary (it is only necessary if modules in your repository can't
-# be installed in the same database. And you get a huge speed penalty in your
-# tests)
-#  - VERSION="7.0" ODOO_REPO="odoo/odoo" UNIT_TEST="1" LINT_CHECK="0"
-#  - VERSION="7.0" ODOO_REPO="OCA/OCB" UNIT_TEST="1" LINT_CHECK="0"
+  global:
+  - VERSION="7.0" TESTS="0" LINT_CHECK="0" TRANSIFEX="0"
+  - TRANSIFEX_USER='transbot@odoo-community.org'
+  - secure: 'O9vOlcJJUccY3UuGUsXbAQwIn8uo6AMGcnFM9rUfg3TWy5NqAYwCp1jb3d3TX/+ANKUMVOGqbiR32qJ0IVI5T9vCY0/zwvsJhPZNPAAZvWYxkRibDk2uBJfQC9l04oU0AUhgFua6IIkOTLATrTndpENMrires9l+4W5h1e5XggA='
+
+  matrix:
+  - LINT_CHECK="1"
+  - TRANSIFEX="1"
+  - TESTS="1" ODOO_REPO="odoo/odoo"
+  - TESTS="1" ODOO_REPO="OCA/OCB"
 
 virtualenv:
   system_site_packages: true
@@ -27,4 +34,4 @@ script:
   - travis_run_tests
 
 after_success:
-  coveralls
+  - travis_after_tests_success
