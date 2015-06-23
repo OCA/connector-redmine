@@ -20,7 +20,8 @@
 #
 ##############################################################################
 
-from openerp.addons.connector.connector import (ConnectorEnvironment, install_in_connector)
+from openerp.addons.connector.connector import ConnectorEnvironment
+from openerp.addons.connector.connector import install_in_connector
 from openerp.addons.connector.checkpoint import checkpoint
 
 

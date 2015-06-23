@@ -21,7 +21,7 @@
 ##############################################################################
 
 from openerp import models, fields, api, _
-from openerp.exceptions import except_orm 
+from openerp.exceptions import except_orm
 from openerp.addons.connector.connector import ConnectorEnvironment
 from openerp.addons.connector.session import ConnectorSession
 from ..unit.backend_adapter import RedmineAdapter
@@ -37,15 +37,16 @@ class redmine_backend(models.Model):
     def _select_versions(self):
         return [('1.3', _('1.3 and higher'))]
 
-
     location = fields.Char('Location', size=128, required=True)
     key = fields.Char('Key', size=64, required=True)
-    version = fields.Selection('_select_versions', string='Version', required=True)
+    version = fields.Selection('_select_versions', string='Version',
+                               required=True)
     default_lang_id = fields.Many2one('res.lang', 'Default Language',
-            help="If a default language is selected, the records "
-                 "will be imported in the translation of this language.\n"
-                 "Note that a similar configuration exists "
-                 "for each storeview.")
+                                      help="""If a default language is
+                                      selected,the records will be imported in
+                                      the translation of this language.\n
+                                      Note that a similar configuration exists
+                                      for each storeview.""")
 
     @api.multi
     def _get_base_adapter(self):
@@ -53,7 +54,7 @@ class redmine_backend(models.Model):
         Get an adapter to test the backend connection
         """
         session = ConnectorSession(self._cr, self._uid, context=self._context)
-        environment = ConnectorEnvironment(self[0], session, None)
+        environment = ConnectorEnvironment(self.ensure_one(), session, None)
         return RedmineAdapter(environment)
 
     @api.multi
@@ -68,4 +69,4 @@ class redmine_backend(models.Model):
                 _('Error'), _('Could not connect to Redmine'))
 
         raise except_orm(_('Connection test succeeded'),
-                             _('Everything seems properly set up'))
+                         _('Everything seems properly set up'))

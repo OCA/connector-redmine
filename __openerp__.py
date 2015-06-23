@@ -23,7 +23,8 @@
 {
     'name': 'Redmine Connector',
     'version': '0.1',
-    'author': 'Savoir-faire Linux,Odoo Community Association (OCA),Serpent Consulting Services Pvt Ltd',
+    'author': """Savoir-faire Linux,Odoo Community Association (OCA),
+                 Serpent Consulting Services Pvt. Ltd.""",
     'maintainer': 'Odoo Community Association (OCA)',
     'website': 'http://odoo-community.org',
     'category': 'Connector',

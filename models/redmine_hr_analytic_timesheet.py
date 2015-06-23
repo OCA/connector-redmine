@@ -22,11 +22,12 @@
 
 from openerp import models, fields
 
+
 class RedmineTimeEntry(models.Model):
     _name = 'redmine.hr.analytic.timesheet'
     _description = 'Redmine Time Entry Binding'
     _inherit = 'redmine.binding'
-#    _inherits = {'hr.analytic.timesheet': 'openerp_id'}
 
-    openerp_id = fields.Many2one('hr.analytic.timesheet', 'Timesheet', delegate=True, required=True, ondelete='cascade')
-
+    openerp_id = fields.Many2one('hr.analytic.timesheet', 'Timesheet',
+                                 delegate=True, required=True,
+                                 ondelete='cascade')

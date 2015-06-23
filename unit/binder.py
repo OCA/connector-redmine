@@ -20,7 +20,7 @@
 #
 ##############################################################################
 
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT,ustr
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT, ustr
 from openerp.addons.connector.connector import Binder
 from ..backend import redmine
 from datetime import datetime
@@ -98,7 +98,7 @@ class RedmineModelBinder(Binder):
         context = self.session.context.copy()
         context['connector_no_export'] = True
         now_fmt = datetime.now().strftime(DEFAULT_SERVER_DATETIME_FORMAT)
-        
+
         self.environment.model.write(
             self.session.cr, self.session.uid, binding_id, {
                 'redmine_id': ustr(external_id),

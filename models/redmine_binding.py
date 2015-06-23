@@ -21,14 +21,15 @@
 ##############################################################################
 from openerp import models, fields
 
+
 class RedmineBinding(models.AbstractModel):
 
     _name = 'redmine.binding'
     _inherit = 'external.binding'
     _description = 'Redmine Binding (Abstract)'
 
-    backend_id = fields.Many2one('redmine.backend', 'Redmine Backend', required=True, ondelete='restrict')
+    backend_id = fields.Many2one('redmine.backend','Redmine Backend',
+                                 required=True, ondelete='restrict')
     redmine_id = fields.Integer('ID in Redmine')
     sync_date = fields.Datetime('Last Synchronization Date')
     updated_on = fields.Datetime('Last Update in Redmine')
-

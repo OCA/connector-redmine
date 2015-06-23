@@ -109,7 +109,7 @@ class RedmineBatchImportSynchronizer(ImportSynchronizer):
 @job
 def import_batch(session, model_name, backend_id, filters=None, options=None):
     """ Prepare a batch import of records from Redmine """
-    env = get_environment(session, model_name, backend_id)
+    env = connector.get_environment(session, model_name, backend_id)
     importer = env.get_connector_unit(RedmineBatchImportSynchronizer)
     importer.run(filters=filters, options=options)
 
@@ -117,6 +117,6 @@ def import_batch(session, model_name, backend_id, filters=None, options=None):
 @job
 def import_record(session, model_name, backend_id, redmine_id, options=None):
     """ Import a record from Redmine """
-    env = get_environment(session, model_name, backend_id)
+    env = connector.get_environment(session, model_name, backend_id)
     importer = env.get_connector_unit(RedmineImportSynchronizer)
     importer.run(redmine_id, options=options)

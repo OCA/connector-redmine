@@ -33,12 +33,12 @@ from datetime import datetime
 class TestRedmineConnector(TransactionCase):
     def setUp(self):
         super(TestRedmineConnector, self).setUp()
-        self.backend_model = self.registry('redmine.backend')
-        self.user_model = self.registry("res.users")
-        self.employee_model = self.registry('hr.employee')
-        self.timesheet_model = self.registry('hr.analytic.timesheet')
-        self.account_model = self.registry('account.analytic.account')
-        self.redmine_model = self.registry('redmine.hr.analytic.timesheet')
+        self.backend_model = self.env['redmine.backend']
+        self.user_model = self.env['res.users']
+        self.employee_model = self.env['hr.employee']
+        self.timesheet_model = self.env['hr.analytic.timesheet']
+        self.account_model = self.env['account.analytic.account']
+        self.redmine_model = self.env['redmine.hr.analytic.timesheet']
 
         self.context = self.user_model.context_get(self.cr, self.uid)
         cr, uid, context = self.cr, self.uid, self.context
@@ -52,8 +52,7 @@ class TestRedmineConnector(TransactionCase):
         self.user = self.user_model.browse(
             cr, uid, self.user_id, context=context)
 
-        journal_id = self.registry('ir.model.data').get_object_reference(
-            cr, uid, 'hr_timesheet', 'analytic_journal')[1]
+        journal_id = self.env.ref('hr_timesheet.analytic_journal').id
 
         self.account_id = self.account_model.create(cr, uid, {
             'type': 'contract',

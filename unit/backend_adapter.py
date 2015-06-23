@@ -21,7 +21,9 @@
 ##############################################################################
 
 from openerp.tools.translate import _
-from openerp.addons.connector.exception import (NetworkRetryableError, FailedJobError, InvalidDataError)
+from openerp.addons.connector.exception import NetworkRetryableError
+from openerp.addons.connector.exception import FailedJobError
+from openerp.addons.connector.exception import InvalidDataError
 from openerp.addons.connector.unit.backend_adapter import CRUDAdapter
 from redmine import Redmine, exceptions
 from requests.exceptions import ConnectionError
@@ -59,7 +61,7 @@ class RedmineAdapter(CRUDAdapter):
 
         self.redmine_api = redmine_api
 
-    def search_user(self,login):
+    def search_user(self, login):
         """
         Get a Redmine user id from a Odoo login
         """
