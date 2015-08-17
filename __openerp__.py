@@ -22,17 +22,12 @@
 
 {
     'name': 'Redmine Connector',
-    'version': '0.1',
+    'version': '8.0.0.1',
     'author': """Savoir-faire Linux,Odoo Community Association (OCA),
                  Serpent Consulting Services Pvt. Ltd.""",
     'maintainer': 'Odoo Community Association (OCA)',
     'website': 'http://odoo-community.org',
     'category': 'Connector',
-    'description': """
-Redmine Connector
-=================
-Add the Redmine Backend
-""",
     'depends': [
         'connector',
         'hr_timesheet_sheet',

@@ -21,7 +21,8 @@
 ##############################################################################
 
 from openerp.tests.common import TransactionCase
-from openerp.tools import (DEFAULT_SERVER_DATETIME_FORMAT, DEFAULT_SERVER_DATE_FORMAT)
+from openerp.tools import (DEFAULT_SERVER_DATETIME_FORMAT,
+                           DEFAULT_SERVER_DATE_FORMAT)
 from openerp.addons.connector.connector import ConnectorEnvironment
 from openerp.addons.connector.session import ConnectorSession
 from ..unit.mapper import RedmineImportMapper

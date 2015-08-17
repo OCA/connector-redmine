@@ -20,7 +20,6 @@
 #
 ##############################################################################
 
-import redmine_backend
-import redmine_binding
-import redmine_hr_analytic_timesheet
-
+from . import redmine_backend
+from . import redmine_binding
+from . import redmine_hr_analytic_timesheet

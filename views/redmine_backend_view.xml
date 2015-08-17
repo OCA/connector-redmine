@@ -5,7 +5,7 @@
       <field name="name">redmine.backend.form</field>
       <field name="model">redmine.backend</field>
       <field name="arch" type="xml">
-        <form string="Redmine Backend" version="7.0">
+        <form string="Redmine Backend">
           <sheet>
             <label for="name" class="oe_edit_only"/>
             <h1>
@@ -35,7 +35,7 @@
       <field name="name">redmine.backend.tree</field>
       <field name="model">redmine.backend</field>
       <field name="arch" type="xml">
-        <tree string="Redmine Backend" version="7.0">
+        <tree string="Redmine Backend">
           <field name="name"/>
           <field name="key"/>
           <field name="location"/>

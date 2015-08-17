@@ -20,6 +20,6 @@
 #
 ##############################################################################
 
-import test_connector_redmine
+from . import test_connector_redmine
 
 checks = [test_connector_redmine]

@@ -19,7 +19,7 @@
 #    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import models
-import unit
-import backend
-import connector
+from . import models
+from . import unit
+from . import backend
+from . import connector
