@@ -30,12 +30,19 @@ from openerp.addons.connector_redmine.unit.binder import RedmineModelBinder
 from openerp.addons.connector_redmine.unit.import_synchronizer import (
     import_batch, import_record)
 
-from ..unit.mapper import TimeEntryImportMapper
-from ..unit.backend_adapter import TimeEntryAdapter
-from ..unit.import_synchronizer import import_single_user_time_entries
+from openerp.addons.connector_redmine.tests import test_connector_redmine
+
+from ..unit import mapper
+from ..unit import backend_adapter
+from ..unit import import_synchronizer
 
 from mock import patch
 from datetime import datetime
+
+reload(test_connector_redmine)
+reload(mapper)
+reload(backend_adapter)
+reload(import_synchronizer)
 
 
 import_job_path = (
@@ -58,6 +65,8 @@ class test_import_time_entries(common.TransactionCase):
         self.timesheet_model = self.registry('hr_timesheet_sheet.sheet')
         self.account_model = self.registry('account.analytic.account')
         self.redmine_model = self.registry('redmine.hr.analytic.timesheet')
+        self.general_account_model = self.registry('account.account')
+        self.product_model = self.registry('product.product')
 
         self.context = self.user_model.context_get(self.cr, self.uid)
         cr, uid, context = self.cr, self.uid, self.context
@@ -91,11 +100,28 @@ class test_import_time_entries(common.TransactionCase):
         self.account_2 = self.account_model.browse(
             cr, uid, self.account_2_id, context=context)
 
+        self.product_id = self.product_model.search(
+            cr, uid, [('type', '=', 'service')], context=context)[0]
+
+        self.general_account_id = self.general_account_model.create(
+            cr, uid, {
+                'type': 'other',
+                'code': '123123',
+                'name': 'test',
+                'user_type': self.ref('account.data_account_type_expense'),
+            }, context=context)
+
+        self.product_model.write(cr, uid, [self.product_id], {
+            'property_account_expense': self.general_account_id,
+            'standard_price': 30,
+        }, context=context)
+
         self.employee_id = self.employee_model.create(
             cr, uid, {
                 'name': 'Employee 1',
                 'user_id': self.user_id,
                 'journal_id': journal_id,
+                'product_id': self.product_id,
             }, context=context)
 
         self.backend_id = self.backend_model.create(cr, uid, {
@@ -130,16 +156,16 @@ class test_import_time_entries(common.TransactionCase):
         """
         Test that the proper analytic account is mapped
         """
-        mapper = TimeEntryImportMapper(self.environment)
+        mapper_obj = mapper.TimeEntryImportMapper(self.environment)
 
         defaults = self.get_time_entry_defaults()
-        map_record = mapper.map_record(defaults)
+        map_record = mapper_obj.map_record(defaults)
         res = map_record.values(for_create=True)
 
         self.assertEqual(res['account_id'], self.account_id)
 
         defaults['contract_ref'] = 'efgh'
-        map_record = mapper.map_record(defaults)
+        map_record = mapper_obj.map_record(defaults)
         res = map_record.values()
 
         self.assertEqual(res['account_id'], self.account_2_id)
@@ -148,8 +174,9 @@ class test_import_time_entries(common.TransactionCase):
     def import_time_entry_batch(
         self, record_id, defaults, job_decorator, options=None
     ):
-        with patch.object(TimeEntryAdapter, 'read') as read, \
-                patch.object(TimeEntryAdapter, 'search') as search:
+        adapter = backend_adapter.TimeEntryAdapter
+        with patch.object(adapter, 'read') as read, \
+                patch.object(adapter, 'search') as search:
 
             search.return_value = [record_id]
             read.return_value = defaults
@@ -163,10 +190,10 @@ class test_import_time_entries(common.TransactionCase):
 
     def test_binder(self):
         binder = RedmineModelBinder(self.environment)
-        mapper = TimeEntryImportMapper(self.environment)
+        mapper_obj = mapper.TimeEntryImportMapper(self.environment)
 
         defaults = self.get_time_entry_defaults()
-        map_record = mapper.map_record(defaults)
+        map_record = mapper_obj.map_record(defaults)
         data = map_record.values(for_create=True)
 
         binding_id = self.session.create('redmine.hr.analytic.timesheet', data)
@@ -189,6 +216,8 @@ class test_import_time_entries(common.TransactionCase):
         self.assertEqual(timesheet.unit_amount, 8.5)
         self.assertEqual(timesheet.date, '2015-01-01')
         self.assertEqual(timesheet.user_id, self.user)
+        self.assertEqual(timesheet.product_id.id, self.product_id)
+        self.assertEqual(timesheet.amount, -8.5 * 30)
 
         defaults['contract_ref'] = 'efgh'
         defaults['hours'] = 10
@@ -214,9 +243,10 @@ class test_import_time_entries(common.TransactionCase):
         self.backend_model.prepare_time_entry_import(cr, uid, context=context)
 
     def test_import_single_user_time_entries(self):
-        with patch.object(TimeEntryAdapter, 'search_user') as search_user, \
-                patch.object(TimeEntryAdapter, 'read') as read, \
-                patch.object(TimeEntryAdapter, 'search') as search:
+        adapter = backend_adapter.TimeEntryAdapter
+        with patch.object(adapter, 'search_user') as search_user, \
+                patch.object(adapter, 'read') as read, \
+                patch.object(adapter, 'search') as search:
 
             defaults = self.get_time_entry_defaults()
 
@@ -226,7 +256,7 @@ class test_import_time_entries(common.TransactionCase):
             search.return_value = [1]
             read.return_value = defaults
 
-            import_single_user_time_entries(
+            import_synchronizer.import_single_user_time_entries(
                 self.session, self.backend_id,
                 self.user.login, '2015-01-01', '2015-01-07')
 

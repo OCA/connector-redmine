@@ -82,7 +82,10 @@ class TimeEntryAdapter(RedmineAdapter):
         if not contract_ref:
             raise InvalidDataError(
                 _('The field %(field)s is not set in Redmine for project '
-                    '%(project)s.') % (custom_field, project.name))
+                    '%(project)s.') % {
+                    'field': custom_field,
+                    'project': project.name
+                })
 
         user = self.redmine_api.user.get(entry.user.id)
 

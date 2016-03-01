@@ -117,7 +117,7 @@ msgstr "L'usager %s n'a aucun employé associé."
 #. module: redmine_import_time_entry
 #: code:addons/redmine_import_time_entry/unit/mapper.py:0
 #, python-format
-msgid "Employee %s has no analytic account."
+msgid "Employee %s has no analytic journal."
 msgstr "L'employé %s n'a pas de compte analytique de défini."
 
 #. module: redmine_import_time_entry

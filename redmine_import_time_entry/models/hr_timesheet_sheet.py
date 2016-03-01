@@ -20,6 +20,7 @@
 #
 ##############################################################################
 
+from openerp import SUPERUSER_ID
 from openerp.osv import orm
 from openerp.tools.translate import _
 from openerp.addons.connector.session import ConnectorSession
@@ -30,12 +31,20 @@ class HrTimesheetSheet(orm.Model):
     _inherit = 'hr_timesheet_sheet.sheet'
 
     def import_timesheets_from_redmine(self, cr, uid, ids, context=None):
+        """
+        Call the connector to import timesheets as superuser
+        to prevent errors related with security issues.
+        We ensure that the user has write access to the
+        timesheet.
+        """
         if isinstance(ids, (int, long)):
             ids = [ids]
 
-        session = ConnectorSession(cr, uid, context)
+        self.check_access_rule(cr, uid, ids, 'write', context=context)
+
+        session = ConnectorSession(cr, SUPERUSER_ID, context)
         backend_ids = self.pool['redmine.backend'].search(
-            cr, uid, [('time_entry_import_activate', '=', True)],
+            cr, SUPERUSER_ID, [('time_entry_import_activate', '=', True)],
             limit=1, context=context)
 
         if not backend_ids:

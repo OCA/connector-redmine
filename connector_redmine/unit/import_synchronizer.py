@@ -21,14 +21,14 @@
 ##############################################################################
 
 import logging
-from openerp.addons.connector.unit.synchronizer import ImportSynchronizer
+from openerp.addons.connector.unit import synchronizer
 from openerp.addons.connector.queue.job import job
 from openerp.addons.connector_redmine.connector import get_environment
 
 _logger = logging.getLogger(__name__)
 
 
-class RedmineImportSynchronizer(ImportSynchronizer):
+class RedmineImportSynchronizer(synchronizer.ImportSynchronizer):
     """ Base importer for Redmine """
 
     def __init__(self, environment):
@@ -107,7 +107,7 @@ class RedmineImportSynchronizer(ImportSynchronizer):
         self.binder.bind(self.redmine_id, binding_id)
 
 
-class RedmineBatchImportSynchronizer(ImportSynchronizer):
+class RedmineBatchImportSynchronizer(synchronizer.ImportSynchronizer):
     def run(self, filters=None, options=None):
         raise NotImplementedError
 
