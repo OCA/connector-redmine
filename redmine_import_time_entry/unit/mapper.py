@@ -39,12 +39,15 @@ class TimeEntryImportMapper(RedmineImportMapper):
 
     @mapping
     def name(self, record):
-        name = self.backend_record.name
+        name = self.backend_record.location
 
         issue_id = record['issue_id']
 
         if issue_id:
-            name += _('Issue') + ' ' + ('#%d - %s') % (
+            if name[-1] != '/':
+                name += '/'
+
+            name += ('issues/#%d - %s') % (
                 issue_id, record['issue_subject'])
 
         return {'name': name}
