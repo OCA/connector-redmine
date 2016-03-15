@@ -47,7 +47,7 @@ class TimeEntryImportMapper(RedmineImportMapper):
             if name[-1] != '/':
                 name += '/'
 
-            name += ('issues/#%d - %s') % (
+            name += ('issues/%d - %s') % (
                 issue_id, record['issue_subject'])
 
         return {'name': name}
