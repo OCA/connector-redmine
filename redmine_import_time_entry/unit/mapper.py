@@ -89,6 +89,16 @@ class TimeEntryImportMapper(RedmineImportMapper):
 
         user_id = user_ids[0]
 
+        return {'user_id': user_id}
+
+    @mapping
+    def journal_id(self, record):
+        session = self.session
+        cr, uid, context = session.cr, session.uid, session.context
+
+        user_id = self.user_id(record)['user_id']
+
+        user_model = session.pool['res.users']
         user = user_model.browse(cr, uid, user_id, context=context)
 
         if not user.employee_ids:
@@ -101,7 +111,24 @@ class TimeEntryImportMapper(RedmineImportMapper):
             raise MappingError(
                 _('Employee %s has no analytic account.') % employee.name)
 
-        return {
-            'user_id': user_id,
-            'journal_id': employee.journal_id.id,
-        }
+        return {'journal_id': employee.journal_id.id}
+
+    @mapping
+    def general_account_id(self, record):
+        """
+        Get the default expense account for the employee, using the
+        default method of hr.analytic.timesheet.
+
+        This ensures that the method is called with the proper
+        context.
+        """
+        session = self.session
+        cr, uid, context = session.cr, session.uid, session.context
+
+        user_id = self.user_id(record)['user_id']
+
+        timesheet_model = session.pool['hr.analytic.timesheet']
+        ctx = dict(context, user_id=user_id)
+        account_id = timesheet_model._getGeneralAccount(cr, uid, context=ctx)
+
+        return {'general_account_id': account_id}
