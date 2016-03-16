@@ -102,8 +102,8 @@ msgstr "Aucun compte analytique n'a été trouvé pour le projet Redmine %(contr
 #. module: redmine_import_time_entry
 #: code:addons/redmine_import_time_entry/unit/mapper.py:99
 #, python-format
-msgid "Employee %s has no analytic account."
-msgstr "L'employé %s n'a pas de compte analytique de défini."
+msgid "Employee %s has no analytic journal."
+msgstr "L'employé %s n'a pas de journal analytique de défini."
 
 #. module: redmine_import_time_entry
 #: field:redmine.backend,time_entry_import_activate:0

@@ -109,7 +109,7 @@ class TimeEntryImportMapper(RedmineImportMapper):
 
         if not employee.journal_id:
             raise MappingError(
-                _('Employee %s has no analytic account.') % employee.name)
+                _('Employee %s has no analytic journal.') % employee.name)
 
         return {'journal_id': employee.journal_id.id}
 
