@@ -69,6 +69,8 @@ class RedmineAdapter(CRUDAdapter):
         """
         Get a Redmine user id from a Odoo login
         """
+        self._auth()
+
         users = self.redmine_api.user.filter(name=login)
 
         user_id = next(

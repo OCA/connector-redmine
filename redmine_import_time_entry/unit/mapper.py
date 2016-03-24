@@ -39,12 +39,15 @@ class TimeEntryImportMapper(RedmineImportMapper):
 
     @mapping
     def name(self, record):
-        name = self.backend_record.name
+        name = self.backend_record.location
 
         issue_id = record['issue_id']
 
         if issue_id:
-            name += _('Issue') + ' ' + ('#%d - %s') % (
+            if name[-1] != '/':
+                name += '/'
+
+            name += ('issues/%d - %s') % (
                 issue_id, record['issue_subject'])
 
         return {'name': name}
@@ -86,6 +89,16 @@ class TimeEntryImportMapper(RedmineImportMapper):
 
         user_id = user_ids[0]
 
+        return {'user_id': user_id}
+
+    @mapping
+    def journal_id(self, record):
+        session = self.session
+        cr, uid, context = session.cr, session.uid, session.context
+
+        user_id = self.user_id(record)['user_id']
+
+        user_model = session.pool['res.users']
         user = user_model.browse(cr, uid, user_id, context=context)
 
         if not user.employee_ids:
@@ -96,9 +109,43 @@ class TimeEntryImportMapper(RedmineImportMapper):
 
         if not employee.journal_id:
             raise MappingError(
-                _('Employee %s has no analytic account.') % employee.name)
+                _('Employee %s has no analytic journal.') % employee.name)
+
+        return {'journal_id': employee.journal_id.id}
+
+    @mapping
+    def general_account_id(self, record):
+        session = self.session
+        cr, uid, context = session.cr, session.uid, session.context
+
+        user_id = self.user_id(record)['user_id']
+
+        timesheet_model = session.pool['hr.analytic.timesheet']
+        ctx = dict(context, user_id=user_id)
+        account_id = timesheet_model._getGeneralAccount(cr, uid, context=ctx)
 
         return {
-            'user_id': user_id,
-            'journal_id': employee.journal_id.id,
+            'general_account_id': account_id,
+        }
+
+    @mapping
+    def product_id(self, record):
+        session = self.session
+        cr, uid, context = session.cr, session.uid, session.context
+
+        user_id = self.user_id(record)['user_id']
+
+        timesheet_model = session.pool['hr.analytic.timesheet']
+        ctx = dict(context, user_id=user_id)
+
+        product_uom_id = timesheet_model._getEmployeeUnit(cr, uid, context=ctx)
+        product_id = timesheet_model._getEmployeeProduct(cr, uid, context=ctx)
+
+        product = session.pool['product.product'].browse(
+            cr, uid, product_id, context=context)
+
+        return {
+            'product_id': product_id,
+            'product_uom_id': product_uom_id,
+            'amount': -record['hours'] * product.standard_price,
         }
