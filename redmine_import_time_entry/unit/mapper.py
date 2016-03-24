@@ -115,13 +115,6 @@ class TimeEntryImportMapper(RedmineImportMapper):
 
     @mapping
     def general_account_id(self, record):
-        """
-        Get the default expense account for the employee, using the
-        default method of hr.analytic.timesheet.
-
-        This ensures that the method is called with the proper
-        context.
-        """
         session = self.session
         cr, uid, context = session.cr, session.uid, session.context
 
@@ -131,4 +124,28 @@ class TimeEntryImportMapper(RedmineImportMapper):
         ctx = dict(context, user_id=user_id)
         account_id = timesheet_model._getGeneralAccount(cr, uid, context=ctx)
 
-        return {'general_account_id': account_id}
+        return {
+            'general_account_id': account_id,
+        }
+
+    @mapping
+    def product_id(self, record):
+        session = self.session
+        cr, uid, context = session.cr, session.uid, session.context
+
+        user_id = self.user_id(record)['user_id']
+
+        timesheet_model = session.pool['hr.analytic.timesheet']
+        ctx = dict(context, user_id=user_id)
+
+        product_uom_id = timesheet_model._getEmployeeUnit(cr, uid, context=ctx)
+        product_id = timesheet_model._getEmployeeProduct(cr, uid, context=ctx)
+
+        product = session.pool['product.product'].browse(
+            cr, uid, product_id, context=context)
+
+        return {
+            'product_id': product_id,
+            'product_uom_id': product_uom_id,
+            'amount': -record['hours'] * product.standard_price,
+        }

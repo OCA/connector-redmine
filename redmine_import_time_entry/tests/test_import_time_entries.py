@@ -113,6 +113,7 @@ class test_import_time_entries(common.TransactionCase):
 
         self.product_model.write(cr, uid, [self.product_id], {
             'property_account_expense': self.general_account_id,
+            'standard_price': 30,
         }, context=context)
 
         self.employee_id = self.employee_model.create(
@@ -151,7 +152,7 @@ class test_import_time_entries(common.TransactionCase):
             'redmine_id': 123,
         }
 
-    def atest_mapper_analytic_account(self):
+    def test_mapper_analytic_account(self):
         """
         Test that the proper analytic account is mapped
         """
@@ -215,6 +216,8 @@ class test_import_time_entries(common.TransactionCase):
         self.assertEqual(timesheet.unit_amount, 8.5)
         self.assertEqual(timesheet.date, '2015-01-01')
         self.assertEqual(timesheet.user_id, self.user)
+        self.assertEqual(timesheet.product_id.id, self.product_id)
+        self.assertEqual(timesheet.amount, -8.5 * 30)
 
         defaults['contract_ref'] = 'efgh'
         defaults['hours'] = 10
