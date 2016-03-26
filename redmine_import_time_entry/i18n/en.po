@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: connector-redmine (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-24 22:33+0000\n"
-"PO-Revision-Date: 2015-06-03 14:59+0000\n"
+"POT-Creation-Date: 2016-03-24 15:16+0000\n"
+"PO-Revision-Date: 2016-03-24 15:16+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: English (http://www.transifex.com/oca/OCA-connector-redmine-7-0/language/en/)\n"
 "MIME-Version: 1.0\n"
@@ -28,10 +28,9 @@ msgid "Reference must be unique"
 msgstr "Reference must be unique"
 
 #. module: redmine_import_time_entry
-#: code:addons/redmine_import_time_entry/unit/mapper.py:47
-#, python-format
-msgid "Issue"
-msgstr "Issue"
+#: field:redmine.backend,contract_ref:0
+msgid "Contract # field name"
+msgstr "Contract # field name"
 
 #. module: redmine_import_time_entry
 #: constraint:redmine.backend:0
@@ -51,10 +50,9 @@ msgid "Number of days used when fetching the time entries."
 msgstr "Number of days used when fetching the time entries."
 
 #. module: redmine_import_time_entry
-#: code:addons/redmine_import_time_entry/unit/backend_adapter.py:84
-#, python-format
-msgid "The field %(field)s is not set in Redmine for project %(project)s."
-msgstr "The field %(field)s is not set in Redmine for project %(project)s."
+#: field:redmine.backend,time_entry_last_update:0
+msgid "Last Time Entry Update"
+msgstr "Last Time Entry Update"
 
 #. module: redmine_import_time_entry
 #: model:ir.model,name:redmine_import_time_entry.model_redmine_backend
@@ -72,8 +70,8 @@ msgid "Time Entries - Number of days"
 msgstr "Time Entries - Number of days"
 
 #. module: redmine_import_time_entry
-#: code:addons/redmine_import_time_entry/models/hr_timesheet_sheet.py:43
-#: code:addons/redmine_import_time_entry/models/hr_timesheet_sheet.py:54
+#: code:addons/redmine_import_time_entry/models/hr_timesheet_sheet.py:52
+#: code:addons/redmine_import_time_entry/models/hr_timesheet_sheet.py:63
 #, python-format
 msgid "Warning"
 msgstr "Warning"
@@ -91,18 +89,12 @@ msgid "An error was encountered while importing timesheets from Redmine: %s"
 msgstr "An error was encountered while importing timesheets from Redmine: %s"
 
 #. module: redmine_import_time_entry
-#: code:addons/redmine_import_time_entry/unit/mapper.py:64
+#: code:addons/redmine_import_time_entry/unit/mapper.py:67
 #, python-format
 msgid ""
 "No analytic account found for the Redmine project %(contract_ref)s - "
 "%(project_name)s."
 msgstr "No analytic account found for the Redmine project %(contract_ref)s - %(project_name)s."
-
-#. module: redmine_import_time_entry
-#: code:addons/redmine_import_time_entry/unit/mapper.py:99
-#, python-format
-msgid "Employee %s has no analytic account."
-msgstr "Employee %s has no analytic account."
 
 #. module: redmine_import_time_entry
 #: field:redmine.backend,time_entry_import_activate:0
@@ -116,9 +108,10 @@ msgid "Error"
 msgstr "Error"
 
 #. module: redmine_import_time_entry
-#: field:redmine.backend,time_entry_last_update:0
-msgid "Last Time Entry Update"
-msgstr "Last Time Entry Update"
+#: code:addons/redmine_import_time_entry/unit/backend_adapter.py:84
+#, python-format
+msgid "The field %(field)s is not set in Redmine for project %(project)s."
+msgstr "The field %(field)s is not set in Redmine for project %(project)s."
 
 #. module: redmine_import_time_entry
 #: model:ir.model,name:redmine_import_time_entry.model_redmine_import_time_entry_installed
@@ -126,7 +119,7 @@ msgid "redmine_import_time_entry.installed"
 msgstr "redmine_import_time_entry.installed"
 
 #. module: redmine_import_time_entry
-#: code:addons/redmine_import_time_entry/unit/mapper.py:85
+#: code:addons/redmine_import_time_entry/unit/mapper.py:88
 #, python-format
 msgid "No user found with login %s."
 msgstr "No user found with login %s."
@@ -151,15 +144,16 @@ msgid "Redmine backend configuration error"
 msgstr "Redmine backend configuration error"
 
 #. module: redmine_import_time_entry
-#: code:addons/redmine_import_time_entry/models/hr_timesheet_sheet.py:44
+#: code:addons/redmine_import_time_entry/models/hr_timesheet_sheet.py:53
 #, python-format
 msgid "Their is no Redmine backend configured to import time entries."
 msgstr "Their is no Redmine backend configured to import time entries."
 
 #. module: redmine_import_time_entry
-#: field:redmine.backend,contract_ref:0
-msgid "Contract # field name"
-msgstr "Contract # field name"
+#: code:addons/redmine_import_time_entry/unit/mapper.py:112
+#, python-format
+msgid "Employee %s has no analytic journal."
+msgstr "Employee %s has no analytic journal."
 
 #. module: redmine_import_time_entry
 #: model:ir.model,name:redmine_import_time_entry.model_account_analytic_account
@@ -167,7 +161,7 @@ msgid "Analytic Account"
 msgstr "Analytic Account"
 
 #. module: redmine_import_time_entry
-#: code:addons/redmine_import_time_entry/models/hr_timesheet_sheet.py:55
+#: code:addons/redmine_import_time_entry/models/hr_timesheet_sheet.py:64
 #, python-format
 msgid "The employee %s is not related to a user"
 msgstr "The employee %s is not related to a user"
@@ -195,7 +189,7 @@ msgid "Timesheet Line"
 msgstr "Timesheet Line"
 
 #. module: redmine_import_time_entry
-#: code:addons/redmine_import_time_entry/unit/mapper.py:93
+#: code:addons/redmine_import_time_entry/unit/mapper.py:106
 #, python-format
 msgid "User %s has no related employee."
 msgstr "User %s has no related employee."
