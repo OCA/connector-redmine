@@ -11,7 +11,9 @@
                     <div name="buttons" position="inside">
                         <button type="object"
                             name="import_timesheets_from_redmine"
-                            string="Import Timesheets from Redmine"/>
+                            string="Import Timesheets from Redmine"
+                            states="new,draft"
+                            />
                     </div>
 
             </field>
