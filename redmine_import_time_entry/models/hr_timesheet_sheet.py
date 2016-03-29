@@ -40,6 +40,8 @@ class HrTimesheetSheet(orm.Model):
         if isinstance(ids, (int, long)):
             ids = [ids]
 
+        assert len(ids) == 1, "Expected singleton"
+
         self.check_access_rule(cr, uid, ids, 'write', context=context)
 
         session = ConnectorSession(cr, SUPERUSER_ID, context)
@@ -55,16 +57,30 @@ class HrTimesheetSheet(orm.Model):
 
         backend_id = backend_ids[0]
 
-        for timesheet in self.browse(cr, uid, ids, context=context):
-            employee = timesheet.employee_id
+        timesheet = self.browse(cr, uid, ids[0], context=context)
+        employee = timesheet.employee_id
 
-            if not employee.user_id:
-                raise orm.except_orm(
-                    _('Warning'),
-                    _(
-                        'The employee %s is not related to a user') %
-                    employee.name)
+        if not employee.user_id:
+            raise orm.except_orm(
+                _('Warning'),
+                _(
+                    'The employee %s is not related to a user') %
+                employee.name)
 
-            import_single_user_time_entries(
-                session, backend_id, employee.user_id.login,
-                timesheet.date_from, timesheet.date_to)
+        mapping_errors = import_single_user_time_entries(
+            session, backend_id, employee.user_id.login,
+            timesheet.date_from, timesheet.date_to)
+
+        if mapping_errors:
+            part_1 = _(
+                "Some time entries were not imported from Redmine.")
+            part_2 = "\n".join({e.message for e in mapping_errors})
+            body = "%s\n%s" % (part_1, part_2)
+
+            # Log the message using SUPERUSER_ID, because otherwise
+            # the user will not be notified by email and might
+            # see that some entries were not imported.
+            self.message_post(
+                cr, SUPERUSER_ID, ids[0],
+                body=body, type='comment', subtype='mail.mt_comment',
+                content_subtype='plaintext', context=context)
