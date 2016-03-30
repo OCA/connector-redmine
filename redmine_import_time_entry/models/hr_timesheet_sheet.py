@@ -21,7 +21,6 @@
 ##############################################################################
 
 from openerp import SUPERUSER_ID
-from openerp.exceptions import Warning
 from openerp.osv import orm
 from openerp.tools.translate import _
 from openerp.addons.connector.session import ConnectorSession
@@ -77,6 +76,11 @@ class HrTimesheetSheet(orm.Model):
                 "Some time entries were not imported from Redmine.")
             part_2 = "\n".join({e.message for e in mapping_errors})
             body = "%s\n%s" % (part_1, part_2)
-            timesheet.message_post(
+
+            # Log the message using SUPERUSER_ID, because otherwise
+            # the user will not be notified by email and might
+            # see that some entries were not imported.
+            self.message_post(
+                cr, SUPERUSER_ID, ids[0],
                 body=body, type='comment', subtype='mail.mt_comment',
-                content_subtype='plaintext')
+                content_subtype='plaintext', context=context)
