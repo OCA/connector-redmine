@@ -55,12 +55,15 @@ class TimeEntryImportMapper(RedmineImportMapper):
     @mapping
     def account_id(self, record):
         session = self.session
+        cr, uid, context = session.cr, session.uid, session.context
 
-        account_ids = session.pool['account.analytic.account'].search(
-            session.cr, session.uid, [
+        account_obj = session.pool['account.analytic.account']
+
+        account_ids = account_obj.search(
+            cr, uid, [
                 ('type', '=', 'contract'),
                 ('code', '=', record['contract_ref']),
-            ], context=session.context)
+            ], context=context)
 
         if not account_ids:
             raise MappingError(
@@ -70,7 +73,13 @@ class TimeEntryImportMapper(RedmineImportMapper):
                     'project_name': record['project_name'],
                 })
 
-        return {'account_id': account_ids[0]}
+        account = account_obj.browse(
+            cr, uid, account_ids[0], context=context)
+
+        return {
+            'account_id': account.id,
+            'to_invoice': account.to_invoice.id,
+        }
 
     @mapping
     def user_id(self, record):

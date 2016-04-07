@@ -87,12 +87,16 @@ class test_import_time_entries(common.TransactionCase):
             'type': 'contract',
             'name': 'Test Redmine',
             'code': 'abcd',
+            'to_invoice': self.ref(
+                'hr_timesheet_invoice.timesheet_invoice_factor2'),
         }, context=context)
 
         self.account_2_id = self.account_model.create(cr, uid, {
             'type': 'contract',
             'name': 'Test Redmine',
             'code': 'efgh',
+            'to_invoice': self.ref(
+                'hr_timesheet_invoice.timesheet_invoice_factor1'),
         }, context=context)
 
         self.account_1 = self.account_model.browse(
@@ -279,6 +283,10 @@ class test_import_time_entries(common.TransactionCase):
             # Time entry 1 is mapped, but entry 2 is not mapped.
             # So one is created and the other is logged in the chatter.
             self.assertEqual(len(timesheet.timesheet_ids), 1)
+
+            entry = timesheet.timesheet_ids[0]
+            self.assertEqual(entry.to_invoice.id, self.ref(
+                'hr_timesheet_invoice.timesheet_invoice_factor2'))
 
             self.backend.refresh()
 
