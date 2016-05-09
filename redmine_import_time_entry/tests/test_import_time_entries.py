@@ -1,35 +1,16 @@
 # -*- coding: utf-8 -*-
-
-##############################################################################
-#
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2015 Savoir-faire Linux (<http://www.savoirfairelinux.com>).
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# © 2016 Savoir-faire Linux
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from openerp.tests import common
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
-from openerp.addons.connector.connector import Environment
-from openerp.addons.connector.session import ConnectorSession
+from openerp.addons.connector.connector import ConnectorEnvironment
 
+from openerp.addons.connector_redmine.session import RedmineConnectorSession
 from openerp.addons.connector_redmine.unit.binder import RedmineModelBinder
 from openerp.addons.connector_redmine.unit.import_synchronizer import (
     import_batch, import_record)
-
 from openerp.addons.connector_redmine.tests import test_connector_redmine
 
 from ..unit import mapper
@@ -59,88 +40,74 @@ class test_import_time_entries(common.TransactionCase):
 
     def setUp(self):
         super(test_import_time_entries, self).setUp()
-        self.backend_model = self.registry('redmine.backend')
-        self.user_model = self.registry("res.users")
-        self.employee_model = self.registry('hr.employee')
-        self.timesheet_model = self.registry('hr_timesheet_sheet.sheet')
-        self.account_model = self.registry('account.analytic.account')
-        self.redmine_model = self.registry('redmine.hr.analytic.timesheet')
-        self.general_account_model = self.registry('account.account')
-        self.product_model = self.registry('product.product')
+        self.backend_model = self.env['redmine.backend']
+        self.user_model = self.env["res.users"]
+        self.employee_model = self.env['hr.employee']
+        self.timesheet_model = self.env['hr_timesheet_sheet.sheet']
+        self.account_model = self.env['account.analytic.account']
+        self.redmine_model = self.env['redmine.hr.analytic.timesheet']
+        self.general_account_model = self.env['account.account']
+        self.product_model = self.env['product.product']
 
-        self.context = self.user_model.context_get(self.cr, self.uid)
-        cr, uid, context = self.cr, self.uid, self.context
+        self.user_1 = self.user_model.create({
+            'name': 'User 1',
+            'login': 'user_1',
+        })
 
-        self.user_id = self.user_model.create(
-            cr, uid, {
-                'name': 'User 1',
-                'login': 'user_1',
-            }, context=context)
+        journal = self.env.ref('hr_timesheet.analytic_journal')
 
-        self.user = self.user_model.browse(
-            cr, uid, self.user_id, context=context)
-
-        journal_id = self.registry('ir.model.data').get_object_reference(
-            cr, uid, 'hr_timesheet', 'analytic_journal')[1]
-
-        self.account_id = self.account_model.create(cr, uid, {
+        self.account = self.account_model.create({
             'type': 'contract',
             'name': 'Test Redmine',
             'code': 'abcd',
             'to_invoice': self.ref(
                 'hr_timesheet_invoice.timesheet_invoice_factor2'),
-        }, context=context)
+        })
 
-        self.account_2_id = self.account_model.create(cr, uid, {
+        self.account_2 = self.account_model.create({
             'type': 'contract',
             'name': 'Test Redmine',
             'code': 'efgh',
             'to_invoice': self.ref(
                 'hr_timesheet_invoice.timesheet_invoice_factor1'),
-        }, context=context)
+        })
 
-        self.account_1 = self.account_model.browse(
-            cr, uid, self.account_id, context=context)
-        self.account_2 = self.account_model.browse(
-            cr, uid, self.account_2_id, context=context)
+        self.product = self.product_model.search(
+            [('type', '=', 'service')])[0]
 
-        self.product_id = self.product_model.search(
-            cr, uid, [('type', '=', 'service')], context=context)[0]
+        self.general_account = self.general_account_model.create({
+            'type': 'other',
+            'code': '123123',
+            'name': 'test',
+            'user_type': self.ref('account.data_account_type_expense'),
+        })
 
-        self.general_account_id = self.general_account_model.create(
-            cr, uid, {
-                'type': 'other',
-                'code': '123123',
-                'name': 'test',
-                'user_type': self.ref('account.data_account_type_expense'),
-            }, context=context)
-
-        self.product_model.write(cr, uid, [self.product_id], {
-            'property_account_expense': self.general_account_id,
+        self.product.write({
+            'property_account_expense': self.general_account.id,
             'standard_price': 30,
-        }, context=context)
+        })
 
-        self.employee_id = self.employee_model.create(
-            cr, uid, {
-                'name': 'Employee 1',
-                'user_id': self.user_id,
-                'journal_id': journal_id,
-                'product_id': self.product_id,
-            }, context=context)
+        self.employee = self.employee_model.create({
+            'name': 'Employee 1',
+            'user_id': self.user_1.id,
+            'journal_id': journal.id,
+            'product_id': self.product.id,
+        })
 
-        self.backend_id = self.backend_model.create(cr, uid, {
+        self.backend = self.backend_model.create({
             'name': 'redmine_test',
             'location': 'http://localhost:3000',
             'key': '39730056c1df6fb97b4fa5b9eb4bd37221ca1223',
             'version': '1.3',
             'contract_ref': 'contract_ref_field',
-        }, context=context)
+            'is_default': True,
+        })
 
-        self.backend = self.backend_model.browse(
-            cr, uid, self.backend_id, context=context)
+        env = self.env
+        cr, uid, context = env.cr, env.uid, env.context
+        self.session = RedmineConnectorSession(cr, uid, context=context)
 
-        self.session = ConnectorSession(cr, uid, context=context)
-        self.environment = Environment(
+        self.environment = ConnectorEnvironment(
             self.backend, self.session, 'redmine.hr.analytic.timesheet')
 
     def get_time_entry_defaults(self):
@@ -156,7 +123,7 @@ class test_import_time_entries(common.TransactionCase):
             'redmine_id': 123,
         }
 
-    def test_mapper_analytic_account(self):
+    def test_01_mapper_analytic_account(self):
         """
         Test that the proper analytic account is mapped
         """
@@ -166,13 +133,13 @@ class test_import_time_entries(common.TransactionCase):
         map_record = mapper_obj.map_record(defaults)
         res = map_record.values(for_create=True)
 
-        self.assertEqual(res['account_id'], self.account_id)
+        self.assertEqual(res['account_id'], self.account.id)
 
         defaults['contract_ref'] = 'efgh'
         map_record = mapper_obj.map_record(defaults)
         res = map_record.values()
 
-        self.assertEqual(res['account_id'], self.account_2_id)
+        self.assertEqual(res['account_id'], self.account_2.id)
 
     @patch(import_job_path, side_effect=mock_delay)
     def import_time_entry_batch(
@@ -187,12 +154,12 @@ class test_import_time_entries(common.TransactionCase):
 
             import_batch(
                 self.session, 'redmine.hr.analytic.timesheet',
-                self.backend_id, filters={
+                self.backend.id, filters={
                     'from_date': '2015-01-01',
                     'to_date': '2015-01-07',
                 }, options=options)
 
-    def test_binder(self):
+    def test_02_binder(self):
         binder = RedmineModelBinder(self.environment)
         mapper_obj = mapper.TimeEntryImportMapper(self.environment)
 
@@ -200,27 +167,21 @@ class test_import_time_entries(common.TransactionCase):
         map_record = mapper_obj.map_record(defaults)
         data = map_record.values(for_create=True)
 
-        binding_id = self.session.create('redmine.hr.analytic.timesheet', data)
+        binding_id = self.env['redmine.hr.analytic.timesheet'].create(data).id
 
         binder.bind(123, binding_id)
 
-    def test_import_batch_synchronizer(self):
-        cr, uid, context = self.cr, self.uid, self.context
-
+    def test_03_import_batch_synchronizer(self):
         defaults = self.get_time_entry_defaults()
         self.import_time_entry_batch(123, defaults)
 
-        ts_id = self.redmine_model.search(
-            cr, uid, [('redmine_id', '=', 123)], context=context)[0]
+        timesheet = self.redmine_model.search([('redmine_id', '=', 123)])[0]
 
-        timesheet = self.redmine_model.browse(
-            cr, uid, ts_id, context=context)
-
-        self.assertEqual(timesheet.account_id, self.account_1)
+        self.assertEqual(timesheet.account_id, self.account)
         self.assertEqual(timesheet.unit_amount, 8.5)
         self.assertEqual(timesheet.date, '2015-01-01')
-        self.assertEqual(timesheet.user_id, self.user)
-        self.assertEqual(timesheet.product_id.id, self.product_id)
+        self.assertEqual(timesheet.user_id, self.user_1)
+        self.assertEqual(timesheet.product_id.id, self.product.id)
         self.assertEqual(timesheet.amount, -8.5 * 30)
 
         defaults['contract_ref'] = 'efgh'
@@ -239,16 +200,13 @@ class test_import_time_entries(common.TransactionCase):
         self.assertEqual(timesheet.unit_amount, 10)
         self.assertEqual(timesheet.date, '2015-01-02')
 
-    def test_cron_job(self):
+    def test_04_cron_job(self):
         """
         Test that the import cron job executes without error
         """
-        cr, uid, context = self.cr, self.uid, self.context
-        self.backend_model.prepare_time_entry_import(cr, uid, context=context)
+        self.backend_model.prepare_time_entry_import()
 
-    def test_import_single_user_time_entries_mapping_error(self):
-        cr, uid, context = self.cr, self.uid, self.context
-
+    def test_05_import_single_user_time_entries_mapping_error(self):
         adapter = backend_adapter.TimeEntryAdapter
         with patch.object(adapter, 'search_user') as search_user, \
                 patch.object(adapter, 'read') as read, \
@@ -268,15 +226,12 @@ class test_import_time_entries(common.TransactionCase):
 
             read.side_effect = side_effect
 
-            timesheet_id = self.timesheet_model.create(cr, uid, {
-                'user_id': self.user_id,
-                'employee_id': self.employee_id,
+            timesheet = self.timesheet_model.create({
+                'user_id': self.user_1.id,
+                'employee_id': self.employee.id,
                 'date_from': '2015-01-01',
                 'date_to': '2015-01-07',
-            }, context=context)
-
-            timesheet = self.timesheet_model.browse(
-                cr, uid, timesheet_id, context=context)
+            })
 
             timesheet.import_timesheets_from_redmine()
 

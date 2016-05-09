@@ -1,75 +1,61 @@
-# -*- encoding: utf-8 -*-
-##############################################################################
-#
-#    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2015 - Present Savoir-faire Linux
-#    (<http://www.savoirfairelinux.com>).
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program. If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# -*- coding: utf-8 -*-
+# © 2016 Savoir-faire Linux
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import SUPERUSER_ID
-from openerp.osv import orm
+from openerp import api, models, SUPERUSER_ID
+from openerp.exceptions import ValidationError
+
 from openerp.tools.translate import _
-from openerp.addons.connector.session import ConnectorSession
+from openerp.addons.connector_redmine.session import RedmineConnectorSession
 from ..unit.import_synchronizer import import_single_user_time_entries
 
 
-class HrTimesheetSheet(orm.Model):
+class HrTimesheetSheet(models.Model):
     _inherit = 'hr_timesheet_sheet.sheet'
 
-    def import_timesheets_from_redmine(self, cr, uid, ids, context=None):
+    @api.multi
+    def import_timesheets_from_redmine(self):
         """
         Call the connector to import timesheets as superuser
         to prevent errors related with security issues.
         We ensure that the user has write access to the
         timesheet.
         """
-        if isinstance(ids, (int, long)):
-            ids = [ids]
+        self.ensure_one()
 
-        assert len(ids) == 1, "Expected singleton"
+        self.check_access_rule('write')
 
-        self.check_access_rule(cr, uid, ids, 'write', context=context)
+        session = RedmineConnectorSession(
+            self.env.cr, SUPERUSER_ID, self.env.context)
+        backend = self.env['redmine.backend'].sudo().search([
+            ('is_default', '=', True),
+        ], limit=1)
 
-        session = ConnectorSession(cr, SUPERUSER_ID, context)
-        backend_ids = self.pool['redmine.backend'].search(
-            cr, SUPERUSER_ID, [('time_entry_import_activate', '=', True)],
-            limit=1, context=context)
-
-        if not backend_ids:
-            raise orm.except_orm(
-                _('Warning'),
+        if not backend:
+            raise ValidationError(
                 _('Their is no Redmine backend configured '
                     'to import time entries.'))
 
-        backend_id = backend_ids[0]
-
-        timesheet = self.browse(cr, uid, ids[0], context=context)
-        employee = timesheet.employee_id
+        employee = self.employee_id
 
         if not employee.user_id:
-            raise orm.except_orm(
-                _('Warning'),
-                _(
-                    'The employee %s is not related to a user') %
+            raise ValidationError(
+                _('The employee %s is not related to a user.') %
                 employee.name)
 
+        user = employee.user_id
+        if user.redmine_backend_id:
+            if not user.redmine_backend_id:
+                raise ValidationError(
+                    _('The redmine service %s is inactive. '
+                      'Please change it in your user preferences or '
+                      'contact your system administrator.') %
+                    employee.name)
+            backend = user.redmine_backend_id
+
         mapping_errors = import_single_user_time_entries(
-            session, backend_id, employee.user_id.login,
-            timesheet.date_from, timesheet.date_to)
+            session, backend.id, employee.user_id.login,
+            self.date_from, self.date_to)
 
         if mapping_errors:
             part_1 = _(
@@ -80,7 +66,6 @@ class HrTimesheetSheet(orm.Model):
             # Log the message using SUPERUSER_ID, because otherwise
             # the user will not be notified by email and might
             # see that some entries were not imported.
-            self.message_post(
-                cr, SUPERUSER_ID, ids[0],
+            self.sudo().message_post(
                 body=body, type='comment', subtype='mail.mt_comment',
-                content_subtype='plaintext', context=context)
+                content_subtype='plaintext')

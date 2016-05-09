@@ -1,24 +1,6 @@
-# -*- encoding: utf-8 -*-
-##############################################################################
-#
-#    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2015 - Present Savoir-faire Linux
-#    (<http://www.savoirfairelinux.com>).
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program. If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# -*- coding: utf-8 -*-
+# © 2016 Savoir-faire Linux
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from openerp.tools.translate import _
 from openerp.addons.connector_redmine.backend import redmine
@@ -54,18 +36,14 @@ class TimeEntryImportMapper(RedmineImportMapper):
 
     @mapping
     def account_id(self, record):
-        session = self.session
-        cr, uid, context = session.cr, session.uid, session.context
+        account_obj = self.env['account.analytic.account']
 
-        account_obj = session.pool['account.analytic.account']
+        accounts = account_obj.search([
+            ('type', '=', 'contract'),
+            ('code', '=', record['contract_ref']),
+        ])
 
-        account_ids = account_obj.search(
-            cr, uid, [
-                ('type', '=', 'contract'),
-                ('code', '=', record['contract_ref']),
-            ], context=context)
-
-        if not account_ids:
+        if not accounts:
             raise MappingError(
                 _('No analytic account found for the Redmine project '
                     '%(contract_ref)s - %(project_name)s.') % {
@@ -73,8 +51,7 @@ class TimeEntryImportMapper(RedmineImportMapper):
                     'project_name': record['project_name'],
                 })
 
-        account = account_obj.browse(
-            cr, uid, account_ids[0], context=context)
+        account = accounts[0]
 
         return {
             'account_id': account.id,
@@ -83,32 +60,20 @@ class TimeEntryImportMapper(RedmineImportMapper):
 
     @mapping
     def user_id(self, record):
-        session = self.session
-        cr, uid, context = session.cr, session.uid, session.context
-
-        user_model = session.pool['res.users']
-
-        user_ids = user_model.search(cr, uid, [
+        user = self.env['res.users'].search([
             ('login', '=', record['user_login']),
-        ], context=context)
+        ])
 
-        if not user_ids:
+        if not user:
             raise MappingError(
                 _('No user found with login %s.') % (record['user_login']))
 
-        user_id = user_ids[0]
-
-        return {'user_id': user_id}
+        return {'user_id': user.id}
 
     @mapping
     def journal_id(self, record):
-        session = self.session
-        cr, uid, context = session.cr, session.uid, session.context
-
         user_id = self.user_id(record)['user_id']
-
-        user_model = session.pool['res.users']
-        user = user_model.browse(cr, uid, user_id, context=context)
+        user = self.env['res.users'].browse(user_id)
 
         if not user.employee_ids:
             raise MappingError(
@@ -124,14 +89,11 @@ class TimeEntryImportMapper(RedmineImportMapper):
 
     @mapping
     def general_account_id(self, record):
-        session = self.session
-        cr, uid, context = session.cr, session.uid, session.context
-
         user_id = self.user_id(record)['user_id']
 
-        timesheet_model = session.pool['hr.analytic.timesheet']
-        ctx = dict(context, user_id=user_id)
-        account_id = timesheet_model._getGeneralAccount(cr, uid, context=ctx)
+        timesheet_model = self.env['hr.analytic.timesheet']
+        account_id = timesheet_model.with_context(
+            user_id=user_id)._getGeneralAccount()
 
         return {
             'general_account_id': account_id,
@@ -139,19 +101,16 @@ class TimeEntryImportMapper(RedmineImportMapper):
 
     @mapping
     def product_id(self, record):
-        session = self.session
-        cr, uid, context = session.cr, session.uid, session.context
-
         user_id = self.user_id(record)['user_id']
 
-        timesheet_model = session.pool['hr.analytic.timesheet']
-        ctx = dict(context, user_id=user_id)
+        timesheet_model = self.env['hr.analytic.timesheet']
 
-        product_uom_id = timesheet_model._getEmployeeUnit(cr, uid, context=ctx)
-        product_id = timesheet_model._getEmployeeProduct(cr, uid, context=ctx)
+        product_uom_id = timesheet_model.with_context(
+            user_id=user_id)._getEmployeeUnit()
+        product_id = timesheet_model.with_context(
+            user_id=user_id)._getEmployeeProduct()
 
-        product = session.pool['product.product'].browse(
-            cr, uid, product_id, context=context)
+        product = self.env['product.product'].browse(product_id)
 
         return {
             'product_id': product_id,

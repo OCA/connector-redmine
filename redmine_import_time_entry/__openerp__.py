@@ -1,37 +1,15 @@
-# -*- encoding: utf-8 -*-
-##############################################################################
-#
-#    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2015 - Present Savoir-faire Linux
-#    (<http://www.savoirfairelinux.com>).
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program. If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# -*- coding: utf-8 -*-
+# © 2016 Savoir-faire Linux
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
     'name': 'Redmine Import Time Entry',
-    'version': '7.0.2.0.0',
-    'author': 'Savoir-faire Linux',
-    'maintainer': 'Savoir-faire Linux,Odoo Community Association (OCA)',
+    'version': '8.0.1.0.0',
+    'author': 'Savoir-faire Linux,Odoo Community Association (OCA)',
+    'maintainer': 'Odoo Community Association (OCA)',
     'website': 'http://odoo-community.org',
     'category': 'Connector',
-    'description': """
-Redmine Import Time Entry
-=========================
-Import time entries from Redmine to the employee's analytic timesheet.
-""",
+    'license': 'AGPL-3',
     'depends': [
         'connector_redmine',
     ],

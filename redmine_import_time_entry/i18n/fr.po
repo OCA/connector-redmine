@@ -84,6 +84,12 @@ msgid "Everything seems properly set up"
 msgstr "Tout semble configuré correctement"
 
 #. module: redmine_import_time_entry
+#: code:addons/redmine_import_time_entry/models/hr_timesheet_sheet.py:0
+#, python-format
+msgid "The redmine service %s is inactive. Please change it in your user preferences or contact your system administrator."
+msgstr "Le service Redmine %s est désactivé. S.v.p. le changer dans vos préférences ou contacter votre administrateur de système."
+
+#. module: redmine_import_time_entry
 #: code:addons/redmine_import_time_entry/unit/import_synchronizer.py:121
 #, python-format
 msgid "An error was encountered while importing timesheets from Redmine: %s"
@@ -96,11 +102,6 @@ msgid ""
 "No analytic account found for the Redmine project %(contract_ref)s - "
 "%(project_name)s."
 msgstr "Aucun compte analytique n'a été trouvé pour le projet Redmine %(contract_ref)s - %(project_name)s."
-
-#. module: redmine_import_time_entry
-#: field:redmine.backend,time_entry_import_activate:0
-msgid "Activate Time Entry Import"
-msgstr "Activer l'import des entrées de temps"
 
 #. module: redmine_import_time_entry
 #: code:addons/redmine_import_time_entry/unit/import_synchronizer.py:120
@@ -164,7 +165,7 @@ msgstr "Compte analytique"
 #. module: redmine_import_time_entry
 #: code:addons/redmine_import_time_entry/models/hr_timesheet_sheet.py:64
 #, python-format
-msgid "The employee %s is not related to a user"
+msgid "The employee %s is not related to a user."
 msgstr "L'employé %s n'est pas relié à un utilisateur"
 
 #. module: redmine_import_time_entry

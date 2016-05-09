@@ -4,6 +4,11 @@ openerp.redmine_import_time_entry = function(instance) {
     var _t = instance.web._t;
 
     instance.hr_timesheet_sheet.WeeklyTimesheet = instance.hr_timesheet_sheet.WeeklyTimesheet.extend({
+        ignore_fields: function() {
+            // See README.rst for the reason to remove partner_id and company_id from
+            // the fields to save. Those fields are related to the fields on the analytic account.
+            return ['line_id', 'partner_id', 'company_id'];
+        },
         update_sheets: function() {
             var self = this;
             if (self.querying)
@@ -21,15 +26,12 @@ openerp.redmine_import_time_entry = function(instance) {
                     }
                 }
                 else if(new_ts.unit_amount !== 0){
-                    // Old record
-                    ts_id = new_ts.id;
-                    delete new_ts.id;
-                    res.push([1, ts_id, new_ts]);
+                    res.push([1, new_ts.id, new_ts]);
                 }
                 else{
                     res.push([2, new_ts.id]);
                 }
-            })
+            });
 
             self.field_manager.set_values({timesheet_ids: res}).done(function() {
                 self.updating = false;
@@ -52,6 +54,7 @@ openerp.redmine_import_time_entry = function(instance) {
                                 tmp[k] = v[0];
                             }
                         });
+
                         tmp = _.omit(tmp, ignored_fields);
 
                         ops.push(tmp);
@@ -60,5 +63,5 @@ openerp.redmine_import_time_entry = function(instance) {
             });
             return ops;
         },
-    })
+    });
 };

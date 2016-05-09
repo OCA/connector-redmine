@@ -1,24 +1,6 @@
-# -*- encoding: utf-8 -*-
-##############################################################################
-#
-#    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2015 - Present Savoir-faire Linux
-#    (<http://www.savoirfairelinux.com>).
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program. If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# -*- coding: utf-8 -*-
+# © 2016 Savoir-faire Linux
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from openerp.tools.translate import _
 from openerp.addons.connector.exception import InvalidDataError
@@ -60,6 +42,20 @@ class TimeEntryAdapter(RedmineAdapter):
                 self.redmine_api.time_entry.filter(**filters)
             ]
 
+    def get_project(self, project_id):
+        project_cache = self.session.redmine_cache['project']
+        if project_id not in project_cache:
+            project = self.redmine_api.project.get(project_id)
+            project_cache[project_id] = project
+        return project_cache[project_id]
+
+    def get_issue(self, issue_id):
+        issue_cache = self.session.redmine_cache['issue']
+        if issue_id not in issue_cache:
+            issue = self.redmine_api.issue.get(issue_id)
+            issue_cache[issue_id] = issue
+        return issue_cache[issue_id]
+
     def read(self, redmine_id):
         self._auth()
 
@@ -68,10 +64,8 @@ class TimeEntryAdapter(RedmineAdapter):
         except exceptions.ResourceNotFoundError:
             return None
 
-        issue = 'issue' in dir(entry) and self.redmine_api.issue.get(
-            entry.issue.id)
-
-        project = self.redmine_api.project.get(entry.project.id)
+        issue = 'issue' in dir(entry) and self.get_issue(entry.issue.id)
+        project = self.get_project(entry.project.id)
 
         custom_field = self.backend_record.contract_ref
 

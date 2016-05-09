@@ -1,43 +1,24 @@
-# -*- encoding: utf-8 -*-
-##############################################################################
-#
-#    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2015 - Present Savoir-faire Linux
-#    (<http://www.savoirfairelinux.com>).
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program. If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# -*- coding: utf-8 -*-
+# © 2016 Savoir-faire Linux
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp.osv import orm
+from openerp import api, models
 
 
-class HrAnalyticTimesheet(orm.Model):
+class HrAnalyticTimesheet(models.Model):
     _inherit = 'hr.analytic.timesheet'
 
-    def create(self, cr, uid, vals, context=None):
+    @api.model
+    def create(self, vals):
         """
         The base create method checks in context for the user_id.
 
         By default, the mapper passes the fields through vals,
         so need to update the context.
         """
-        if context is None:
-            context = {}
+        context = self.env.context
 
         if not context.get('user_id', False):
-            context['user_id'] = vals.get('user_id', False)
+            self = self.with_context(user_id=False)
 
-        return super(HrAnalyticTimesheet, self).create(
-            cr, uid, vals, context=context)
+        return super(HrAnalyticTimesheet, self).create(vals)

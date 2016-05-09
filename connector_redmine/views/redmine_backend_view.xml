@@ -12,7 +12,7 @@
             <h1>
               <field name="name" class="oe_inline"/>
             </h1>
-            <group name="redmine" string="Redmine Configuration">
+            <group name="redmine" string="Redmine Configuration" groups="connector.group_connector_manager">
               <group colspan="4" col="4">
                 <field name="location" placeholder="e.g. http://localhost:8081/redmine"
                     colspan="4"/>
@@ -24,6 +24,8 @@
                         colspan="2"/>
                 <field name="version"/>
                 <field name="default_lang_id"/>
+                <field name="is_default"/>
+                <field name="active"/>
               </group>
             </group>
             <notebook/>
@@ -38,7 +40,6 @@
       <field name="arch" type="xml">
         <tree string="Redmine Backend" version="7.0">
           <field name="name"/>
-          <field name="key"/>
           <field name="location"/>
         </tree>
       </field>
