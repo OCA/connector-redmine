@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2015 - Present Savoir-faire Linux
+#    Odoo, Open Source Management Solution
+#    This module copyright (C) 2016 - Present Savoir-faire Linux
 #    (<http://www.savoirfairelinux.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -20,9 +20,10 @@
 #
 ##############################################################################
 
-from openerp.addons.connector.unit.mapper import ImportMapper, mapping
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 from datetime import datetime
+
+from openerp import fields
+from openerp.addons.connector.unit.mapper import ImportMapper, mapping
 
 
 class RedmineImportMapper(ImportMapper):
@@ -34,9 +35,9 @@ class RedmineImportMapper(ImportMapper):
     @mapping
     def updated_on(self, record):
         date = record['updated_on']
-        return {'updated_on': date.strftime(DEFAULT_SERVER_DATETIME_FORMAT)}
+        return {'updated_on': fields.Datetime.to_string(date)}
 
     @mapping
     def sync_date(self, record):
         date = datetime.now()
-        return {'sync_date': date.strftime(DEFAULT_SERVER_DATETIME_FORMAT)}
+        return {'sync_date': fields.Datetime.to_string(date)}

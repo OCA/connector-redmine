@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2015 - Present Savoir-faire Linux
+#    Odoo, Open Source Management Solution
+#    This module copyright (C) 2016 - Present Savoir-faire Linux
 #    (<http://www.savoirfairelinux.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -20,22 +20,19 @@
 #
 ##############################################################################
 
-from openerp.osv import orm, fields
+from openerp import fields, models
 
 
-class RedmineBinding(orm.AbstractModel):
+class RedmineBinding(models.AbstractModel):
     _name = 'redmine.binding'
     _inherit = 'external.binding'
     _description = 'Redmine Binding (Abstract)'
 
-    _columns = {
-        'backend_id': fields.many2one(
-            'redmine.backend', 'Redmine Backend', required=True,
-            ondelete='restrict'
-        ),
-        'redmine_id': fields.integer('ID in Redmine', required=True),
-        'sync_date': fields.datetime(
-            'Last Synchronization Date', required=True),
-        'updated_on': fields.datetime('Last Update in Redmine')
-
-    }
+    backend_id = fields.Many2one(
+        'redmine.backend', 'Redmine Backend', required=True,
+        ondelete='restrict'
+    )
+    redmine_id = fields.Integer('ID in Redmine', required=True)
+    sync_date = fields.Datetime(
+        'Last Synchronization Date', required=True)
+    updated_on = fields.Datetime('Last Update in Redmine')

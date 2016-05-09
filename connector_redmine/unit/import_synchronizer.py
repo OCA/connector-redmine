@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2015 - Present Savoir-faire Linux
+#    Odoo, Open Source Management Solution
+#    This module copyright (C) 2016 - Present Savoir-faire Linux
 #    (<http://www.savoirfairelinux.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -34,7 +34,7 @@ class RedmineImportSynchronizer(synchronizer.ImportSynchronizer):
     def __init__(self, environment):
         """
         :param environment: current environment (backend, session, ...)
-        :type environment: :py:class:`connector.connector.Environment`
+        :type environment: :py:class:`connector.connector.ConnectorEnvironment`
         """
         super(RedmineImportSynchronizer, self).__init__(environment)
         self.redmine_id = None
@@ -46,7 +46,8 @@ class RedmineImportSynchronizer(synchronizer.ImportSynchronizer):
         return self.backend_adapter.read(self.redmine_id)
 
     def _map_data(self):
-        """ Returns an instance of
+        """
+        Return an instance of
         :py:class:`~openerp.addons.connector.unit.mapper.MapRecord`
         """
         return self.mapper.map_record(self.redmine_record)
@@ -60,20 +61,23 @@ class RedmineImportSynchronizer(synchronizer.ImportSynchronizer):
 
     def _create(self, data):
         """ Create the OpenERP record """
-        binding_id = self.session.create(self.model._name, data)
+        model = self.session.env[self.model._name]
+        binding = model.create(data)
 
         _logger.info(
             '%s %d created from Redmine %s',
-            self.model._name, binding_id, self.redmine_id)
+            self.model._name, binding.id, self.redmine_id)
 
-        return binding_id
+        return binding
 
     def _update_data(self, map_record, **kwargs):
         return map_record.values(**kwargs)
 
     def _update(self, binding_id, data):
-        """ Update an OpenERP record """
-        self.session.write(self.model._name, binding_id, data)
+        """Update an OpenERP record"""
+        model = self.session.env[self.model._name]
+        record = model.browse(binding_id)
+        record.write(data)
 
         _logger.info(
             '%s %d updated from Redmine record %s',
@@ -102,7 +106,7 @@ class RedmineImportSynchronizer(synchronizer.ImportSynchronizer):
             self._update(binding_id, record)
         else:
             record = self._create_data(map_record)
-            binding_id = self._create(record)
+            binding_id = self._create(record).id
 
         self.binder.bind(self.redmine_id, binding_id)
 

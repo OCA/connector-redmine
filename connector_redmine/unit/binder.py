@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2015 - Present Savoir-faire Linux
+#    Odoo, Open Source Management Solution
+#    This module copyright (C) 2016 - Present Savoir-faire Linux
 #    (<http://www.savoirfairelinux.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -20,12 +20,11 @@
 #
 ##############################################################################
 
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT, ustr
 from openerp.addons.connector.connector import Binder
 from ..backend import redmine
 
 from datetime import datetime
-from tools import ustr
 
 
 @redmine
@@ -45,7 +44,8 @@ class RedmineModelBinder(Binder):
         :rtype: int
         """
         with self.session.change_context({'active_test': False}):
-            binding_ids = self.session.search(self.model._name, [
+            model = self.session.env[self.model._name]
+            binding_ids = model.search([
                 ('redmine_id', '=', ustr(external_id)),
                 ('backend_id', '=', self.backend_record.id)
             ])
@@ -53,13 +53,12 @@ class RedmineModelBinder(Binder):
         if not binding_ids:
             return None
 
-        binding_id = binding_ids[0]
+        binding = binding_ids[0]
 
         if unwrap:
-            return self.session.read(
-                self.model._name, binding_id, ['openerp_id'])['openerp_id'][0]
+            return binding.openerp_id.id
         else:
-            return binding_id
+            return binding.id
 
     def to_backend(self, record_id, wrap=False):
         """ Give the external ID for an OpenERP ID
@@ -73,20 +72,18 @@ class RedmineModelBinder(Binder):
         """
         if wrap:
             with self.session.change_context({'active_test': False}):
-                erp_id = self.session.search(
-                    self.model._name,
-                    [('openerp_id', '=', record_id),
-                     ('backend_id', '=', self.backend_record.id)
-                     ])
-            if erp_id:
-                record_id = erp_id[0]
+                model = self.session.env[self.model._name]
+                erp_record = model.search([
+                    ('openerp_id', '=', record_id),
+                    ('backend_id', '=', self.backend_record.id),
+                ])
+            if erp_record:
+                return erp_record[0].redmine_id
             else:
                 return None
 
-        redmine_record = self.session.read(
-            self.model._name, record_id, ['redmine_id'])
-
-        return redmine_record['redmine_id']
+        record = self.session.env[self.model._name].browse(record_id)
+        return record.redmine_id
 
     def bind(self, external_id, binding_id):
         """ Create the link between an external ID and an OpenERP ID and
@@ -101,11 +98,12 @@ class RedmineModelBinder(Binder):
         context['connector_no_export'] = True
         now_fmt = datetime.now().strftime(DEFAULT_SERVER_DATETIME_FORMAT)
 
-        self.environment.model.write(
-            self.session.cr, self.session.uid, binding_id, {
-                'redmine_id': ustr(external_id),
-                'sync_date': now_fmt
-            }, context=context)
+        record = self.session.env[self.model._name].browse(binding_id)
+
+        record.write({
+            'redmine_id': ustr(external_id),
+            'sync_date': now_fmt
+        })
 
     def unwrap_binding(self, binding_id, browse=False):
         """ For a binding record, gives the normal record.
@@ -117,13 +115,14 @@ class RedmineModelBinder(Binder):
                        rather than an ID
         :return: the ID of the openerp object
         """
-        binding = self.session.read(
-            self.model._name, binding_id, ['openerp_id'])
+        record = self.session.env[self.model._name].browse(binding_id)
+        binding = record.read(['openerp_id'])[0]
 
         openerp_id = binding['openerp_id'][0]
 
         if browse:
-            return self.session.browse(self.unwrap_model(), openerp_id)
+            model = self.session.env[self.unwrap_model()]
+            return model.browse(openerp_id)
 
         return openerp_id
 

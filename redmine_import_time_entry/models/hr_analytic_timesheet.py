@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2015 - Present Savoir-faire Linux
+#    Odoo, Open Source Management Solution
+#    This module copyright (C) 2016 - Present Savoir-faire Linux
 #    (<http://www.savoirfairelinux.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -20,24 +20,23 @@
 #
 ##############################################################################
 
-from openerp.osv import orm
+from openerp import api, models
 
 
-class HrAnalyticTimesheet(orm.Model):
+class HrAnalyticTimesheet(models.Model):
     _inherit = 'hr.analytic.timesheet'
 
-    def create(self, cr, uid, vals, context=None):
+    @api.model
+    def create(self, vals):
         """
         The base create method checks in context for the user_id.
 
         By default, the mapper passes the fields through vals,
         so need to update the context.
         """
-        if context is None:
-            context = {}
+        context = self.env.context
 
         if not context.get('user_id', False):
-            context['user_id'] = vals.get('user_id', False)
+            self = self.with_context(user_id=False)
 
-        return super(HrAnalyticTimesheet, self).create(
-            cr, uid, vals, context=context)
+        return super(HrAnalyticTimesheet, self).create(vals)

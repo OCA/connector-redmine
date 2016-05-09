@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2015 - Present Savoir-faire Linux
+#    Odoo, Open Source Management Solution
+#    This module copyright (C) 2016 - Present Savoir-faire Linux
 #    (<http://www.savoirfairelinux.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -20,8 +20,8 @@
 #
 ##############################################################################
 
-from openerp.osv import orm
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from openerp.exceptions import ValidationError
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT, ustr
 from openerp.tools.translate import _
 
 from openerp.addons.connector.exception import ConnectorException
@@ -34,7 +34,6 @@ from openerp.addons.connector_redmine.unit.import_synchronizer import (
 from openerp.addons.connector.exception import MappingError
 
 from datetime import datetime
-from tools import ustr
 
 
 @redmine
@@ -153,7 +152,7 @@ def import_single_user_time_entries(
     try:
         return importer.run_single_user(filters=filters)
     except ConnectorException as err:
-        raise orm.except_orm(
+        raise ValidationError(
             _('Error'),
             _("An error was encountered while importing timesheets from "
                 "Redmine: %s") % ustr(err))

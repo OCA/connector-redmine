@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2015 - Present Savoir-faire Linux
+#    Odoo, Open Source Management Solution
+#    This module copyright (C) 2016 - Present Savoir-faire Linux
 #    (<http://www.savoirfairelinux.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -20,18 +20,16 @@
 #
 ##############################################################################
 
-from openerp.osv import orm, fields
+from openerp import fields, models
 
 
-class RedmineTimeEntry(orm.Model):
+class RedmineTimeEntry(models.Model):
     _name = 'redmine.hr.analytic.timesheet'
     _description = 'Redmine Time Entry Binding'
     _inherit = 'redmine.binding'
     _inherits = {'hr.analytic.timesheet': 'openerp_id'}
 
-    _columns = {
-        'openerp_id': fields.many2one(
-            'hr.analytic.timesheet', 'Timesheet', required=True,
-            ondelete='cascade'
-        ),
-    }
+    openerp_id = fields.Many2one(
+        'hr.analytic.timesheet', 'Timesheet', required=True,
+        ondelete='cascade'
+    )

@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2015 - Present Savoir-faire Linux
+#    Odoo, Open Source Management Solution
+#    This module copyright (C) 2016 - Present Savoir-faire Linux
 #    (<http://www.savoirfairelinux.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -24,10 +24,9 @@ from openerp.tools.translate import _
 from openerp.addons.connector.exception import (
     NetworkRetryableError, FailedJobError, InvalidDataError)
 from openerp.addons.connector.unit.backend_adapter import CRUDAdapter
+from openerp.tools import ustr
 from redmine import Redmine, exceptions
 from requests.exceptions import ConnectionError
-
-from tools import ustr
 
 
 class RedmineAdapter(CRUDAdapter):
@@ -43,6 +42,7 @@ class RedmineAdapter(CRUDAdapter):
     This is important because it allows to mock the adapter easily
     in unit tests.
     """
+
     def _auth(self):
         auth_data = self.backend_record.read(['location', 'key'])[0]
 
