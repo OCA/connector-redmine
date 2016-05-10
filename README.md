@@ -6,6 +6,6 @@
 
 Odoo modules to connect with Redmine (http://redmine.org) based on various scenario.
 
-Translation Status
-------------------
-[![Transifex Status](https://www.transifex.com/projects/p/OCA-connector-redmine-7-0/chart/image_png)](https://www.transifex.com/projects/p/OCA-connector-redmine-7-0)
+[//]: # (addons)
+[//]: # (end addons)
+
