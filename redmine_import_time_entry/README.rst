@@ -35,6 +35,18 @@ Known issues / Roadmap
 The Redmine API does not allow to fetch time entry records based on the last update field.
 For this reason, the connector fetches every records for a period of time (e.g. 2 weeks) as explained in Configuration.
 
+Timesheet Entries Update
+------------------------
+In vanilla Odoo, there is a flaw of design with the timesheet widget. When you modify a time entry using
+the widget, instead of updating the existing records, Odoo deletes all records and creates all of them from
+the begginning. Not only it has a performance impact, but it also conflicts with the Redmine Connector. This is
+why the widget is fixed in this module so that entries are updated intead of recreated.
+
+This issue has another impact. The field partner_id on analytic.timesheet.line is related and it is not readonly.
+This is a flaw of design but in vanilla Odoo, it does not cause issues because of the entries are not updated.
+Therefore, the field partner_id is set to readonly to prevent access errors.
+
+
 Credits
 =======
 
