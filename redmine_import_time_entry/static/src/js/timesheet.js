@@ -29,7 +29,6 @@ openerp.redmine_import_time_entry = function(instance) {
                     res.push([1, new_ts.id, new_ts]);
                 }
                 else{
-                    del
                     res.push([2, new_ts.id]);
                 }
             })
