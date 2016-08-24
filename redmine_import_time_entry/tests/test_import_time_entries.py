@@ -87,12 +87,16 @@ class test_import_time_entries(common.TransactionCase):
             'type': 'contract',
             'name': 'Test Redmine',
             'code': 'abcd',
+            'to_invoice': self.ref(
+                'hr_timesheet_invoice.timesheet_invoice_factor2'),
         }, context=context)
 
         self.account_2_id = self.account_model.create(cr, uid, {
             'type': 'contract',
             'name': 'Test Redmine',
             'code': 'efgh',
+            'to_invoice': self.ref(
+                'hr_timesheet_invoice.timesheet_invoice_factor1'),
         }, context=context)
 
         self.account_1 = self.account_model.browse(
@@ -242,7 +246,9 @@ class test_import_time_entries(common.TransactionCase):
         cr, uid, context = self.cr, self.uid, self.context
         self.backend_model.prepare_time_entry_import(cr, uid, context=context)
 
-    def test_import_single_user_time_entries(self):
+    def test_import_single_user_time_entries_mapping_error(self):
+        cr, uid, context = self.cr, self.uid, self.context
+
         adapter = backend_adapter.TimeEntryAdapter
         with patch.object(adapter, 'search_user') as search_user, \
                 patch.object(adapter, 'read') as read, \
@@ -253,12 +259,34 @@ class test_import_time_entries(common.TransactionCase):
             updated_on = self.backend.time_entry_last_update
 
             search_user.return_value = 1
-            search.return_value = [1]
-            read.return_value = defaults
+            search.return_value = [1, 2]
 
-            import_synchronizer.import_single_user_time_entries(
-                self.session, self.backend_id,
-                self.user.login, '2015-01-01', '2015-01-07')
+            def side_effect(redmine_id):
+                if redmine_id == 1:
+                    return defaults
+                return dict(defaults, contract_ref='not mapped')
+
+            read.side_effect = side_effect
+
+            timesheet_id = self.timesheet_model.create(cr, uid, {
+                'user_id': self.user_id,
+                'employee_id': self.employee_id,
+                'date_from': '2015-01-01',
+                'date_to': '2015-01-07',
+            }, context=context)
+
+            timesheet = self.timesheet_model.browse(
+                cr, uid, timesheet_id, context=context)
+
+            timesheet.import_timesheets_from_redmine()
+
+            # Time entry 1 is mapped, but entry 2 is not mapped.
+            # So one is created and the other is logged in the chatter.
+            self.assertEqual(len(timesheet.timesheet_ids), 1)
+
+            entry = timesheet.timesheet_ids[0]
+            self.assertEqual(entry.to_invoice.id, self.ref(
+                'hr_timesheet_invoice.timesheet_invoice_factor2'))
 
             self.backend.refresh()
 

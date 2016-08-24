@@ -31,6 +31,7 @@ from openerp.addons.connector_redmine.connector import get_environment
 from openerp.addons.connector_redmine.unit.import_synchronizer import (
     RedmineBatchImportSynchronizer, RedmineImportSynchronizer,
     import_record)
+from openerp.addons.connector.exception import MappingError
 
 from datetime import datetime
 from tools import ustr
@@ -42,23 +43,12 @@ class TimeEntryBatchImportSynchronizer(RedmineBatchImportSynchronizer):
     _model_name = 'redmine.hr.analytic.timesheet'
 
     def run(self, filters=None, options=None):
-        """ Run the synchronization """
-        if options is None:
-            options = {}
-
+        """
+        Run the synchronization for all users, using the connector crons.
+        """
         updated_from = datetime.strptime(
             self.backend_record.time_entry_last_update,
             DEFAULT_SERVER_DATETIME_FORMAT)
-
-        if options.get('single_user', False):
-            func = import_record
-
-            login = filters.pop('login')
-            user_id = self.backend_adapter.search_user(login)
-            filters['user_id'] = user_id
-
-        else:
-            func = import_record.delay
 
         record_ids = self.backend_adapter.search(
             updated_from, filters)
@@ -68,7 +58,54 @@ class TimeEntryBatchImportSynchronizer(RedmineBatchImportSynchronizer):
         backend_id = self.backend_record.id
 
         for record_id in record_ids:
-            func(session, model_name, backend_id, record_id, options=options)
+            import_record.delay(
+                session, model_name, backend_id, record_id, options=options)
+
+    def run_single_user(self, filters=None, options=None):
+        """
+        Run the synchronization for a single user without using the
+        connector crons.
+
+        All entries with mapping error will be returned in a list
+        so that the user is notified. This prevents blocking the
+        import of every timesheets when, for instance, a project
+        in redmine is not correctly mapped to an analytic account
+        in Odoo.
+
+        :return: list of mapping errors
+        """
+        if options is None:
+            options = {}
+
+        options['single_user'] = True
+
+        updated_from = datetime.strptime(
+            self.backend_record.time_entry_last_update,
+            DEFAULT_SERVER_DATETIME_FORMAT)
+
+        login = filters.pop('login')
+        user_id = self.backend_adapter.search_user(login)
+        filters['user_id'] = user_id
+
+        record_ids = self.backend_adapter.search(
+            updated_from, filters)
+
+        session = self.session
+        model_name = self._model_name
+        backend_id = self.backend_record.id
+
+        mapping_errors = []
+
+        for record_id in record_ids:
+            try:
+                import_record(
+                    session, model_name, backend_id,
+                    record_id, options=options)
+
+            except MappingError as err:
+                mapping_errors.append(err)
+
+        return mapping_errors
 
 
 @redmine
@@ -114,7 +151,7 @@ def import_single_user_time_entries(
     }
 
     try:
-        importer.run(filters=filters, options={'single_user': True})
+        return importer.run_single_user(filters=filters)
     except ConnectorException as err:
         raise orm.except_orm(
             _('Error'),

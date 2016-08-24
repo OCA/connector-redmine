@@ -14,13 +14,20 @@ openerp.redmine_import_time_entry = function(instance) {
             var res = [];
 
             new_timesheets.forEach(function(new_ts){
-                if(typeof(new_ts.id) === "undefined"){
-                    // New record
-                    res.push([0, 0, new_ts]);
+                if(new_ts.id === undefined){
+                    if(new_ts.unit_amount !== 0){
+                        // New record
+                        res.push([0, 0, new_ts]);
+                    }
+                }
+                else if(new_ts.unit_amount !== 0){
+                    // Old record
+                    ts_id = new_ts.id;
+                    delete new_ts.id;
+                    res.push([1, ts_id, new_ts]);
                 }
                 else{
-                    // Old record
-                    res.push([1, new_ts.id, {'unit_amount': new_ts.unit_amount}]);
+                    res.push([2, new_ts.id]);
                 }
             })
 
@@ -35,21 +42,19 @@ openerp.redmine_import_time_entry = function(instance) {
             _.each(self.accounts, function(account) {
                 _.each(account.days, function(day) {
                     _.each(day.lines, function(line) {
-                        if (line.unit_amount !== 0) {
-                            var tmp = _.clone(line);
+                        var tmp = _.clone(line);
 
-                            // The following line was removed from the method
-                            // tmp.id = undefined;
+                        // The following line was removed from the method
+                        // tmp.id = undefined;
 
-                            _.each(line, function(v, k) {
-                                if (v instanceof Array) {
-                                    tmp[k] = v[0];
-                                }
-                            });
-                            tmp = _.omit(tmp, ignored_fields);
+                        _.each(line, function(v, k) {
+                            if (v instanceof Array) {
+                                tmp[k] = v[0];
+                            }
+                        });
+                        tmp = _.omit(tmp, ignored_fields);
 
-                            ops.push(tmp);
-                        }
+                        ops.push(tmp);
                     });
                 });
             });
