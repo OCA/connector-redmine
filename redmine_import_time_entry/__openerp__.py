@@ -22,7 +22,7 @@
 
 {
     'name': 'Redmine Import Time Entry',
-    'version': '7.0.2.0.0',
+    'version': '7.0.2.1.0',
     'author': 'Savoir-faire Linux',
     'maintainer': 'Savoir-faire Linux,Odoo Community Association (OCA)',
     'website': 'http://odoo-community.org',
