@@ -42,6 +42,20 @@ class TimeEntryAdapter(RedmineAdapter):
                 self.redmine_api.time_entry.filter(**filters)
             ]
 
+    def get_project(self, project_id):
+        project_cache = self.session.redmine_cache['project']
+        if project_id not in project_cache:
+            project = self.redmine_api.project.get(project_id)
+            project_cache[project_id] = project
+        return project_cache[project_id]
+
+    def get_issue(self, issue_id):
+        issue_cache = self.session.redmine_cache['issue']
+        if issue_id not in issue_cache:
+            issue = self.redmine_api.issue.get(issue_id)
+            issue_cache[issue_id] = issue
+        return issue_cache[issue_id]
+
     def read(self, redmine_id):
         self._auth()
 
@@ -50,10 +64,8 @@ class TimeEntryAdapter(RedmineAdapter):
         except exceptions.ResourceNotFoundError:
             return None
 
-        issue = 'issue' in dir(entry) and self.redmine_api.issue.get(
-            entry.issue.id)
-
-        project = self.redmine_api.project.get(entry.project.id)
+        issue = 'issue' in dir(entry) and self.get_issue(entry.issue.id)
+        project = self.get_project(entry.project.id)
 
         custom_field = self.backend_record.contract_ref
 

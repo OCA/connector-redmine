@@ -6,7 +6,7 @@ from openerp import api, fields, models
 from openerp.exceptions import Warning
 from openerp.tools.translate import _
 from openerp.addons.connector.connector import ConnectorEnvironment
-from openerp.addons.connector.session import ConnectorSession
+from ..session import RedmineConnectorSession
 from ..unit.backend_adapter import RedmineAdapter
 
 
@@ -15,6 +15,7 @@ class redmine_backend(models.Model):
     _description = 'Redmine Backend'
     _inherit = 'connector.backend'
     _backend_type = 'redmine'
+    _rec_name = 'location'
 
     def _select_versions(self):
         return [('1.3', _('1.3 and higher'))]
@@ -28,6 +29,7 @@ class redmine_backend(models.Model):
         'Key',
         size=64,
         required=True,
+        groups="connector.group_connector_manager",
     )
     version = fields.Selection(
         _select_versions,
@@ -42,6 +44,9 @@ class redmine_backend(models.Model):
              "Note that a similar configuration exists "
              "for each storeview.")
 
+    is_default = fields.Boolean('Default Redmine Service')
+    active = fields.Boolean('Active', default=True)
+
     @api.multi
     def get_base_adapter(self):
         """
@@ -50,7 +55,7 @@ class redmine_backend(models.Model):
         self.ensure_one()
         env = self.env
         cr, uid, context = env.cr, env.uid, env.context
-        session = ConnectorSession(cr, uid, context=context)
+        session = RedmineConnectorSession(cr, uid, context=context)
         environment = ConnectorEnvironment(self, session, None)
 
         return RedmineAdapter(environment)

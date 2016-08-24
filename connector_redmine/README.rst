@@ -27,6 +27,10 @@ Configuration
     - Key: the REST API key of your Redmine instance
 - Click on the button to test the connection
 
+You must set one Redmine service as the default one. You must check the box `Default Redmine Service`.
+By default, the timesheets of every user will be imported from that redmine service. If a user needs to
+import his timesheets from a different redmine service, he may change it in his preference settings,
+the same way you switch companies.
 
 Known issues / Roadmap
 ======================

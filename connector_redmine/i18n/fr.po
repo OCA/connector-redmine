@@ -40,6 +40,26 @@ msgid "Location"
 msgstr "URL"
 
 #. module: connector_redmine
+#: field:redmine.backend,active:0
+msgid "Active"
+msgstr "Actif"
+
+#. module: connector_redmine
+#: field:redmine.backend,is_default:0
+msgid "Default Redmine Service"
+msgstr "Service Redmine par défaut"
+
+#. module: connector_redmine
+#: field:res.users,redmine_backend_id:0
+msgid "Redmine Server"
+msgstr "Service Redmine"
+
+#. module: connector_redmine
+#: help:res.users,redmine_backend_id:0
+msgid "The redmine service from which to import your timesheets. If empty, the default redmine service will be used instead."
+msgstr "Le service Redmine duquel seront importées vos feuilles de temps. Laisser vide pour utiliser le service par défaut."
+
+#. module: connector_redmine
 #: model:ir.model,name:connector_redmine.model_redmine_binding
 msgid "Redmine Binding (Abstract)"
 msgstr "Binding Redmine (Abstract)"

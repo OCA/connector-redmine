@@ -3,11 +3,10 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from openerp import api, fields, models
-from openerp.exceptions import ValidationError
 from openerp.tools.translate import _
 from openerp.addons.connector_redmine.unit.import_synchronizer import (
     import_batch)
-from openerp.addons.connector.session import ConnectorSession
+from openerp.addons.connector_redmine.session import RedmineConnectorSession
 from openerp.tools import ustr
 
 from datetime import datetime, timedelta
@@ -36,27 +35,12 @@ class redmine_backend(models.Model):
         # Comparing False with a datetime object raises an error.
         default=lambda self: datetime(1900, 1, 1)
     )
-    time_entry_import_activate = fields.Boolean(
-        'Activate Time Entry Import',
-        default=True,
-    )
     time_entry_number_of_days = fields.Integer(
         'Time Entries - Number of days',
         help="Number of days used when fetching the time entries.",
         required=True,
         default=14,
     )
-
-    @api.constrains('time_entry_import_activate')
-    def _check_time_entry_import_activate(self):
-        backend_ids = self.search([
-            ('time_entry_import_activate', '=', True)])
-
-        if len(backend_ids) > 1:
-            raise ValidationError(_(
-                "You can not have more that one Redmine backend with "
-                "time entry import activated."
-            ))
 
     @api.multi
     def check_contract_ref(self):
@@ -92,8 +76,7 @@ class redmine_backend(models.Model):
 
     @api.model
     def prepare_time_entry_import(self):
-        backends = self.search([
-            ('time_entry_import_activate', '=', True)])
+        backends = self.search([])
 
         env = self.env
         cr, uid, context = env.cr, env.uid, env.context
@@ -110,7 +93,7 @@ class redmine_backend(models.Model):
                 'to_date': date_to,
             }
 
-            session = ConnectorSession(cr, uid, context=context)
+            session = RedmineConnectorSession(cr, uid, context=context)
             model = 'redmine.hr.analytic.timesheet'
 
             _logger.info(

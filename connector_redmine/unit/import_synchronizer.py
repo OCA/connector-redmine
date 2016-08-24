@@ -2,6 +2,8 @@
 # © 2016 Savoir-faire Linux
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+from collections import defaultdict
+
 import logging
 from openerp.addons.connector.unit import synchronizer
 from openerp.addons.connector.queue.job import job
@@ -21,6 +23,8 @@ class RedmineImportSynchronizer(synchronizer.ImportSynchronizer):
         super(RedmineImportSynchronizer, self).__init__(environment)
         self.redmine_id = None
         self.updated_on = None
+        self._redmine_cache = defaultdict(dict)
+        environment._redmine_cache = self._redmine_cache
 
     def _get_redmine_data(self):
         """ Return the raw Redmine data for ``self.redmine_id`` in a dict

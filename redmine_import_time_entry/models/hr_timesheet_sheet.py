@@ -6,7 +6,7 @@ from openerp import api, models, SUPERUSER_ID
 from openerp.exceptions import ValidationError
 
 from openerp.tools.translate import _
-from openerp.addons.connector.session import ConnectorSession
+from openerp.addons.connector_redmine.session import RedmineConnectorSession
 from ..unit.import_synchronizer import import_single_user_time_entries
 
 
@@ -25,9 +25,11 @@ class HrTimesheetSheet(models.Model):
 
         self.check_access_rule('write')
 
-        session = ConnectorSession(self.env.cr, SUPERUSER_ID, self.env.context)
-        backend = self.env['redmine.backend'].sudo().search(
-            [('time_entry_import_activate', '=', True)], limit=1)
+        session = RedmineConnectorSession(
+            self.env.cr, SUPERUSER_ID, self.env.context)
+        backend = self.env['redmine.backend'].sudo().search([
+            ('is_default', '=', True),
+        ], limit=1)
 
         if not backend:
             raise ValidationError(
@@ -40,6 +42,16 @@ class HrTimesheetSheet(models.Model):
             raise ValidationError(
                 _('The employee %s is not related to a user') %
                 employee.name)
+
+        user = employee.user_id
+        if user.redmine_backend_id:
+            if not user.redmine_backend_id:
+                raise ValidationError(
+                    _('The redmine service %s is inactive. '
+                      'Please change it in your user prefenrences or '
+                      'contact your system administrator.') %
+                    employee.name)
+            backend = user.redmine_backend_id
 
         mapping_errors = import_single_user_time_entries(
             session, backend.id, employee.user_id.login,

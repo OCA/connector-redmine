@@ -21,6 +21,7 @@
         'security/ir.model.access.csv',
         'views/redmine_backend_view.xml',
         'views/redmine_menu.xml',
+        'views/res_users.xml',
     ],
     'application': True,
     'installable': True,

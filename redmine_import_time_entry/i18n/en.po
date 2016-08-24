@@ -97,11 +97,6 @@ msgid ""
 msgstr "No analytic account found for the Redmine project %(contract_ref)s - %(project_name)s."
 
 #. module: redmine_import_time_entry
-#: field:redmine.backend,time_entry_import_activate:0
-msgid "Activate Time Entry Import"
-msgstr "Activate Time Entry Import"
-
-#. module: redmine_import_time_entry
 #: code:addons/redmine_import_time_entry/unit/import_synchronizer.py:120
 #, python-format
 msgid "Error"

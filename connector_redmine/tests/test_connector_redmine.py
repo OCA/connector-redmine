@@ -9,13 +9,13 @@ from openerp.tools import (
     DEFAULT_SERVER_DATETIME_FORMAT, DEFAULT_SERVER_DATE_FORMAT)
 
 from openerp.addons.connector.connector import ConnectorEnvironment
-from openerp.addons.connector.session import ConnectorSession
 from openerp.addons.connector.backend import BACKENDS
 
 from ..unit import mapper
 from ..unit import binder
 from ..unit import import_synchronizer
 from ..unit import backend_adapter
+from ..session import RedmineConnectorSession
 
 from .. import backend, connector
 
@@ -89,7 +89,7 @@ class TestRedmineConnector(TransactionCase):
 
         env = self.env
         cr, uid, context = env.cr, env.uid, env.context
-        self.session = ConnectorSession(cr, uid, context=context)
+        self.session = RedmineConnectorSession(cr, uid, context=context)
         self.environment = ConnectorEnvironment(
             self.backend, self.session, 'redmine.hr.analytic.timesheet')
 

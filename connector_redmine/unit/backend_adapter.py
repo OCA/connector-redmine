@@ -24,7 +24,6 @@ class RedmineAdapter(BackendAdapter):
     This is important because it allows to mock the adapter easily
     in unit tests.
     """
-
     def _auth(self):
         auth_data = self.backend_record.read(['location', 'key'])[0]
 
