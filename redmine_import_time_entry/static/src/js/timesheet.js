@@ -31,7 +31,7 @@ openerp.redmine_import_time_entry = function(instance) {
                 else{
                     res.push([2, new_ts.id]);
                 }
-            })
+            });
 
             self.field_manager.set_values({timesheet_ids: res}).done(function() {
                 self.updating = false;
@@ -63,5 +63,5 @@ openerp.redmine_import_time_entry = function(instance) {
             });
             return ops;
         },
-    })
+    });
 };

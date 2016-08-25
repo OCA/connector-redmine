@@ -5,7 +5,7 @@
 import logging
 from openerp.addons.connector.unit import synchronizer
 from openerp.addons.connector.queue.job import job
-from openerp.addons.connector_redmine.connector import get_environment
+from ..connector import get_environment
 
 _logger = logging.getLogger(__name__)
 

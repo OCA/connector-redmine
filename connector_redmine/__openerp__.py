@@ -4,16 +4,12 @@
 
 {
     'name': 'Redmine Connector',
-    'version': '0.1',
+    'version': '8.0.1.0.0',
     'author': 'Savoir-faire Linux,Odoo Community Association (OCA)',
     'maintainer': 'Odoo Community Association (OCA)',
     'website': 'http://odoo-community.org',
     'category': 'Connector',
-    'description': """
-Redmine Connector
-=================
-Add the Redmine Backend
-""",
+    'license': 'AGPL-3',
     'depends': [
         'connector',
         'hr_timesheet_sheet',

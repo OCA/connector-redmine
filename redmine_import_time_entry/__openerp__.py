@@ -4,16 +4,12 @@
 
 {
     'name': 'Redmine Import Time Entry',
-    'version': '7.0.2.0.0',
-    'author': 'Savoir-faire Linux',
-    'maintainer': 'Savoir-faire Linux,Odoo Community Association (OCA)',
+    'version': '8.0.1.0.0',
+    'author': 'Savoir-faire Linux,Odoo Community Association (OCA)',
+    'maintainer': 'Odoo Community Association (OCA)',
     'website': 'http://odoo-community.org',
     'category': 'Connector',
-    'description': """
-Redmine Import Time Entry
-=========================
-Import time entries from Redmine to the employee's analytic timesheet.
-""",
+    'license': 'AGPL-3',
     'depends': [
         'connector_redmine',
     ],

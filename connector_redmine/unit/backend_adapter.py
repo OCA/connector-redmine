@@ -5,13 +5,13 @@
 from openerp.tools.translate import _
 from openerp.addons.connector.exception import (
     NetworkRetryableError, FailedJobError, InvalidDataError)
-from openerp.addons.connector.unit.backend_adapter import CRUDAdapter
+from openerp.addons.connector.unit.backend_adapter import BackendAdapter
 from openerp.tools import ustr
 from redmine import Redmine, exceptions
 from requests.exceptions import ConnectionError
 
 
-class RedmineAdapter(CRUDAdapter):
+class RedmineAdapter(BackendAdapter):
     """
     Backend Adapter for Redmine
 

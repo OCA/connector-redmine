@@ -25,8 +25,8 @@ Configuration
 - Click on the button to test the custom field
 
 - The field "Time Entries - Number of days" is by default set to 14. This means that the connector will
-	only fetch time entries that have a date between 2 weeks ago and now. Of course, the connector will only
-	create single jobs for Redmine records that have been updated since the last update.
+    only fetch time entries that have a date between 2 weeks ago and now. Of course, the connector will only
+    create single jobs for Redmine records that have been updated since the last update.
 
 
 Known issues / Roadmap
