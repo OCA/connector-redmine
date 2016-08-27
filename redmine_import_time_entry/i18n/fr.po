@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: connector-redmine (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-24 15:16+0000\n"
-"PO-Revision-Date: 2016-03-24 15:16+0000\n"
+"POT-Creation-Date: 2016-08-24 23:46+0000\n"
+"PO-Revision-Date: 2016-08-24 23:46+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: French (http://www.transifex.com/oca/OCA-connector-redmine-7-0/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,12 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. module: redmine_import_time_entry
+#: code:addons/redmine_import_time_entry/models/hr_timesheet_sheet.py:75
+#, python-format
+msgid "Some time entries were not imported from Redmine."
+msgstr ""
 
 #. module: redmine_import_time_entry
 #: view:redmine.backend:0
@@ -71,8 +77,8 @@ msgid "Time Entries - Number of days"
 msgstr "Entrées de temps - Nombre de jours"
 
 #. module: redmine_import_time_entry
-#: code:addons/redmine_import_time_entry/models/hr_timesheet_sheet.py:52
-#: code:addons/redmine_import_time_entry/models/hr_timesheet_sheet.py:63
+#: code:addons/redmine_import_time_entry/models/hr_timesheet_sheet.py:54
+#: code:addons/redmine_import_time_entry/models/hr_timesheet_sheet.py:65
 #, python-format
 msgid "Warning"
 msgstr "Avertissement"
@@ -84,13 +90,13 @@ msgid "Everything seems properly set up"
 msgstr "Tout semble configuré correctement"
 
 #. module: redmine_import_time_entry
-#: code:addons/redmine_import_time_entry/unit/import_synchronizer.py:121
+#: code:addons/redmine_import_time_entry/unit/import_synchronizer.py:158
 #, python-format
 msgid "An error was encountered while importing timesheets from Redmine: %s"
 msgstr "Une erreur est survenue durant l'import des feuilles de temps de Redmine: %s"
 
 #. module: redmine_import_time_entry
-#: code:addons/redmine_import_time_entry/unit/mapper.py:67
+#: code:addons/redmine_import_time_entry/unit/mapper.py:70
 #, python-format
 msgid ""
 "No analytic account found for the Redmine project %(contract_ref)s - "
@@ -103,7 +109,7 @@ msgid "Activate Time Entry Import"
 msgstr "Activer l'import des entrées de temps"
 
 #. module: redmine_import_time_entry
-#: code:addons/redmine_import_time_entry/unit/import_synchronizer.py:120
+#: code:addons/redmine_import_time_entry/unit/import_synchronizer.py:157
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -120,7 +126,7 @@ msgid "redmine_import_time_entry.installed"
 msgstr "redmine_import_time_entry.installed"
 
 #. module: redmine_import_time_entry
-#: code:addons/redmine_import_time_entry/unit/mapper.py:88
+#: code:addons/redmine_import_time_entry/unit/mapper.py:97
 #, python-format
 msgid "No user found with login %s."
 msgstr "Aucun usager ayant comme nom d'utilisateur %s n'a été trouvé."
@@ -145,13 +151,13 @@ msgid "Redmine backend configuration error"
 msgstr "Erreur de configuration du backend Redmine"
 
 #. module: redmine_import_time_entry
-#: code:addons/redmine_import_time_entry/models/hr_timesheet_sheet.py:53
+#: code:addons/redmine_import_time_entry/models/hr_timesheet_sheet.py:55
 #, python-format
 msgid "Their is no Redmine backend configured to import time entries."
 msgstr "Il n'y a aucun backend Redmine configuré pour importer les entrées de temps."
 
 #. module: redmine_import_time_entry
-#: code:addons/redmine_import_time_entry/unit/mapper.py:112
+#: code:addons/redmine_import_time_entry/unit/mapper.py:121
 #, python-format
 msgid "Employee %s has no analytic journal."
 msgstr "L'employé %s n'a pas de journal analytique de défini."
@@ -162,7 +168,7 @@ msgid "Analytic Account"
 msgstr "Compte analytique"
 
 #. module: redmine_import_time_entry
-#: code:addons/redmine_import_time_entry/models/hr_timesheet_sheet.py:64
+#: code:addons/redmine_import_time_entry/models/hr_timesheet_sheet.py:66
 #, python-format
 msgid "The employee %s is not related to a user"
 msgstr "L'employé %s n'est pas relié à un utilisateur"
@@ -190,7 +196,7 @@ msgid "Timesheet Line"
 msgstr "Ligne de feuille de temps"
 
 #. module: redmine_import_time_entry
-#: code:addons/redmine_import_time_entry/unit/mapper.py:106
+#: code:addons/redmine_import_time_entry/unit/mapper.py:115
 #, python-format
 msgid "User %s has no related employee."
 msgstr "L'usager %s n'a aucun employé associé."
