@@ -48,7 +48,7 @@ class HrTimesheetSheet(models.Model):
             if not user.redmine_backend_id:
                 raise ValidationError(
                     _('The redmine service %s is inactive. '
-                      'Please change it in your user prefenrences or '
+                      'Please change it in your user preferences or '
                       'contact your system administrator.') %
                     employee.name)
             backend = user.redmine_backend_id

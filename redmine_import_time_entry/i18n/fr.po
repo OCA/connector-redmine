@@ -86,7 +86,7 @@ msgstr "Tout semble configuré correctement"
 #. module: redmine_import_time_entry
 #: code:addons/redmine_import_time_entry/models/hr_timesheet_sheet.py:0
 #, python-format
-msgid "The redmine service %s is inactive. Please change it in your user prefenrences or contact your system administrator."
+msgid "The redmine service %s is inactive. Please change it in your user preferences or contact your system administrator."
 msgstr "Le service Redmine %s est désactivé. S.v.p. le changer dans vos préférences ou contacter votre administrateur de système."
 
 #. module: redmine_import_time_entry
