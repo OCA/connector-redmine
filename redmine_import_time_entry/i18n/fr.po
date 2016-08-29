@@ -165,7 +165,7 @@ msgstr "Compte analytique"
 #. module: redmine_import_time_entry
 #: code:addons/redmine_import_time_entry/models/hr_timesheet_sheet.py:64
 #, python-format
-msgid "The employee %s is not related to a user"
+msgid "The employee %s is not related to a user."
 msgstr "L'employé %s n'est pas relié à un utilisateur"
 
 #. module: redmine_import_time_entry

@@ -40,7 +40,7 @@ class HrTimesheetSheet(models.Model):
 
         if not employee.user_id:
             raise ValidationError(
-                _('The employee %s is not related to a user') %
+                _('The employee %s is not related to a user.') %
                 employee.name)
 
         user = employee.user_id
