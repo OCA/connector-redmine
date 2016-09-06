@@ -135,6 +135,5 @@ def import_single_user_time_entries(
         return importer.run_single_user(filters=filters)
     except ConnectorException as err:
         raise ValidationError(
-            _('Error'),
             _("An error was encountered while importing timesheets from "
                 "Redmine: %s") % ustr(err))
