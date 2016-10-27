@@ -4,7 +4,7 @@
 
 {
     'name': 'Redmine Connector',
-    'version': '8.0.1.0.0',
+    'version': '8.0.2.0.0',
     'author': 'Savoir-faire Linux,Odoo Community Association (OCA)',
     'maintainer': 'Odoo Community Association (OCA)',
     'website': 'http://odoo-community.org',

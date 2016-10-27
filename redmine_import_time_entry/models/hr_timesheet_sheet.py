@@ -27,11 +27,11 @@ class HrTimesheetSheet(models.Model):
 
         session = RedmineConnectorSession(
             self.env.cr, SUPERUSER_ID, self.env.context)
-        backend = self.env['redmine.backend'].sudo().search([
+        backends = self.env['redmine.backend'].sudo().search([
             ('is_default', '=', True),
-        ], limit=1)
+        ])
 
-        if not backend:
+        if not backends:
             raise ValidationError(
                 _('Their is no Redmine backend configured '
                     'to import time entries.'))
@@ -44,18 +44,14 @@ class HrTimesheetSheet(models.Model):
                 employee.name)
 
         user = employee.user_id
-        if user.redmine_backend_id:
-            if not user.redmine_backend_id:
-                raise ValidationError(
-                    _('The redmine service %s is inactive. '
-                      'Please change it in your user preferences or '
-                      'contact your system administrator.') %
-                    employee.name)
-            backend = user.redmine_backend_id
+        if user.redmine_backend_ids:
+            backends = user.redmine_backend_ids
 
-        mapping_errors = import_single_user_time_entries(
-            session, backend.id, employee.user_id.login,
-            self.date_from, self.date_to)
+        mapping_errors = []
+        for backend in backends:
+            mapping_errors += import_single_user_time_entries(
+                session, backend.id, employee.user_id.login,
+                self.date_from, self.date_to)
 
         if mapping_errors:
             part_1 = _(
