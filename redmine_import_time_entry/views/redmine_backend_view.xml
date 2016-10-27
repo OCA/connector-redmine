@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    
+    <record id="view_redmine_backend_form" model="ir.ui.view">
+        <field name="name">redmine.backend.form</field>
+        <field name="model">redmine.backend</field>
+        <field name="inherit_id" ref="connector_redmine.view_redmine_backend_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page name="time_entries" string="Time Entries" groups="connector.group_connector_manager">
+                    <group colspan="4" col="4">
+                        <field name="contract_ref" cospan="2"/>
+                        <button name="check_contract_ref" 
+                            type="object"
+                            class="oe_highlight"
+                            string="Test Contract # field name"
+                            colspan="2"
+                        />
+                    </group>
+                    <group>
+                        <field name="time_entry_last_update"/>
+                        <field name="time_entry_number_of_days"/>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+  </data>
+</openerp>
