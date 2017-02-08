@@ -178,3 +178,8 @@ msgstr "Ligne de feuille de temps"
 #, python-format
 msgid "User %s has no related employee."
 msgstr "L'usager %s n'a aucun employé associé."
+
+#. module: redmine_import_time_entry
+#: view:hr_timesheet_sheet.sheet:connector_redmine.hr_timesheet_sheet_form
+msgid "Import from Redmine"
+msgstr "Importer de Redmine"
