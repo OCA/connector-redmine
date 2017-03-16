@@ -1,0 +1,169 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# * connector_redmine
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: connector-redmine (7.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-03-24 15:16+0000\n"
+"PO-Revision-Date: 2015-05-29 03:17+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
+"Language-Team: English (http://www.transifex.com/oca/OCA-connector-redmine-7-0/language/en/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: connector_redmine
+#: view:redmine.backend:0
+msgid "Redmine Configuration"
+msgstr "Redmine Configuration"
+
+#. module: connector_redmine
+#: field:redmine.binding,sync_date:0
+#: field:redmine.hr.analytic.timesheet,sync_date:0
+msgid "Last Synchronization Date"
+msgstr "Last Synchronization Date"
+
+#. module: connector_redmine
+#: model:ir.ui.menu,name:connector_redmine.menu_redmine_root
+msgid "Redmine"
+msgstr "Redmine"
+
+#. module: connector_redmine
+#: field:redmine.backend,location:0
+msgid "Location"
+msgstr "Location"
+
+#. module: connector_redmine
+#: model:ir.model,name:connector_redmine.model_redmine_binding
+msgid "Redmine Binding (Abstract)"
+msgstr "Redmine Binding (Abstract)"
+
+#. module: connector_redmine
+#: field:redmine.binding,redmine_id:0
+#: field:redmine.hr.analytic.timesheet,redmine_id:0
+msgid "ID in Redmine"
+msgstr "ID in Redmine"
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/unit/backend_adapter.py:63
+#, python-format
+msgid "A network error caused the failure of the job: %s"
+msgstr "A network error caused the failure of the job: %s"
+
+#. module: connector_redmine
+#: model:ir.actions.act_window,name:connector_redmine.action_redmine_backend
+#: model:ir.model,name:connector_redmine.model_redmine_backend
+#: view:redmine.backend:0 field:redmine.binding,backend_id:0
+#: field:redmine.hr.analytic.timesheet,backend_id:0
+msgid "Redmine Backend"
+msgstr "Redmine Backend"
+
+#. module: connector_redmine
+#: field:redmine.hr.analytic.timesheet,openerp_id:0
+msgid "Timesheet"
+msgstr "Timesheet"
+
+#. module: connector_redmine
+#: field:redmine.binding,updated_on:0
+#: field:redmine.hr.analytic.timesheet,updated_on:0
+msgid "Last Update in Redmine"
+msgstr "Last Update in Redmine"
+
+#. module: connector_redmine
+#: view:redmine.backend:0
+msgid "Test Authentication"
+msgstr "Test Authentication"
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/models/redmine_backend.py:86
+#, python-format
+msgid "Everything seems properly set up"
+msgstr "Everything seems properly set up"
+
+#. module: connector_redmine
+#: field:redmine.backend,key:0
+msgid "Key"
+msgstr "Key"
+
+#. module: connector_redmine
+#: field:redmine.backend,version:0
+msgid "Version"
+msgstr "Version"
+
+#. module: connector_redmine
+#: field:redmine.backend,name:0
+msgid "Name"
+msgstr "Name"
+
+#. module: connector_redmine
+#: model:ir.model,name:connector_redmine.model_redmine_hr_analytic_timesheet
+msgid "Redmine Time Entry Binding"
+msgstr "Redmine Time Entry Binding"
+
+#. module: connector_redmine
+#: model:ir.model,name:connector_redmine.model_connector_redmine_installed
+msgid "connector_redmine.installed"
+msgstr "connector_redmine.installed"
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/unit/backend_adapter.py:81
+#, python-format
+msgid "No user with login %s found in Redmine."
+msgstr "No user with login %s found in Redmine."
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/models/redmine_backend.py:37
+#, python-format
+msgid "1.3 and higher"
+msgstr "1.3 and higher"
+
+#. module: connector_redmine
+#: field:redmine.backend,default_lang_id:0
+msgid "Default Language"
+msgstr "Default Language"
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/models/redmine_backend.py:83
+#, python-format
+msgid "Error"
+msgstr "Error"
+
+#. module: connector_redmine
+#: view:redmine.backend:0
+msgid "e.g. http://localhost:8081/redmine"
+msgstr "e.g. http://localhost:8081/redmine"
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/models/redmine_backend.py:85
+#, python-format
+msgid "Connection test succeeded"
+msgstr "Connection test succeeded"
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/unit/backend_adapter.py:58
+#, python-format
+msgid "Redmine connection Error: Invalid authentications key."
+msgstr "Redmine connection Error: Invalid authentications key."
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/models/redmine_backend.py:83
+#, python-format
+msgid "Could not connect to Redmine"
+msgstr "Could not connect to Redmine"
+
+#. module: connector_redmine
+#: model:ir.ui.menu,name:connector_redmine.menu_redmine_backend
+msgid "Backends"
+msgstr "Backends"
+
+#. module: connector_redmine
+#: help:redmine.backend,default_lang_id:0
+msgid ""
+"If a default language is selected, the records will be imported in the translation of this language.\n"
+"Note that a similar configuration exists for each storeview."
+msgstr "If a default language is selected, the records will be imported in the translation of this language.\nNote that a similar configuration exists for each storeview."

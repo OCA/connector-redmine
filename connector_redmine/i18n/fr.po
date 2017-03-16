@@ -1,0 +1,503 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * connector_redmine
+# 
+# Translators:
+# OCA Transbot <transbot@odoo-community.org>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-10-28 02:39+0000\n"
+"PO-Revision-Date: 2016-10-28 02:39+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2016\n"
+"Language-Team: French (https://www.transifex.com/oca/teams/23907/fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/models/redmine_backend.py:21
+#, python-format
+msgid "1.3 and higher"
+msgstr "1.3 et supérieure"
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/unit/backend_adapter.py:44
+#, python-format
+msgid "A network error caused the failure of the job: %s"
+msgstr "Une erreur réseau a provoqué l'échec de cette tâche : %s"
+
+#. module: connector_redmine
+#: field:redmine.hr.analytic.timesheet,currency_id:0
+msgid "Account Currency"
+msgstr ""
+
+#. module: connector_redmine
+#: field:res.users,property_account_payable:0
+msgid "Account Payable"
+msgstr ""
+
+#. module: connector_redmine
+#: field:res.users,property_account_receivable:0
+msgid "Account Receivable"
+msgstr ""
+
+#. module: connector_redmine
+#: field:redmine.backend,active:0
+msgid "Active"
+msgstr "Actif"
+
+#. module: connector_redmine
+#: field:redmine.hr.analytic.timesheet,amount:0
+msgid "Amount"
+msgstr ""
+
+#. module: connector_redmine
+#: field:redmine.hr.analytic.timesheet,amount_currency:0
+msgid "Amount Currency"
+msgstr ""
+
+#. module: connector_redmine
+#: field:redmine.hr.analytic.timesheet,account_id:0
+msgid "Analytic Account"
+msgstr "Compte analytique"
+
+#. module: connector_redmine
+#: field:redmine.hr.analytic.timesheet,journal_id:0
+msgid "Analytic Journal"
+msgstr ""
+
+#. module: connector_redmine
+#: field:redmine.hr.analytic.timesheet,line_id:0
+msgid "Analytic Line"
+msgstr ""
+
+#. module: connector_redmine
+#: model:ir.ui.menu,name:connector_redmine.menu_redmine_backend
+msgid "Backends"
+msgstr "Backends"
+
+#. module: connector_redmine
+#: help:redmine.hr.analytic.timesheet,amount:0
+msgid ""
+"Calculated by multiplying the quantity and the price given in the Product's "
+"cost price. Always expressed in the company main currency."
+msgstr ""
+
+#. module: connector_redmine
+#: help:res.users,vat_subjected:0
+msgid ""
+"Check this box if the partner is subjected to the VAT. It will be used for "
+"the VAT legal statement."
+msgstr ""
+
+#. module: connector_redmine
+#: field:redmine.hr.analytic.timesheet,code:0
+msgid "Code"
+msgstr ""
+
+#. module: connector_redmine
+#: field:res.users,ref_companies:0
+msgid "Companies that refers to partner"
+msgstr ""
+
+#. module: connector_redmine
+#: field:redmine.hr.analytic.timesheet,company_id:0
+msgid "Company"
+msgstr ""
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/models/redmine_backend.py:77
+#, python-format
+msgid "Connection test succeededEverything seems properly set up"
+msgstr ""
+
+#. module: connector_redmine
+#: field:res.users,contract_ids:0 field:res.users,contracts_count:0
+msgid "Contracts"
+msgstr ""
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/models/redmine_backend.py:74
+#, python-format
+msgid "Could not connect to Redmine"
+msgstr "N'a pas pu se connecter à Redmine"
+
+#. module: connector_redmine
+#: field:redmine.backend,create_uid:0
+#: field:redmine.hr.analytic.timesheet,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: connector_redmine
+#: field:redmine.backend,create_date:0
+#: field:redmine.hr.analytic.timesheet,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: connector_redmine
+#: field:res.users,property_payment_term:0
+msgid "Customer Payment Term"
+msgstr ""
+
+#. module: connector_redmine
+#: field:redmine.hr.analytic.timesheet,date:0
+msgid "Date"
+msgstr ""
+
+#. module: connector_redmine
+#: help:res.users,last_reconciliation_date:0
+msgid ""
+"Date on which the partner accounting entries were fully reconciled last "
+"time. It differs from the last date where a reconciliation has been made for"
+" this partner, as here we depict the fact that nothing more was to be "
+"reconciled at this date. This can be achieved in 2 different ways: either "
+"the last unreconciled debit/credit entry of this partner was reconciled, "
+"either the user pressed the button \"Nothing more to reconcile\" during the "
+"manual reconciliation process."
+msgstr ""
+
+#. module: connector_redmine
+#: field:redmine.backend,default_lang_id:0
+msgid "Default Language"
+msgstr "Langage par défaut"
+
+#. module: connector_redmine
+#: field:redmine.backend,is_default:0
+msgid "Default Redmine Service"
+msgstr "Service Redmine par défaut"
+
+#. module: connector_redmine
+#: field:redmine.hr.analytic.timesheet,name:0
+msgid "Description"
+msgstr ""
+
+#. module: connector_redmine
+#: field:redmine.backend,display_name:0 field:redmine.binding,display_name:0
+#: field:redmine.hr.analytic.timesheet,display_name:0
+msgid "Display Name"
+msgstr ""
+
+#. module: connector_redmine
+#: field:res.users,property_account_position:0
+msgid "Fiscal Position"
+msgstr ""
+
+#. module: connector_redmine
+#: field:redmine.hr.analytic.timesheet,general_account_id:0
+msgid "General Account"
+msgstr ""
+
+#. module: connector_redmine
+#: field:redmine.backend,id:0 field:redmine.binding,id:0
+#: field:redmine.hr.analytic.timesheet,id:0
+msgid "ID"
+msgstr ""
+
+#. module: connector_redmine
+#: field:redmine.binding,redmine_id:0
+#: field:redmine.hr.analytic.timesheet,redmine_id:0
+msgid "ID in Redmine"
+msgstr "ID dans Redmine"
+
+#. module: connector_redmine
+#: help:redmine.backend,default_lang_id:0
+msgid ""
+"If a default language is selected, the records will be imported in the translation of this language.\n"
+"Note that a similar configuration exists for each storeview."
+msgstr ""
+"Si une langue par défaut est sélectionnée, les enregistements seront "
+"importés dans la traduction de cette langue. Note: une configuration "
+"similaire peut être définie sur chaque vue magasin."
+
+#. module: connector_redmine
+#: field:redmine.hr.analytic.timesheet,invoice_id:0
+msgid "Invoice"
+msgstr ""
+
+#. module: connector_redmine
+#: field:redmine.hr.analytic.timesheet,to_invoice:0
+msgid "Invoiceable"
+msgstr ""
+
+#. module: connector_redmine
+#: field:res.users,invoice_ids:0
+msgid "Invoices"
+msgstr ""
+
+#. module: connector_redmine
+#: help:redmine.hr.analytic.timesheet,to_invoice:0
+msgid ""
+"It allows to set the discount while making invoice, keep empty if the "
+"activities should not be invoiced."
+msgstr ""
+
+#. module: connector_redmine
+#: field:res.users,journal_item_count:0
+msgid "Journal Items"
+msgstr ""
+
+#. module: connector_redmine
+#: field:redmine.backend,key:0
+msgid "Key"
+msgstr "Clé"
+
+#. module: connector_redmine
+#: field:redmine.backend,__last_update:0 field:redmine.binding,__last_update:0
+#: field:redmine.hr.analytic.timesheet,__last_update:0
+msgid "Last Modified on"
+msgstr ""
+
+#. module: connector_redmine
+#: field:redmine.binding,sync_date:0
+#: field:redmine.hr.analytic.timesheet,sync_date:0
+msgid "Last Synchronization Date"
+msgstr "Dernière date de mise-à-jour"
+
+#. module: connector_redmine
+#: field:redmine.binding,updated_on:0
+#: field:redmine.hr.analytic.timesheet,updated_on:0
+msgid "Last Update in Redmine"
+msgstr "Dernière mise-à-jour dans Redmine"
+
+#. module: connector_redmine
+#: field:redmine.backend,write_uid:0
+#: field:redmine.hr.analytic.timesheet,write_uid:0
+msgid "Last Updated by"
+msgstr ""
+
+#. module: connector_redmine
+#: field:redmine.backend,write_date:0
+#: field:redmine.hr.analytic.timesheet,write_date:0
+msgid "Last Updated on"
+msgstr ""
+
+#. module: connector_redmine
+#: field:res.users,last_reconciliation_date:0
+msgid "Latest Full Reconciliation Date"
+msgstr ""
+
+#. module: connector_redmine
+#: field:redmine.backend,location:0
+msgid "Location"
+msgstr "URL"
+
+#. module: connector_redmine
+#: field:redmine.hr.analytic.timesheet,move_id:0
+msgid "Move Line"
+msgstr ""
+
+#. module: connector_redmine
+#: field:redmine.backend,name:0
+msgid "Name"
+msgstr "Nom"
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/unit/backend_adapter.py:62
+#, python-format
+msgid "No user with login %s found in Redmine."
+msgstr "Aucun utilisateur %s trouvé dans Redmine."
+
+#. module: connector_redmine
+#: field:redmine.hr.analytic.timesheet,partner_id:0
+msgid "Partner"
+msgstr ""
+
+#. module: connector_redmine
+#: field:res.users,debit_limit:0
+msgid "Payable Limit"
+msgstr ""
+
+#. module: connector_redmine
+#: field:redmine.hr.analytic.timesheet,product_id:0
+msgid "Product"
+msgstr ""
+
+#. module: connector_redmine
+#: field:redmine.hr.analytic.timesheet,unit_amount:0
+msgid "Quantity"
+msgstr ""
+
+#. module: connector_redmine
+#: model:ir.ui.menu,name:connector_redmine.menu_redmine_root
+msgid "Redmine"
+msgstr "Redmine"
+
+#. module: connector_redmine
+#: model:ir.actions.act_window,name:connector_redmine.action_redmine_backend
+#: model:ir.model,name:connector_redmine.model_redmine_backend
+#: view:redmine.backend:connector_redmine.view_redmine_backend_form
+#: view:redmine.backend:connector_redmine.view_redmine_backend_tree
+#: field:redmine.binding,backend_id:0
+#: field:redmine.hr.analytic.timesheet,backend_id:0
+msgid "Redmine Backend"
+msgstr "Backend Redmine"
+
+#. module: connector_redmine
+#: model:ir.model,name:connector_redmine.model_redmine_binding
+msgid "Redmine Binding (Abstract)"
+msgstr "Binding Redmine (Abstract)"
+
+#. module: connector_redmine
+#: view:redmine.backend:connector_redmine.view_redmine_backend_form
+msgid "Redmine Configuration"
+msgstr "Configuration de Redmine"
+
+#. module: connector_redmine
+#: field:res.users,redmine_backend_id:0
+msgid "Redmine Server"
+msgstr "Service Redmine"
+
+#. module: connector_redmine
+#: model:ir.model,name:connector_redmine.model_redmine_hr_analytic_timesheet
+msgid "Redmine Time Entry Binding"
+msgstr "Correspondance des entrées de temps Redmine"
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/unit/backend_adapter.py:39
+#, python-format
+msgid "Redmine connection Error: Invalid authentications key."
+msgstr "Erreur de connection à Redmine: clé d'authentification invalide"
+
+#. module: connector_redmine
+#: field:redmine.hr.analytic.timesheet,ref:0
+msgid "Ref."
+msgstr ""
+
+#. module: connector_redmine
+#: field:redmine.hr.analytic.timesheet,sheet_id:0
+msgid "Sheet"
+msgstr ""
+
+#. module: connector_redmine
+#: help:redmine.hr.analytic.timesheet,unit_amount:0
+msgid "Specifies the amount of quantity to count."
+msgstr ""
+
+#. module: connector_redmine
+#: field:res.users,property_supplier_payment_term:0
+msgid "Supplier Payment Term"
+msgstr ""
+
+#. module: connector_redmine
+#: view:redmine.backend:connector_redmine.view_redmine_backend_form
+msgid "Test Authentication"
+msgstr "Tester l'authentification"
+
+#. module: connector_redmine
+#: help:redmine.hr.analytic.timesheet,amount_currency:0
+msgid ""
+"The amount expressed in the related account currency if not equal to the "
+"company one."
+msgstr ""
+
+#. module: connector_redmine
+#: help:res.users,property_account_position:0
+msgid ""
+"The fiscal position will determine taxes and accounts used for the partner."
+msgstr ""
+
+#. module: connector_redmine
+#: help:res.users,redmine_backend_id:0
+msgid ""
+"The redmine service from which to import your timesheets. If empty, the "
+"default redmine service will be used instead."
+msgstr ""
+"Le service Redmine duquel seront importées vos feuilles de temps. Laisser "
+"vide pour utiliser le service par défaut."
+
+#. module: connector_redmine
+#: help:redmine.hr.analytic.timesheet,currency_id:0
+msgid "The related account currency if not equal to the company one."
+msgstr ""
+
+#. module: connector_redmine
+#: help:res.users,property_account_payable:0
+msgid ""
+"This account will be used instead of the default one as the payable account "
+"for the current partner"
+msgstr ""
+
+#. module: connector_redmine
+#: help:res.users,property_account_receivable:0
+msgid ""
+"This account will be used instead of the default one as the receivable "
+"account for the current partner"
+msgstr ""
+
+#. module: connector_redmine
+#: help:res.users,property_supplier_payment_term:0
+msgid ""
+"This payment term will be used instead of the default one for purchase "
+"orders and supplier invoices"
+msgstr ""
+
+#. module: connector_redmine
+#: help:res.users,property_payment_term:0
+msgid ""
+"This payment term will be used instead of the default one for sale orders "
+"and customer invoices"
+msgstr ""
+
+#. module: connector_redmine
+#: field:redmine.hr.analytic.timesheet,openerp_id:0
+msgid "Timesheet"
+msgstr "Feuilles de temps"
+
+#. module: connector_redmine
+#: field:res.users,total_invoiced:0
+msgid "Total Invoiced"
+msgstr ""
+
+#. module: connector_redmine
+#: field:res.users,debit:0
+msgid "Total Payable"
+msgstr ""
+
+#. module: connector_redmine
+#: field:res.users,credit:0
+msgid "Total Receivable"
+msgstr ""
+
+#. module: connector_redmine
+#: help:res.users,credit:0
+msgid "Total amount this customer owes you."
+msgstr ""
+
+#. module: connector_redmine
+#: help:res.users,debit:0
+msgid "Total amount you have to pay to this supplier."
+msgstr ""
+
+#. module: connector_redmine
+#: field:redmine.hr.analytic.timesheet,product_uom_id:0
+msgid "Unit of Measure"
+msgstr ""
+
+#. module: connector_redmine
+#: field:redmine.hr.analytic.timesheet,user_id:0
+msgid "User"
+msgstr ""
+
+#. module: connector_redmine
+#: model:ir.model,name:connector_redmine.model_res_users
+msgid "Users"
+msgstr ""
+
+#. module: connector_redmine
+#: field:res.users,vat_subjected:0
+msgid "VAT Legal Statement"
+msgstr ""
+
+#. module: connector_redmine
+#: field:redmine.backend,version:0
+msgid "Version"
+msgstr "Version"
+
+#. module: connector_redmine
+#: view:redmine.backend:connector_redmine.view_redmine_backend_form
+msgid "e.g. http://localhost:8081/redmine"
+msgstr "e.g. http://localhost:8081/redmine"
