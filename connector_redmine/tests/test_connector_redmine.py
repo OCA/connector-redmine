@@ -179,7 +179,7 @@ class TestRedmineConnector(TransactionCase):
         self.assertEqual(binder_obj.unwrap_model(), 'account.analytic.line')
 
     def test_06_import_synchronizer_get_binding_id(self):
-        synchronizer = import_synchronizer.RedmineImportSynchronizer(
+        synchronizer = import_synchronizer.RedmineImporter(
             self.environment)
 
         binding = self.redmine_model.search([('redmine_id', '=', 123)])[0]
@@ -188,7 +188,7 @@ class TestRedmineConnector(TransactionCase):
         self.assertEqual(synchronizer._get_binding_id(), binding.id)
 
     def test_07_import_synchronizer_update(self):
-        synchronizer = import_synchronizer.RedmineImportSynchronizer(
+        synchronizer = import_synchronizer.RedmineImporter(
             self.environment)
 
         synchronizer.redmine_id = 123
@@ -203,7 +203,7 @@ class TestRedmineConnector(TransactionCase):
             self.assertEqual(new_vals[val], self.redmine_timesheet[val])
 
     def test_08_import_synchronizer_create(self):
-        synchronizer = import_synchronizer.RedmineImportSynchronizer(
+        synchronizer = import_synchronizer.RedmineImporter(
             self.environment)
         synchronizer.redmine_id = 345
 

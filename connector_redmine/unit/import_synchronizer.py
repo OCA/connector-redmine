@@ -12,7 +12,7 @@ from ..connector import get_environment
 _logger = logging.getLogger(__name__)
 
 
-class RedmineImportSynchronizer(synchronizer.ImportSynchronizer):
+class RedmineImporter(synchronizer.Importer):
     """ Base importer for Redmine """
 
     def __init__(self, environment):
@@ -20,7 +20,7 @@ class RedmineImportSynchronizer(synchronizer.ImportSynchronizer):
         :param environment: current environment (backend, session, ...)
         :type environment: :py:class:`connector.connector.ConnectorEnvironment`
         """
-        super(RedmineImportSynchronizer, self).__init__(environment)
+        super(RedmineImporter, self).__init__(environment)
         self.redmine_id = None
         self.updated_on = None
         self._redmine_cache = defaultdict(dict)
@@ -97,7 +97,7 @@ class RedmineImportSynchronizer(synchronizer.ImportSynchronizer):
         self.binder.bind(self.redmine_id, binding_id)
 
 
-class RedmineBatchImportSynchronizer(synchronizer.ImportSynchronizer):
+class RedmineBatchImporter(synchronizer.Importer):
     def run(self, filters=None, options=None):
         raise NotImplementedError
 
@@ -106,7 +106,7 @@ class RedmineBatchImportSynchronizer(synchronizer.ImportSynchronizer):
 def import_batch(session, model_name, backend_id, filters=None, options=None):
     """ Prepare a batch import of records from Redmine """
     env = get_environment(session, model_name, backend_id)
-    importer = env.get_connector_unit(RedmineBatchImportSynchronizer)
+    importer = env.get_connector_unit(RedmineBatchImporter)
     importer.run(filters=filters, options=options)
 
 
@@ -114,5 +114,5 @@ def import_batch(session, model_name, backend_id, filters=None, options=None):
 def import_record(session, model_name, backend_id, redmine_id, options=None):
     """ Import a record from Redmine """
     env = get_environment(session, model_name, backend_id)
-    importer = env.get_connector_unit(RedmineImportSynchronizer)
+    importer = env.get_connector_unit(RedmineImporter)
     importer.run(redmine_id, options=options)
