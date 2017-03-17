@@ -6,7 +6,7 @@ from collections import defaultdict
 
 import logging
 from odoo.addons.connector.unit import synchronizer
-from odoo.addons.connector.queue.job import job
+from odoo.addons.queue_job.job import job
 from ..connector import get_environment
 
 _logger = logging.getLogger(__name__)
