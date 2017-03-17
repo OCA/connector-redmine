@@ -2,10 +2,10 @@
 # © 2016 Savoir-faire Linux
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import api, fields, models
-from openerp.exceptions import Warning
-from openerp.tools.translate import _
-from openerp.addons.connector.connector import ConnectorEnvironment
+from odoo import api, fields, models
+from odoo.exceptions import Warning
+from odoo.tools.translate import _
+from odoo.addons.connector.connector import ConnectorEnvironment
 from ..session import RedmineConnectorSession
 from ..unit.backend_adapter import RedmineAdapter
 

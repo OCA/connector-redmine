@@ -2,8 +2,8 @@
 # © 2016 Savoir-faire Linux
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT, ustr
-from openerp.addons.connector.connector import Binder
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT, ustr
+from odoo.addons.connector.connector import Binder
 from ..backend import redmine
 
 from datetime import datetime
@@ -16,9 +16,9 @@ class RedmineModelBinder(Binder):
     ]
 
     def to_openerp(self, external_id, unwrap=False):
-        """ Give the OpenERP ID for an external ID
+        """ Give the Odoo ID for an external ID
 
-        :param external_id: external ID for which we want the OpenERP ID
+        :param external_id: external ID for which we want the Odoo ID
         :param unwrap: if True, returns the openerp_id of the redmine_xxxx
                        record, else return the id (binding id) of that record
         :return: a record ID, depending on the value of unwrap,
@@ -43,9 +43,9 @@ class RedmineModelBinder(Binder):
             return binding.id
 
     def to_backend(self, record_id, wrap=False):
-        """ Give the external ID for an OpenERP ID
+        """ Give the external ID for an Odoo ID
 
-        :param record_id: OpenERP ID for which we want the external id
+        :param record_id: Odoo ID for which we want the external id
         :param wrap: if False, record_id is the ID of the binding,
             if True, record_id is the ID of the normal record, the
             method will search the corresponding binding and returns
@@ -68,11 +68,11 @@ class RedmineModelBinder(Binder):
         return record.redmine_id
 
     def bind(self, external_id, binding_id):
-        """ Create the link between an external ID and an OpenERP ID and
+        """ Create the link between an external ID and an Odoo ID and
         update the last synchronization date.
 
         :param external_id: External ID to bind
-        :param binding_id: OpenERP ID to bind
+        :param binding_id: Odoo ID to bind
         :type binding_id: int
         """
         # avoid to trigger the export when we modify the `redmine_id`

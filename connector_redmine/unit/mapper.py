@@ -4,8 +4,8 @@
 
 from datetime import datetime
 
-from openerp import fields
-from openerp.addons.connector.unit.mapper import ImportMapper, mapping
+from odoo import fields
+from odoo.addons.connector.unit.mapper import ImportMapper, mapping
 
 
 class RedmineImportMapper(ImportMapper):

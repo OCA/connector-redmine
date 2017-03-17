@@ -5,8 +5,8 @@
 from collections import defaultdict
 
 import logging
-from openerp.addons.connector.unit import synchronizer
-from openerp.addons.connector.queue.job import job
+from odoo.addons.connector.unit import synchronizer
+from odoo.addons.connector.queue.job import job
 from ..connector import get_environment
 
 _logger = logging.getLogger(__name__)
@@ -46,7 +46,7 @@ class RedmineImportSynchronizer(synchronizer.ImportSynchronizer):
         return map_record.values(for_create=True, **kwargs)
 
     def _create(self, data):
-        """ Create the OpenERP record """
+        """ Create the Odoo record """
         model = self.session.env[self.model._name]
         binding = model.create(data)
 
@@ -60,7 +60,7 @@ class RedmineImportSynchronizer(synchronizer.ImportSynchronizer):
         return map_record.values(**kwargs)
 
     def _update(self, binding_id, data):
-        """Update an OpenERP record"""
+        """Update an Odoo record"""
         model = self.session.env[self.model._name]
         record = model.browse(binding_id)
         record.write(data)
