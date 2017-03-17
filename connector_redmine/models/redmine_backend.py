@@ -6,7 +6,6 @@ from odoo import api, fields, models
 from odoo.exceptions import Warning
 from odoo.tools.translate import _
 from odoo.addons.connector.connector import ConnectorEnvironment
-from ..session import RedmineConnectorSession
 from ..unit.backend_adapter import RedmineAdapter
 
 
@@ -53,10 +52,7 @@ class redmine_backend(models.Model):
         Get an adapter to test the backend connection
         """
         self.ensure_one()
-        env = self.env
-        cr, uid, context = env.cr, env.uid, env.context
-        session = RedmineConnectorSession(cr, uid, context=context)
-        environment = ConnectorEnvironment(self, session, None)
+        environment = ConnectorEnvironment(self, None)
 
         return RedmineAdapter(environment)
 
