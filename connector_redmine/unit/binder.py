@@ -12,7 +12,7 @@ from datetime import datetime
 @redmine
 class RedmineModelBinder(Binder):
     _model_name = [
-        'redmine.hr.analytic.timesheet',
+        'redmine.account.analytic.line',
     ]
 
     def to_openerp(self, external_id, unwrap=False):
