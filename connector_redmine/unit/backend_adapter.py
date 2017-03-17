@@ -3,8 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo.tools.translate import _
-from odoo.addons.connector.exception import (
-    NetworkRetryableError, FailedJobError, InvalidDataError)
+import odoo.addons.connector.exception as cn_exception
 from odoo.addons.connector.unit.backend_adapter import BackendAdapter
 from odoo.tools import ustr
 from redmine import Redmine, exceptions
@@ -35,12 +34,12 @@ class RedmineAdapter(BackendAdapter):
             redmine_api.auth()
 
         except (exceptions.AuthError, ConnectionError) as err:
-            raise FailedJobError(
+            raise cn_exception.FailedJobError(
                 _('Redmine connection Error: '
                     'Invalid authentications key.'))
 
         except (exceptions.UnknownError, exceptions.ServerError) as err:
-            raise NetworkRetryableError(
+            raise cn_exception.NetworkRetryableError(
                 _('A network error caused the failure of the job: '
                     '%s') % ustr(err))
 
@@ -58,7 +57,7 @@ class RedmineAdapter(BackendAdapter):
             (user.id for user in users if user.login == login), False)
 
         if not user_id:
-            raise InvalidDataError(
+            raise cn_exception.InvalidDataError(
                 _("No user with login %s found in Redmine.") % login)
 
         return user_id
