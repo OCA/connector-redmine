@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <menuitem id="menu_redmine_root"
+              parent="connector.menu_connector_root"
+              name="Redmine"
+              sequence="10"
+              groups="connector.group_connector_manager"/>
+
+    <menuitem id="menu_redmine_backend"
+              name="Backends"
+              parent="menu_redmine_root"
+              action="action_redmine_backend"/>
+  </data>
+</openerp>
