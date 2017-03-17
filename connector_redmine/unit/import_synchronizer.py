@@ -98,6 +98,7 @@ class RedmineImporter(synchronizer.Importer):
 
 
 class RedmineBatchImporter(synchronizer.Importer):
+
     def run(self, filters=None, options=None):
         raise NotImplementedError
 
