@@ -9,8 +9,8 @@ class ResUsers(models.Model):
 
     _inherit = 'res.users'
 
-    redmine_backend_id = fields.Many2one(
-        'redmine.backend', 'Redmine Server',
+    redmine_backend_ids = fields.Many2many(
+        'redmine.backend', string='Redmine Server',
         help="The redmine service from which to import "
         "your timesheets. If empty, the default redmine service "
         "will be used instead.")
@@ -18,4 +18,4 @@ class ResUsers(models.Model):
     def __init__(self, pool, cr):
         super(ResUsers, self).__init__(pool, cr)
         self.SELF_WRITEABLE_FIELDS = list(self.SELF_WRITEABLE_FIELDS)
-        self.SELF_WRITEABLE_FIELDS.extend(['redmine_backend_id'])
+        self.SELF_WRITEABLE_FIELDS.extend(['redmine_backend_ids'])

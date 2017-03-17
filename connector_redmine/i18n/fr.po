@@ -182,6 +182,16 @@ msgid "Display Name"
 msgstr ""
 
 #. module: connector_redmine
+#: field:res.users,redmine_backend_ids:0
+msgid "Redmine Server"
+msgstr "Service Redmine"
+
+#. module: connector_redmine
+#: help:res.users,redmine_backend_ids:0
+msgid "The redmine service from which to import your timesheets. If empty, the default redmine service will be used instead."
+msgstr "Le service Redmine duquel seront importées vos feuilles de temps. Laisser vide pour utiliser le service par défaut."
+
+#. module: connector_redmine
 #: field:res.users,property_account_position:0
 msgid "Fiscal Position"
 msgstr ""
