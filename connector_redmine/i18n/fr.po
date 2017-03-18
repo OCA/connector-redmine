@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-28 02:39+0000\n"
-"PO-Revision-Date: 2016-10-28 02:39+0000\n"
+"POT-Creation-Date: 2017-03-17 13:17+0000\n"
+"PO-Revision-Date: 2017-03-17 13:17+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2016\n"
 "Language-Team: French (https://www.transifex.com/oca/teams/23907/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -182,16 +182,6 @@ msgid "Display Name"
 msgstr ""
 
 #. module: connector_redmine
-#: field:res.users,redmine_backend_ids:0
-msgid "Redmine Server"
-msgstr "Service Redmine"
-
-#. module: connector_redmine
-#: help:res.users,redmine_backend_ids:0
-msgid "The redmine service from which to import your timesheets. If empty, the default redmine service will be used instead."
-msgstr "Le service Redmine duquel seront importées vos feuilles de temps. Laisser vide pour utiliser le service par défaut."
-
-#. module: connector_redmine
 #: field:res.users,property_account_position:0
 msgid "Fiscal Position"
 msgstr ""
@@ -357,7 +347,7 @@ msgid "Redmine Configuration"
 msgstr "Configuration de Redmine"
 
 #. module: connector_redmine
-#: field:res.users,redmine_backend_id:0
+#: field:res.users,redmine_backend_ids:0
 msgid "Redmine Server"
 msgstr "Service Redmine"
 
@@ -411,7 +401,7 @@ msgid ""
 msgstr ""
 
 #. module: connector_redmine
-#: help:res.users,redmine_backend_id:0
+#: help:res.users,redmine_backend_ids:0
 msgid ""
 "The redmine service from which to import your timesheets. If empty, the "
 "default redmine service will be used instead."

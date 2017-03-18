@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-28 02:39+0000\n"
-"PO-Revision-Date: 2016-10-28 02:39+0000\n"
+"POT-Creation-Date: 2017-03-17 13:17+0000\n"
+"PO-Revision-Date: 2017-03-17 13:17+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2016\n"
 "Language-Team: French (https://www.transifex.com/oca/teams/23907/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -103,7 +103,7 @@ msgid "Reference must be unique"
 msgstr "La référence doit être unique"
 
 #. module: redmine_import_time_entry
-#: code:addons/redmine_import_time_entry/models/hr_timesheet_sheet.py:61
+#: code:addons/redmine_import_time_entry/models/hr_timesheet_sheet.py:57
 #, python-format
 msgid "Some time entries were not imported from Redmine."
 msgstr ""
@@ -137,16 +137,6 @@ msgstr ""
 "analytique Odoo."
 
 #. module: redmine_import_time_entry
-#: code:addons/redmine_import_time_entry/models/hr_timesheet_sheet.py:50
-#, python-format
-msgid ""
-"The redmine service %s is inactive. Please change it in your user "
-"preferences or contact your system administrator."
-msgstr ""
-"Le service Redmine %s est désactivé. S.v.p. le changer dans vos préférences "
-"ou contacter votre administrateur de système."
-
-#. module: redmine_import_time_entry
 #: code:addons/redmine_import_time_entry/models/hr_timesheet_sheet.py:36
 #, python-format
 msgid "Their is no Redmine backend configured to import time entries."
@@ -178,8 +168,3 @@ msgstr "Ligne de feuille de temps"
 #, python-format
 msgid "User %s has no related employee."
 msgstr "L'usager %s n'a aucun employé associé."
-
-#. module: redmine_import_time_entry
-#: view:hr_timesheet_sheet.sheet:connector_redmine.hr_timesheet_sheet_form
-msgid "Import from Redmine"
-msgstr "Importer de Redmine"
