@@ -2,15 +2,14 @@
 # © 2016 Savoir-faire Linux
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import api, fields, models
-from openerp.exceptions import Warning
-from openerp.tools.translate import _
-from openerp.addons.connector.connector import ConnectorEnvironment
-from ..session import RedmineConnectorSession
+from odoo import api, fields, models
+from odoo.exceptions import Warning
+from odoo.tools.translate import _
+from ..connector import RedmineEnvironment
 from ..unit.backend_adapter import RedmineAdapter
 
 
-class redmine_backend(models.Model):
+class RedmineBackend(models.Model):
     _name = 'redmine.backend'
     _description = 'Redmine Backend'
     _inherit = 'connector.backend'
@@ -53,11 +52,7 @@ class redmine_backend(models.Model):
         Get an adapter to test the backend connection
         """
         self.ensure_one()
-        env = self.env
-        cr, uid, context = env.cr, env.uid, env.context
-        session = RedmineConnectorSession(cr, uid, context=context)
-        environment = ConnectorEnvironment(self, session, None)
-
+        environment = RedmineEnvironment(self, None)
         return RedmineAdapter(environment)
 
     @api.multi

@@ -2,11 +2,10 @@
 # © 2016 Savoir-faire Linux
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import api, models, SUPERUSER_ID
-from openerp.exceptions import ValidationError
+from odoo import api, models
+from odoo.exceptions import ValidationError
 
-from openerp.tools.translate import _
-from openerp.addons.connector_redmine.session import RedmineConnectorSession
+from odoo.tools.translate import _
 from ..unit.import_synchronizer import import_single_user_time_entries
 
 
@@ -25,8 +24,6 @@ class HrTimesheetSheet(models.Model):
 
         self.check_access_rule('write')
 
-        session = RedmineConnectorSession(
-            self.env.cr, SUPERUSER_ID, self.env.context)
         backend = self.env['redmine.backend'].sudo().search([
             ('is_default', '=', True),
         ], limit=1)
@@ -54,8 +51,7 @@ class HrTimesheetSheet(models.Model):
             backend = user.redmine_backend_id
 
         mapping_errors = import_single_user_time_entries(
-            session, backend.id, employee.user_id.login,
-            self.date_from, self.date_to)
+            backend, employee.user_id.login, self.date_from, self.date_to)
 
         if mapping_errors:
             part_1 = _(

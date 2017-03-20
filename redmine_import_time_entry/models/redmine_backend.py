@@ -2,12 +2,11 @@
 # © 2016 Savoir-faire Linux
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import api, fields, models
-from openerp.tools.translate import _
-from openerp.addons.connector_redmine.unit.import_synchronizer import (
+from odoo import api, fields, models
+from odoo.tools.translate import _
+from odoo.addons.connector_redmine.unit.import_synchronizer import (
     import_batch)
-from openerp.addons.connector_redmine.session import RedmineConnectorSession
-from openerp.tools import ustr
+from odoo.tools import ustr
 
 from datetime import datetime, timedelta
 
@@ -77,12 +76,7 @@ class redmine_backend(models.Model):
     @api.model
     def prepare_time_entry_import(self):
         backends = self.search([])
-
-        env = self.env
-        cr, uid, context = env.cr, env.uid, env.context
-
         for backend in backends:
-
             today = datetime.now()
             date_to = to_string(today)
             date_from = today - timedelta(
@@ -92,11 +86,8 @@ class redmine_backend(models.Model):
                 'from_date': date_from,
                 'to_date': date_to,
             }
-
-            session = RedmineConnectorSession(cr, uid, context=context)
-            model = 'redmine.hr.analytic.timesheet'
-
+            model = 'redmine.account.analytic.line'
             _logger.info(
                 'Scheduling time entry batch import from Redmine '
                 'with backend %s.' % backend.name)
-            import_batch.delay(session, model, backend.id, filters=filters)
+            import_batch.delay(model, backend, filters=filters)

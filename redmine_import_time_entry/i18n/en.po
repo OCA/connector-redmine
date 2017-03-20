@@ -1,7 +1,7 @@
-# Translation of OpenERP Server.
+# Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * redmine_import_time_entry
-# 
+#
 # Translators:
 msgid ""
 msgstr ""

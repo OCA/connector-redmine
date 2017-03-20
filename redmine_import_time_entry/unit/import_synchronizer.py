@@ -2,26 +2,26 @@
 # © 2016 Savoir-faire Linux
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp.exceptions import ValidationError
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT, ustr
-from openerp.tools.translate import _
+from odoo.exceptions import ValidationError
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT, ustr
+from odoo.tools.translate import _
 
-from openerp.addons.connector.exception import ConnectorException
+from odoo.addons.connector.exception import ConnectorException
 
-from openerp.addons.connector_redmine.backend import redmine
-from openerp.addons.connector_redmine.connector import get_environment
-from openerp.addons.connector_redmine.unit.import_synchronizer import (
-    RedmineBatchImportSynchronizer, RedmineImportSynchronizer,
+from odoo.addons.connector_redmine.backend import redmine
+from odoo.addons.connector_redmine.connector import get_environment
+from odoo.addons.connector_redmine.unit.import_synchronizer import (
+    RedmineBatchImporter, RedmineImporter,
     import_record)
-from openerp.addons.connector.exception import MappingError
+from odoo.addons.connector.exception import MappingError
 
 from datetime import datetime
 
 
 @redmine
-class TimeEntryBatchImportSynchronizer(RedmineBatchImportSynchronizer):
+class TimeEntryBatchImportSynchronizer(RedmineBatchImporter):
 
-    _model_name = 'redmine.hr.analytic.timesheet'
+    _model_name = 'redmine.account.analytic.line'
 
     def run(self, filters=None, options=None):
         """
@@ -34,13 +34,12 @@ class TimeEntryBatchImportSynchronizer(RedmineBatchImportSynchronizer):
         record_ids = self.backend_adapter.search(
             updated_from, filters)
 
-        session = self.session
         model_name = self._model_name
-        backend_id = self.backend_record.id
+        backend = self.backend_record
 
         for record_id in record_ids:
             import_record.delay(
-                session, model_name, backend_id, record_id, options=options)
+                model_name, backend, record_id, options=options)
 
     def run_single_user(self, filters=None, options=None):
         """
@@ -71,18 +70,15 @@ class TimeEntryBatchImportSynchronizer(RedmineBatchImportSynchronizer):
         record_ids = self.backend_adapter.search(
             updated_from, filters)
 
-        session = self.session
         model_name = self._model_name
-        backend_id = self.backend_record.id
+        backend = self.backend_record
 
         mapping_errors = []
 
         for record_id in record_ids:
             try:
                 import_record(
-                    session, model_name, backend_id,
-                    record_id, options=options)
-
+                    model_name, backend, record_id, options=options)
             except MappingError as err:
                 mapping_errors.append(err)
 
@@ -90,9 +86,9 @@ class TimeEntryBatchImportSynchronizer(RedmineBatchImportSynchronizer):
 
 
 @redmine
-class TimeEntryImportSynchronizer(RedmineImportSynchronizer):
+class TimeEntryImportSynchronizer(RedmineImporter):
 
-    _model_name = 'redmine.hr.analytic.timesheet'
+    _model_name = 'redmine.account.analytic.line'
 
     def run(self, record_id, options=None):
         """
@@ -119,11 +115,11 @@ class TimeEntryImportSynchronizer(RedmineImportSynchronizer):
 
 
 def import_single_user_time_entries(
-    session, backend_id, login, date_from, date_to
+    backend, login, date_from, date_to
 ):
     """ Import time entries for a single user """
-    env = get_environment(session, 'redmine.hr.analytic.timesheet', backend_id)
-    importer = env.get_connector_unit(RedmineBatchImportSynchronizer)
+    env = get_environment('redmine.account.analytic.line', backend)
+    importer = env.get_connector_unit(RedmineBatchImporter)
 
     filters = {
         'login': login,

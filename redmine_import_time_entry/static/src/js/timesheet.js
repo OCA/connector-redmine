@@ -1,4 +1,4 @@
-openerp.redmine_import_time_entry = function(instance) {
+odoo.redmine_import_time_entry = function(instance) {
 
     var QWeb = instance.web.qweb;
     var _t = instance.web._t;

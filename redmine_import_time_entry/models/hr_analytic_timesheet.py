@@ -2,11 +2,11 @@
 # © 2016 Savoir-faire Linux
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import api, models
+from odoo import api, models
 
 
 class HrAnalyticTimesheet(models.Model):
-    _inherit = 'hr.analytic.timesheet'
+    _inherit = 'account.analytic.line'
 
     @api.model
     def create(self, vals):

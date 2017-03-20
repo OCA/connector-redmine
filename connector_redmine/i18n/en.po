@@ -1,7 +1,7 @@
-# Translation of OpenERP Server.
+# Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * connector_redmine
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
@@ -24,7 +24,7 @@ msgstr "Redmine Configuration"
 
 #. module: connector_redmine
 #: field:redmine.binding,sync_date:0
-#: field:redmine.hr.analytic.timesheet,sync_date:0
+#: field:redmine.account.analytic.line,sync_date:0
 msgid "Last Synchronization Date"
 msgstr "Last Synchronization Date"
 
@@ -45,7 +45,7 @@ msgstr "Redmine Binding (Abstract)"
 
 #. module: connector_redmine
 #: field:redmine.binding,redmine_id:0
-#: field:redmine.hr.analytic.timesheet,redmine_id:0
+#: field:redmine.account.analytic.line,redmine_id:0
 msgid "ID in Redmine"
 msgstr "ID in Redmine"
 
@@ -59,18 +59,18 @@ msgstr "A network error caused the failure of the job: %s"
 #: model:ir.actions.act_window,name:connector_redmine.action_redmine_backend
 #: model:ir.model,name:connector_redmine.model_redmine_backend
 #: view:redmine.backend:0 field:redmine.binding,backend_id:0
-#: field:redmine.hr.analytic.timesheet,backend_id:0
+#: field:redmine.account.analytic.line,backend_id:0
 msgid "Redmine Backend"
 msgstr "Redmine Backend"
 
 #. module: connector_redmine
-#: field:redmine.hr.analytic.timesheet,openerp_id:0
+#: field:redmine.account.analytic.line,openerp_id:0
 msgid "Timesheet"
 msgstr "Timesheet"
 
 #. module: connector_redmine
 #: field:redmine.binding,updated_on:0
-#: field:redmine.hr.analytic.timesheet,updated_on:0
+#: field:redmine.account.analytic.line,updated_on:0
 msgid "Last Update in Redmine"
 msgstr "Last Update in Redmine"
 

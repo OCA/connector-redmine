@@ -2,12 +2,12 @@
 # © 2016 Savoir-faire Linux
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp.tools.translate import _
-from openerp.addons.connector.exception import InvalidDataError
+from odoo.tools.translate import _
+import odoo.addons.connector.exception as cn_exception
 from redmine import exceptions
-from openerp.addons.connector_redmine.unit.backend_adapter import (
+from odoo.addons.connector_redmine.unit.backend_adapter import (
     RedmineAdapter)
-from openerp.addons.connector_redmine.backend import redmine
+from odoo.addons.connector_redmine.backend import redmine
 
 
 @redmine
@@ -20,7 +20,7 @@ class TimeEntryAdapter(RedmineAdapter):
     period of time and then filtering these by the field updated_on.
     """
 
-    _model_name = 'redmine.hr.analytic.timesheet'
+    _model_name = 'redmine.account.analytic.line'
 
     def search(self, updated_from, filters):
         """
@@ -43,14 +43,14 @@ class TimeEntryAdapter(RedmineAdapter):
             ]
 
     def get_project(self, project_id):
-        project_cache = self.session.redmine_cache['project']
+        project_cache = self.redmine_cache['project']
         if project_id not in project_cache:
             project = self.redmine_api.project.get(project_id)
             project_cache[project_id] = project
         return project_cache[project_id]
 
     def get_issue(self, issue_id):
-        issue_cache = self.session.redmine_cache['issue']
+        issue_cache = self.redmine_cache['issue']
         if issue_id not in issue_cache:
             issue = self.redmine_api.issue.get(issue_id)
             issue_cache[issue_id] = issue
@@ -74,7 +74,7 @@ class TimeEntryAdapter(RedmineAdapter):
             if field.name == custom_field), False)
 
         if not contract_ref:
-            raise InvalidDataError(
+            raise cn_exception.InvalidDataError(
                 _('The field %(field)s is not set in Redmine for project '
                     '%(project)s.') % {
                     'field': custom_field,

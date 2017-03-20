@@ -4,18 +4,18 @@
 
 from datetime import datetime
 
-from openerp.tests.common import TransactionCase
-from openerp.tools import (
+from odoo.tests.common import TransactionCase
+from odoo.tools import (
     DEFAULT_SERVER_DATETIME_FORMAT, DEFAULT_SERVER_DATE_FORMAT)
 
-from openerp.addons.connector.connector import ConnectorEnvironment
-from openerp.addons.connector.backend import BACKENDS
+from odoo.addons.connector.connector import ConnectorEnvironment
+from odoo.addons.connector.backend import BACKENDS
 
 from ..unit import mapper
 from ..unit import binder
 from ..unit import import_synchronizer
 from ..unit import backend_adapter
-from ..session import RedmineConnectorSession
+from ..connector import RedmineEnvironment
 
 from .. import backend, connector
 
@@ -39,11 +39,11 @@ class TestRedmineConnector(TransactionCase):
         self.backend_model = self.env['redmine.backend']
         self.user_model = self.env['res.users']
         self.employee_model = self.env['hr.employee']
-        self.timesheet_model = self.env['hr.analytic.timesheet']
+        self.timesheet_model = self.env['account.analytic.line']
         self.account_model = self.env['account.analytic.account']
         self.general_account_model = self.env['account.account']
         self.product_model = self.env['product.product']
-        self.redmine_model = self.env['redmine.hr.analytic.timesheet']
+        self.redmine_model = self.env['redmine.account.analytic.line']
 
         self.user_1 = self.user_model.create(
             {
@@ -87,11 +87,8 @@ class TestRedmineConnector(TransactionCase):
             'version': '1.3',
         })
 
-        env = self.env
-        cr, uid, context = env.cr, env.uid, env.context
-        self.session = RedmineConnectorSession(cr, uid, context=context)
-        self.environment = ConnectorEnvironment(
-            self.backend, self.session, 'redmine.hr.analytic.timesheet')
+        self.environment = RedmineEnvironment(
+            self.backend, 'redmine.account.analytic.line')
 
         self.now = datetime.now().strftime(DEFAULT_SERVER_DATETIME_FORMAT)
         self.date_now = datetime.now().date().strftime(
@@ -128,32 +125,32 @@ class TestRedmineConnector(TransactionCase):
         now = datetime.now().strftime(DEFAULT_SERVER_DATETIME_FORMAT)
         self.assertEqual(mapper_obj.sync_date(record), {'sync_date': now})
 
-    def test_02_redmine_binder_to_openerp(self):
+    def test_02_redmine_binder_to_internal(self):
         binder_obj = binder.RedmineModelBinder(self.environment)
 
-        # Without the unwrap parameter, to_openerp must return
-        # the ID of the binding (redmine.hr.analytic.timesheet)
-        timesheet_id = binder_obj.to_openerp(123)
+        # Without the unwrap parameter, to_internal must return
+        # the ID of the binding (redmine.account.analytic.line)
+        timesheet_id = binder_obj.to_internal(123)
         timesheet = self.redmine_model.browse(
             timesheet_id)
 
         self.assertEqual(timesheet.date, self.date_now)
         self.assertEqual(timesheet.redmine_id, 123)
 
-        # With the unwrap parameter, to_openerp must return
-        # the ID of the openerp model record (hr.analytic.timesheet)
-        timesheet_id = binder_obj.to_openerp(123, unwrap=True)
+        # With the unwrap parameter, to_internal must return
+        # the ID of the odoo model record (account.analytic.line)
+        timesheet_id = binder_obj.to_internal(123, unwrap=True)
         timesheet = self.timesheet_model.browse(
             timesheet_id)
 
         self.assertEqual(timesheet.date, self.date_now)
 
-    def test_03_redmine_binder_to_backend(self):
+    def test_03_redmine_binder_to_external(self):
         binder_obj = binder.RedmineModelBinder(self.environment)
 
-        redmine_id = binder_obj.to_backend(
-            self.redmine_timesheet.openerp_id.id, wrap=True)
-        redmine_id_2 = binder_obj.to_backend(self.redmine_timesheet.id)
+        redmine_id = binder_obj.to_external(
+            self.redmine_timesheet.openerp_id, wrap=True)
+        redmine_id_2 = binder_obj.to_external(self.redmine_timesheet)
 
         self.assertEqual(redmine_id, redmine_id_2)
         self.assertEqual(redmine_id, 123)
@@ -176,10 +173,10 @@ class TestRedmineConnector(TransactionCase):
     def test_05_redmine_binder_unwrap_model(self):
         binder_obj = binder.RedmineModelBinder(self.environment)
 
-        self.assertEqual(binder_obj.unwrap_model(), 'hr.analytic.timesheet')
+        self.assertEqual(binder_obj.unwrap_model(), 'account.analytic.line')
 
     def test_06_import_synchronizer_get_binding_id(self):
-        synchronizer = import_synchronizer.RedmineImportSynchronizer(
+        synchronizer = import_synchronizer.RedmineImporter(
             self.environment)
 
         binding = self.redmine_model.search([('redmine_id', '=', 123)])[0]
@@ -188,7 +185,7 @@ class TestRedmineConnector(TransactionCase):
         self.assertEqual(synchronizer._get_binding_id(), binding.id)
 
     def test_07_import_synchronizer_update(self):
-        synchronizer = import_synchronizer.RedmineImportSynchronizer(
+        synchronizer = import_synchronizer.RedmineImporter(
             self.environment)
 
         synchronizer.redmine_id = 123
@@ -203,7 +200,7 @@ class TestRedmineConnector(TransactionCase):
             self.assertEqual(new_vals[val], self.redmine_timesheet[val])
 
     def test_08_import_synchronizer_create(self):
-        synchronizer = import_synchronizer.RedmineImportSynchronizer(
+        synchronizer = import_synchronizer.RedmineImporter(
             self.environment)
         synchronizer.redmine_id = 345
 

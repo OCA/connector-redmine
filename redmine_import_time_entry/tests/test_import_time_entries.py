@@ -2,16 +2,14 @@
 # © 2016 Savoir-faire Linux
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp.tests import common
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from odoo.tests import common
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
-from openerp.addons.connector.connector import ConnectorEnvironment
-
-from openerp.addons.connector_redmine.session import RedmineConnectorSession
-from openerp.addons.connector_redmine.unit.binder import RedmineModelBinder
-from openerp.addons.connector_redmine.unit.import_synchronizer import (
+from odoo.addons.connector_redmine.connector import RedmineEnvironment
+from odoo.addons.connector_redmine.unit.binder import RedmineModelBinder
+from odoo.addons.connector_redmine.unit.import_synchronizer import (
     import_batch, import_record)
-from openerp.addons.connector_redmine.tests import test_connector_redmine
+from odoo.addons.connector_redmine.tests import test_connector_redmine
 
 from ..unit import mapper
 from ..unit import backend_adapter
@@ -27,25 +25,25 @@ reload(import_synchronizer)
 
 
 import_job_path = (
-    'openerp.addons.connector_redmine.unit.import_synchronizer.'
+    'odoo.addons.connector_redmine.unit.import_synchronizer.'
     'import_record.delay')
 
 
-def mock_delay(session, model_name, *args, **kwargs):
+def mock_delay(model_name, *args, **kwargs):
     """Enqueue the function. Return the uuid of the created job."""
-    return import_record(session, model_name, *args, **kwargs)
+    return import_record(model_name, *args, **kwargs)
 
 
-class test_import_time_entries(common.TransactionCase):
+class TestImportTimeEntries(common.TransactionCase):
 
     def setUp(self):
-        super(test_import_time_entries, self).setUp()
+        super(TestImportTimeEntries, self).setUp()
         self.backend_model = self.env['redmine.backend']
         self.user_model = self.env["res.users"]
         self.employee_model = self.env['hr.employee']
         self.timesheet_model = self.env['hr_timesheet_sheet.sheet']
         self.account_model = self.env['account.analytic.account']
-        self.redmine_model = self.env['redmine.hr.analytic.timesheet']
+        self.redmine_model = self.env['redmine.account.analytic.line']
         self.general_account_model = self.env['account.account']
         self.product_model = self.env['product.product']
 
@@ -103,12 +101,8 @@ class test_import_time_entries(common.TransactionCase):
             'is_default': True,
         })
 
-        env = self.env
-        cr, uid, context = env.cr, env.uid, env.context
-        self.session = RedmineConnectorSession(cr, uid, context=context)
-
-        self.environment = ConnectorEnvironment(
-            self.backend, self.session, 'redmine.hr.analytic.timesheet')
+        self.environment = RedmineEnvironment(
+            self.backend, 'redmine.account.analytic.line')
 
     def get_time_entry_defaults(self):
         return {
@@ -153,8 +147,8 @@ class test_import_time_entries(common.TransactionCase):
             read.return_value = defaults
 
             import_batch(
-                self.session, 'redmine.hr.analytic.timesheet',
-                self.backend.id, filters={
+                'redmine.account.analytic.line',
+                self.backend, filters={
                     'from_date': '2015-01-01',
                     'to_date': '2015-01-07',
                 }, options=options)
@@ -167,7 +161,7 @@ class test_import_time_entries(common.TransactionCase):
         map_record = mapper_obj.map_record(defaults)
         data = map_record.values(for_create=True)
 
-        binding_id = self.env['redmine.hr.analytic.timesheet'].create(data).id
+        binding_id = self.env['redmine.account.analytic.line'].create(data).id
 
         binder.bind(123, binding_id)
 

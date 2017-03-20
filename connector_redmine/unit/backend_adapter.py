@@ -2,13 +2,19 @@
 # © 2016 Savoir-faire Linux
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp.tools.translate import _
-from openerp.addons.connector.exception import (
-    NetworkRetryableError, FailedJobError, InvalidDataError)
-from openerp.addons.connector.unit.backend_adapter import BackendAdapter
-from openerp.tools import ustr
-from redmine import Redmine, exceptions
+from odoo.tools.translate import _
+import odoo.addons.connector.exception as cn_exception
+from odoo.addons.connector.unit.backend_adapter import BackendAdapter
+from odoo.tools import ustr
 from requests.exceptions import ConnectionError
+
+import logging
+_logger = logging.getLogger(__name__)
+
+try:
+    from redmine import Redmine, exceptions
+except (ImportError, IOError) as err:
+    _logger.warning('python-redmine not installed!')
 
 
 class RedmineAdapter(BackendAdapter):
@@ -24,6 +30,7 @@ class RedmineAdapter(BackendAdapter):
     This is important because it allows to mock the adapter easily
     in unit tests.
     """
+
     def _auth(self):
         auth_data = self.backend_record.read(['location', 'key'])[0]
 
@@ -35,12 +42,12 @@ class RedmineAdapter(BackendAdapter):
             redmine_api.auth()
 
         except (exceptions.AuthError, ConnectionError) as err:
-            raise FailedJobError(
+            raise cn_exception.FailedJobError(
                 _('Redmine connection Error: '
                     'Invalid authentications key.'))
 
         except (exceptions.UnknownError, exceptions.ServerError) as err:
-            raise NetworkRetryableError(
+            raise cn_exception.NetworkRetryableError(
                 _('A network error caused the failure of the job: '
                     '%s') % ustr(err))
 
@@ -58,7 +65,11 @@ class RedmineAdapter(BackendAdapter):
             (user.id for user in users if user.login == login), False)
 
         if not user_id:
-            raise InvalidDataError(
+            raise cn_exception.InvalidDataError(
                 _("No user with login %s found in Redmine.") % login)
 
         return user_id
+
+    @property
+    def redmine_cache(self):
+        return self.connector_env.redmine_cache
