@@ -4,12 +4,12 @@
 
 from datetime import datetime
 
-from openerp.tests.common import TransactionCase
-from openerp.tools import (
+from odoo.tests.common import TransactionCase
+from odoo.tools import (
     DEFAULT_SERVER_DATETIME_FORMAT, DEFAULT_SERVER_DATE_FORMAT)
 
-from openerp.addons.connector.connector import ConnectorEnvironment
-from openerp.addons.connector.backend import BACKENDS
+from odoo.addons.connector.connector import ConnectorEnvironment
+from odoo.addons.connector.backend import BACKENDS
 
 from ..unit import mapper
 from ..unit import binder
@@ -141,7 +141,7 @@ class TestRedmineConnector(TransactionCase):
         self.assertEqual(timesheet.redmine_id, 123)
 
         # With the unwrap parameter, to_openerp must return
-        # the ID of the openerp model record (hr.analytic.timesheet)
+        # the ID of the odoo model record (hr.analytic.timesheet)
         timesheet_id = binder_obj.to_openerp(123, unwrap=True)
         timesheet = self.timesheet_model.browse(
             timesheet_id)

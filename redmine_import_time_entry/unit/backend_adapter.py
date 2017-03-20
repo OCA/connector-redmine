@@ -2,12 +2,12 @@
 # © 2016 Savoir-faire Linux
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp.tools.translate import _
-from openerp.addons.connector.exception import InvalidDataError
+from odoo.tools.translate import _
+from odoo.addons.connector.exception import InvalidDataError
 from redmine import exceptions
-from openerp.addons.connector_redmine.unit.backend_adapter import (
+from odoo.addons.connector_redmine.unit.backend_adapter import (
     RedmineAdapter)
-from openerp.addons.connector_redmine.backend import redmine
+from odoo.addons.connector_redmine.backend import redmine
 
 
 @redmine

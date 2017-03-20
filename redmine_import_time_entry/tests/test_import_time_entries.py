@@ -2,16 +2,16 @@
 # © 2016 Savoir-faire Linux
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp.tests import common
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from odoo.tests import common
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
-from openerp.addons.connector.connector import ConnectorEnvironment
+from odoo.addons.connector.connector import ConnectorEnvironment
 
-from openerp.addons.connector_redmine.session import RedmineConnectorSession
-from openerp.addons.connector_redmine.unit.binder import RedmineModelBinder
-from openerp.addons.connector_redmine.unit.import_synchronizer import (
+from odoo.addons.connector_redmine.session import RedmineConnectorSession
+from odoo.addons.connector_redmine.unit.binder import RedmineModelBinder
+from odoo.addons.connector_redmine.unit.import_synchronizer import (
     import_batch, import_record)
-from openerp.addons.connector_redmine.tests import test_connector_redmine
+from odoo.addons.connector_redmine.tests import test_connector_redmine
 
 from ..unit import mapper
 from ..unit import backend_adapter
@@ -27,7 +27,7 @@ reload(import_synchronizer)
 
 
 import_job_path = (
-    'openerp.addons.connector_redmine.unit.import_synchronizer.'
+    'odoo.addons.connector_redmine.unit.import_synchronizer.'
     'import_record.delay')
 
 

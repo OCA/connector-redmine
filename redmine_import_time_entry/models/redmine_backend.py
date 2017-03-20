@@ -2,12 +2,12 @@
 # © 2016 Savoir-faire Linux
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import api, fields, models
-from openerp.tools.translate import _
-from openerp.addons.connector_redmine.unit.import_synchronizer import (
+from odoo import api, fields, models
+from odoo.tools.translate import _
+from odoo.addons.connector_redmine.unit.import_synchronizer import (
     import_batch)
-from openerp.addons.connector_redmine.session import RedmineConnectorSession
-from openerp.tools import ustr
+from odoo.addons.connector_redmine.session import RedmineConnectorSession
+from odoo.tools import ustr
 
 from datetime import datetime, timedelta
 

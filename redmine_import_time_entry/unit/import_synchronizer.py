@@ -2,18 +2,18 @@
 # © 2016 Savoir-faire Linux
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp.exceptions import ValidationError
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT, ustr
-from openerp.tools.translate import _
+from odoo.exceptions import ValidationError
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT, ustr
+from odoo.tools.translate import _
 
-from openerp.addons.connector.exception import ConnectorException
+from odoo.addons.connector.exception import ConnectorException
 
-from openerp.addons.connector_redmine.backend import redmine
-from openerp.addons.connector_redmine.connector import get_environment
-from openerp.addons.connector_redmine.unit.import_synchronizer import (
+from odoo.addons.connector_redmine.backend import redmine
+from odoo.addons.connector_redmine.connector import get_environment
+from odoo.addons.connector_redmine.unit.import_synchronizer import (
     RedmineBatchImportSynchronizer, RedmineImportSynchronizer,
     import_record)
-from openerp.addons.connector.exception import MappingError
+from odoo.addons.connector.exception import MappingError
 
 from datetime import datetime
 

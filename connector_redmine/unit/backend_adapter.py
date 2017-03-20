@@ -2,11 +2,11 @@
 # © 2016 Savoir-faire Linux
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp.tools.translate import _
-from openerp.addons.connector.exception import (
+from odoo.tools.translate import _
+from odoo.addons.connector.exception import (
     NetworkRetryableError, FailedJobError, InvalidDataError)
-from openerp.addons.connector.unit.backend_adapter import BackendAdapter
-from openerp.tools import ustr
+from odoo.addons.connector.unit.backend_adapter import BackendAdapter
+from odoo.tools import ustr
 from redmine import Redmine, exceptions
 from requests.exceptions import ConnectionError
 

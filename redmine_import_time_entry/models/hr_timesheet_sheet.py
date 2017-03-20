@@ -2,11 +2,11 @@
 # © 2016 Savoir-faire Linux
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import api, models, SUPERUSER_ID
-from openerp.exceptions import ValidationError
+from odoo import api, models, SUPERUSER_ID
+from odoo.exceptions import ValidationError
 
-from openerp.tools.translate import _
-from openerp.addons.connector_redmine.session import RedmineConnectorSession
+from odoo.tools.translate import _
+from odoo.addons.connector_redmine.session import RedmineConnectorSession
 from ..unit.import_synchronizer import import_single_user_time_entries
 
 
