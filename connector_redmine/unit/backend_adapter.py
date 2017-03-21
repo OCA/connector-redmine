@@ -62,3 +62,7 @@ class RedmineAdapter(BackendAdapter):
                 _("No user with login %s found in Redmine.") % login)
 
         return user_id
+
+    @property
+    def redmine_cache(self):
+        return self.connector_env.redmine_cache

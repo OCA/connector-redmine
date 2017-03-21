@@ -34,13 +34,12 @@ class TimeEntryBatchImportSynchronizer(RedmineBatchImportSynchronizer):
         record_ids = self.backend_adapter.search(
             updated_from, filters)
 
-        session = self.session
         model_name = self._model_name
-        backend_id = self.backend_record.id
+        backend = self.backend_record
 
         for record_id in record_ids:
             import_record.delay(
-                session, model_name, backend_id, record_id, options=options)
+                model_name, backend, record_id, options=options)
 
     def run_single_user(self, filters=None, options=None):
         """
@@ -71,18 +70,15 @@ class TimeEntryBatchImportSynchronizer(RedmineBatchImportSynchronizer):
         record_ids = self.backend_adapter.search(
             updated_from, filters)
 
-        session = self.session
         model_name = self._model_name
-        backend_id = self.backend_record.id
+        backend = self.backend_record
 
         mapping_errors = []
 
         for record_id in record_ids:
             try:
                 import_record(
-                    session, model_name, backend_id,
-                    record_id, options=options)
-
+                    model_name, backend, record_id, options=options)
             except MappingError as err:
                 mapping_errors.append(err)
 
@@ -119,10 +115,10 @@ class TimeEntryImportSynchronizer(RedmineImportSynchronizer):
 
 
 def import_single_user_time_entries(
-    session, backend_id, login, date_from, date_to
+    backend, login, date_from, date_to
 ):
     """ Import time entries for a single user """
-    env = get_environment(session, 'redmine.hr.analytic.timesheet', backend_id)
+    env = get_environment('redmine.hr.analytic.timesheet', backend)
     importer = env.get_connector_unit(RedmineBatchImportSynchronizer)
 
     filters = {

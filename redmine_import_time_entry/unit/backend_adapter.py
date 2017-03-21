@@ -43,14 +43,14 @@ class TimeEntryAdapter(RedmineAdapter):
             ]
 
     def get_project(self, project_id):
-        project_cache = self.session.redmine_cache['project']
+        project_cache = self.redmine_cache['project']
         if project_id not in project_cache:
             project = self.redmine_api.project.get(project_id)
             project_cache[project_id] = project
         return project_cache[project_id]
 
     def get_issue(self, issue_id):
-        issue_cache = self.session.redmine_cache['issue']
+        issue_cache = self.redmine_cache['issue']
         if issue_id not in issue_cache:
             issue = self.redmine_api.issue.get(issue_id)
             issue_cache[issue_id] = issue

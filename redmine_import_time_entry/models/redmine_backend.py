@@ -6,7 +6,6 @@ from odoo import api, fields, models
 from odoo.tools.translate import _
 from odoo.addons.connector_redmine.unit.import_synchronizer import (
     import_batch)
-from odoo.addons.connector_redmine.session import RedmineConnectorSession
 from odoo.tools import ustr
 
 from datetime import datetime, timedelta
@@ -77,12 +76,7 @@ class redmine_backend(models.Model):
     @api.model
     def prepare_time_entry_import(self):
         backends = self.search([])
-
-        env = self.env
-        cr, uid, context = env.cr, env.uid, env.context
-
         for backend in backends:
-
             today = datetime.now()
             date_to = to_string(today)
             date_from = today - timedelta(
@@ -92,11 +86,8 @@ class redmine_backend(models.Model):
                 'from_date': date_from,
                 'to_date': date_to,
             }
-
-            session = RedmineConnectorSession(cr, uid, context=context)
             model = 'redmine.hr.analytic.timesheet'
-
             _logger.info(
                 'Scheduling time entry batch import from Redmine '
                 'with backend %s.' % backend.name)
-            import_batch.delay(session, model, backend.id, filters=filters)
+            import_batch.delay(model, backend, filters=filters)

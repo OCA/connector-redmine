@@ -15,7 +15,7 @@ from ..unit import mapper
 from ..unit import binder
 from ..unit import import_synchronizer
 from ..unit import backend_adapter
-from ..session import RedmineConnectorSession
+from ..connector import RedmineEnvironment
 
 from .. import backend, connector
 
@@ -87,11 +87,8 @@ class TestRedmineConnector(TransactionCase):
             'version': '1.3',
         })
 
-        env = self.env
-        cr, uid, context = env.cr, env.uid, env.context
-        self.session = RedmineConnectorSession(cr, uid, context=context)
-        self.environment = ConnectorEnvironment(
-            self.backend, self.session, 'redmine.hr.analytic.timesheet')
+        self.environment = RedmineEnvironment(
+            self.backend, 'redmine.hr.analytic.timesheet')
 
         self.now = datetime.now().strftime(DEFAULT_SERVER_DATETIME_FORMAT)
         self.date_now = datetime.now().date().strftime(

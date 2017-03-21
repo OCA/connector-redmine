@@ -7,7 +7,7 @@ from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 from odoo.addons.connector.connector import ConnectorEnvironment
 
-from odoo.addons.connector_redmine.session import RedmineConnectorSession
+from odoo.addons.connector_redmine.connector import RedmineEnvironment
 from odoo.addons.connector_redmine.unit.binder import RedmineModelBinder
 from odoo.addons.connector_redmine.unit.import_synchronizer import (
     import_batch, import_record)
@@ -31,9 +31,9 @@ import_job_path = (
     'import_record.delay')
 
 
-def mock_delay(session, model_name, *args, **kwargs):
+def mock_delay(model_name, *args, **kwargs):
     """Enqueue the function. Return the uuid of the created job."""
-    return import_record(session, model_name, *args, **kwargs)
+    return import_record(model_name, *args, **kwargs)
 
 
 class test_import_time_entries(common.TransactionCase):
@@ -103,12 +103,8 @@ class test_import_time_entries(common.TransactionCase):
             'is_default': True,
         })
 
-        env = self.env
-        cr, uid, context = env.cr, env.uid, env.context
-        self.session = RedmineConnectorSession(cr, uid, context=context)
-
-        self.environment = ConnectorEnvironment(
-            self.backend, self.session, 'redmine.hr.analytic.timesheet')
+        self.environment = RedmineEnvironment(
+            self.backend, 'redmine.hr.analytic.timesheet')
 
     def get_time_entry_defaults(self):
         return {
@@ -153,8 +149,8 @@ class test_import_time_entries(common.TransactionCase):
             read.return_value = defaults
 
             import_batch(
-                self.session, 'redmine.hr.analytic.timesheet',
-                self.backend.id, filters={
+                'redmine.hr.analytic.timesheet',
+                self.backend, filters={
                     'from_date': '2015-01-01',
                     'to_date': '2015-01-07',
                 }, options=options)
