@@ -20,7 +20,7 @@ class TimeEntryAdapter(RedmineAdapter):
     period of time and then filtering these by the field updated_on.
     """
 
-    _model_name = 'redmine.hr.analytic.timesheet'
+    _model_name = 'redmine.account.analytic.line'
 
     def search(self, updated_from, filters):
         """

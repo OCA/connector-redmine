@@ -11,7 +11,7 @@ from odoo.addons.connector.exception import MappingError
 
 @redmine
 class TimeEntryImportMapper(RedmineImportMapper):
-    _model_name = 'redmine.hr.analytic.timesheet'
+    _model_name = 'redmine.account.analytic.line'
 
     direct = [
         ('spent_on', 'date'),
@@ -91,7 +91,7 @@ class TimeEntryImportMapper(RedmineImportMapper):
     def general_account_id(self, record):
         user_id = self.user_id(record)['user_id']
 
-        timesheet_model = self.env['hr.analytic.timesheet']
+        timesheet_model = self.env['account.analytic.line']
         account_id = timesheet_model.with_context(
             user_id=user_id)._getGeneralAccount()
 
@@ -103,7 +103,7 @@ class TimeEntryImportMapper(RedmineImportMapper):
     def product_id(self, record):
         user_id = self.user_id(record)['user_id']
 
-        timesheet_model = self.env['hr.analytic.timesheet']
+        timesheet_model = self.env['account.analytic.line']
 
         product_uom_id = timesheet_model.with_context(
             user_id=user_id)._getEmployeeUnit()

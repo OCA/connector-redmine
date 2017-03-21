@@ -86,7 +86,7 @@ class redmine_backend(models.Model):
                 'from_date': date_from,
                 'to_date': date_to,
             }
-            model = 'redmine.hr.analytic.timesheet'
+            model = 'redmine.account.analytic.line'
             _logger.info(
                 'Scheduling time entry batch import from Redmine '
                 'with backend %s.' % backend.name)

@@ -21,7 +21,7 @@ from datetime import datetime
 @redmine
 class TimeEntryBatchImportSynchronizer(RedmineBatchImportSynchronizer):
 
-    _model_name = 'redmine.hr.analytic.timesheet'
+    _model_name = 'redmine.account.analytic.line'
 
     def run(self, filters=None, options=None):
         """
@@ -88,7 +88,7 @@ class TimeEntryBatchImportSynchronizer(RedmineBatchImportSynchronizer):
 @redmine
 class TimeEntryImportSynchronizer(RedmineImportSynchronizer):
 
-    _model_name = 'redmine.hr.analytic.timesheet'
+    _model_name = 'redmine.account.analytic.line'
 
     def run(self, record_id, options=None):
         """
@@ -118,7 +118,7 @@ def import_single_user_time_entries(
     backend, login, date_from, date_to
 ):
     """ Import time entries for a single user """
-    env = get_environment('redmine.hr.analytic.timesheet', backend)
+    env = get_environment('redmine.account.analytic.line', backend)
     importer = env.get_connector_unit(RedmineBatchImportSynchronizer)
 
     filters = {

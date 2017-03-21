@@ -12,7 +12,7 @@ from datetime import datetime
 @redmine
 class RedmineModelBinder(Binder):
     _model_name = [
-        'redmine.hr.analytic.timesheet',
+        'redmine.account.analytic.line',
     ]
     _external_field = 'redmine_id'
     _backend_field = 'backend_id'

@@ -45,7 +45,7 @@ class test_import_time_entries(common.TransactionCase):
         self.employee_model = self.env['hr.employee']
         self.timesheet_model = self.env['hr_timesheet_sheet.sheet']
         self.account_model = self.env['account.analytic.account']
-        self.redmine_model = self.env['redmine.hr.analytic.timesheet']
+        self.redmine_model = self.env['redmine.account.analytic.line']
         self.general_account_model = self.env['account.account']
         self.product_model = self.env['product.product']
 
@@ -104,7 +104,7 @@ class test_import_time_entries(common.TransactionCase):
         })
 
         self.environment = RedmineEnvironment(
-            self.backend, 'redmine.hr.analytic.timesheet')
+            self.backend, 'redmine.account.analytic.line')
 
     def get_time_entry_defaults(self):
         return {
@@ -149,7 +149,7 @@ class test_import_time_entries(common.TransactionCase):
             read.return_value = defaults
 
             import_batch(
-                'redmine.hr.analytic.timesheet',
+                'redmine.account.analytic.line',
                 self.backend, filters={
                     'from_date': '2015-01-01',
                     'to_date': '2015-01-07',
@@ -163,7 +163,7 @@ class test_import_time_entries(common.TransactionCase):
         map_record = mapper_obj.map_record(defaults)
         data = map_record.values(for_create=True)
 
-        binding_id = self.env['redmine.hr.analytic.timesheet'].create(data).id
+        binding_id = self.env['redmine.account.analytic.line'].create(data).id
 
         binder.bind(123, binding_id)
 

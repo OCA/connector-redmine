@@ -6,7 +6,7 @@ from odoo import api, models
 
 
 class HrAnalyticTimesheet(models.Model):
-    _inherit = 'hr.analytic.timesheet'
+    _inherit = 'account.analytic.line'
 
     @api.model
     def create(self, vals):

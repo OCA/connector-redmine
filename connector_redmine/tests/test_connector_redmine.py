@@ -39,11 +39,11 @@ class TestRedmineConnector(TransactionCase):
         self.backend_model = self.env['redmine.backend']
         self.user_model = self.env['res.users']
         self.employee_model = self.env['hr.employee']
-        self.timesheet_model = self.env['hr.analytic.timesheet']
+        self.timesheet_model = self.env['account.analytic.line']
         self.account_model = self.env['account.analytic.account']
         self.general_account_model = self.env['account.account']
         self.product_model = self.env['product.product']
-        self.redmine_model = self.env['redmine.hr.analytic.timesheet']
+        self.redmine_model = self.env['redmine.account.analytic.line']
 
         self.user_1 = self.user_model.create(
             {
@@ -88,7 +88,7 @@ class TestRedmineConnector(TransactionCase):
         })
 
         self.environment = RedmineEnvironment(
-            self.backend, 'redmine.hr.analytic.timesheet')
+            self.backend, 'redmine.account.analytic.line')
 
         self.now = datetime.now().strftime(DEFAULT_SERVER_DATETIME_FORMAT)
         self.date_now = datetime.now().date().strftime(
@@ -129,7 +129,7 @@ class TestRedmineConnector(TransactionCase):
         binder_obj = binder.RedmineModelBinder(self.environment)
 
         # Without the unwrap parameter, to_openerp must return
-        # the ID of the binding (redmine.hr.analytic.timesheet)
+        # the ID of the binding (redmine.account.analytic.line)
         timesheet_id = binder_obj.to_openerp(123)
         timesheet = self.redmine_model.browse(
             timesheet_id)
@@ -138,7 +138,7 @@ class TestRedmineConnector(TransactionCase):
         self.assertEqual(timesheet.redmine_id, 123)
 
         # With the unwrap parameter, to_openerp must return
-        # the ID of the odoo model record (hr.analytic.timesheet)
+        # the ID of the odoo model record (account.analytic.line)
         timesheet_id = binder_obj.to_openerp(123, unwrap=True)
         timesheet = self.timesheet_model.browse(
             timesheet_id)
@@ -173,7 +173,7 @@ class TestRedmineConnector(TransactionCase):
     def test_05_redmine_binder_unwrap_model(self):
         binder_obj = binder.RedmineModelBinder(self.environment)
 
-        self.assertEqual(binder_obj.unwrap_model(), 'hr.analytic.timesheet')
+        self.assertEqual(binder_obj.unwrap_model(), 'account.analytic.line')
 
     def test_06_import_synchronizer_get_binding_id(self):
         synchronizer = import_synchronizer.RedmineImportSynchronizer(
