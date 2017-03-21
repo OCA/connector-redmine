@@ -11,7 +11,7 @@ from odoo.addons.connector.exception import ConnectorException
 from odoo.addons.connector_redmine.backend import redmine
 from odoo.addons.connector_redmine.connector import get_environment
 from odoo.addons.connector_redmine.unit.import_synchronizer import (
-    RedmineBatchImportSynchronizer, RedmineImportSynchronizer,
+    RedmineBatchImportSynchronizer, RedmineImporter,
     import_record)
 from odoo.addons.connector.exception import MappingError
 
@@ -86,7 +86,7 @@ class TimeEntryBatchImportSynchronizer(RedmineBatchImportSynchronizer):
 
 
 @redmine
-class TimeEntryImportSynchronizer(RedmineImportSynchronizer):
+class TimeEntryImportSynchronizer(RedmineImporter):
 
     _model_name = 'redmine.account.analytic.line'
 

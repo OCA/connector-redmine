@@ -13,7 +13,7 @@ from openerp.addons.connector.exception import IDMissingInBackend
 _logger = logging.getLogger(__name__)
 
 
-class RedmineImportSynchronizer(synchronizer.ImportSynchronizer):
+class RedmineImporter(synchronizer.Importer):
     """ Base importer for Redmine """
 
     def __init__(self, environment):
@@ -21,7 +21,7 @@ class RedmineImportSynchronizer(synchronizer.ImportSynchronizer):
         :param environment: current environment (backend, ...)
         :type environment: :py:class:`connector.connector.ConnectorEnvironment`
         """
-        super(RedmineImportSynchronizer, self).__init__(environment)
+        super(RedmineImporter, self).__init__(environment)
         self.redmine_id = None
         self.updated_on = None
 
@@ -123,8 +123,7 @@ class RedmineImportSynchronizer(synchronizer.ImportSynchronizer):
     def redmine_cache(self):
         return self.connector_env.redmine_cache
 
-
-class RedmineBatchImportSynchronizer(synchronizer.ImportSynchronizer):
+class RedmineBatchImporter(synchronizer.Importer):
     def run(self, filters=None, options=None):
         raise NotImplementedError
 
@@ -133,7 +132,7 @@ class RedmineBatchImportSynchronizer(synchronizer.ImportSynchronizer):
 def import_batch(model_name, backend, filters=None, options=None):
     """ Prepare a batch import of records from Redmine """
     env = get_environment(model_name, backend)
-    importer = env.get_connector_unit(RedmineBatchImportSynchronizer)
+    importer = env.get_connector_unit(RedmineBatchImporter)
     importer.run(filters=filters, options=options)
 
 
@@ -141,5 +140,5 @@ def import_batch(model_name, backend, filters=None, options=None):
 def import_record(model_name, backend, redmine_id, options=None):
     """ Import a record from Redmine """
     env = get_environment(model_name, backend)
-    importer = env.get_connector_unit(RedmineImportSynchronizer)
+    importer = env.get_connector_unit(RedmineImporter)
     importer.run(redmine_id, options=options)
