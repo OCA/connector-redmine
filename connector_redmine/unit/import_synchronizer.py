@@ -70,8 +70,8 @@ class RedmineImporter(synchronizer.Importer):
         self._validate_data(data)
         model = self.model.with_context(connector_no_export=True)
         binding = model.create(data)
-        _logger.debug( '%s %d created from Redmine %s',
-            self.model._name, binding, self.redmine_id)
+        _logger.debug('%s %d created from Redmine %s',
+                      self.model._name, binding, self.redmine_id)
         return binding
 
     def _update_data(self, map_record, **kwargs):
@@ -82,8 +82,8 @@ class RedmineImporter(synchronizer.Importer):
         # special check on data before import
         self._validate_data(data)
         binding.with_context(connector_no_export=True).write(data)
-        _logger.debug( '%s %d updated from Redmine record %s',
-            self.model._name, binding, self.redmine_id)
+        _logger.debug('%s %d updated from Redmine record %s',
+                      self.model._name, binding, self.redmine_id)
         return
 
     def run(self, redmine_id, options=None):
@@ -124,7 +124,9 @@ class RedmineImporter(synchronizer.Importer):
     def redmine_cache(self):
         return self.connector_env.redmine_cache
 
+
 class RedmineBatchImporter(synchronizer.Importer):
+
     def run(self, filters=None, options=None):
         raise NotImplementedError
 

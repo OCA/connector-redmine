@@ -15,7 +15,7 @@ class RedmineEnvironment(ConnectorEnvironment):
 
     def __init__(self, backend_record, model_name, redmine_cache=None):
         super(RedmineEnvironment, self).__init__(backend_record,
-                                                     model_name)
+                                                 model_name)
         self.redmine_cache = redmine_cache or defaultdict(dict)
 
 
