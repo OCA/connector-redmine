@@ -9,6 +9,7 @@ from odoo.addons.connector.unit import synchronizer
 from odoo.addons.queue_job.job import job
 from ..connector import get_environment
 from openerp.addons.connector.exception import IDMissingInBackend
+import odoo.addons.connector.exception as cn_exception
 
 _logger = logging.getLogger(__name__)
 
@@ -41,7 +42,7 @@ class RedmineImporter(synchronizer.Importer):
         """ Check if the values to import are correct
         Pro-actively check before the ``_create`` or
         ``_update`` if some fields are missing or invalid.
-        Raise `InvalidDataError`
+        Raise `cn_exception.InvalidDataError`
         """
         return
 

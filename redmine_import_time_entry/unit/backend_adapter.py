@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo.tools.translate import _
-from odoo.addons.connector.exception import InvalidDataError
+import odoo.addons.connector.exception as cn_exception
 from redmine import exceptions
 from odoo.addons.connector_redmine.unit.backend_adapter import (
     RedmineAdapter)
@@ -74,7 +74,7 @@ class TimeEntryAdapter(RedmineAdapter):
             if field.name == custom_field), False)
 
         if not contract_ref:
-            raise InvalidDataError(
+            raise cn_exception.InvalidDataError(
                 _('The field %(field)s is not set in Redmine for project '
                     '%(project)s.') % {
                     'field': custom_field,
