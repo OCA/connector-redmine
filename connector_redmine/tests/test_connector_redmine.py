@@ -125,32 +125,32 @@ class TestRedmineConnector(TransactionCase):
         now = datetime.now().strftime(DEFAULT_SERVER_DATETIME_FORMAT)
         self.assertEqual(mapper_obj.sync_date(record), {'sync_date': now})
 
-    def test_02_redmine_binder_to_openerp(self):
+    def test_02_redmine_binder_to_internal(self):
         binder_obj = binder.RedmineModelBinder(self.environment)
 
-        # Without the unwrap parameter, to_openerp must return
+        # Without the unwrap parameter, to_internal must return
         # the ID of the binding (redmine.account.analytic.line)
-        timesheet_id = binder_obj.to_openerp(123)
+        timesheet_id = binder_obj.to_internal(123)
         timesheet = self.redmine_model.browse(
             timesheet_id)
 
         self.assertEqual(timesheet.date, self.date_now)
         self.assertEqual(timesheet.redmine_id, 123)
 
-        # With the unwrap parameter, to_openerp must return
+        # With the unwrap parameter, to_internal must return
         # the ID of the odoo model record (account.analytic.line)
-        timesheet_id = binder_obj.to_openerp(123, unwrap=True)
+        timesheet_id = binder_obj.to_internal(123, unwrap=True)
         timesheet = self.timesheet_model.browse(
             timesheet_id)
 
         self.assertEqual(timesheet.date, self.date_now)
 
-    def test_03_redmine_binder_to_backend(self):
+    def test_03_redmine_binder_to_external(self):
         binder_obj = binder.RedmineModelBinder(self.environment)
 
-        redmine_id = binder_obj.to_backend(
-            self.redmine_timesheet.openerp_id.id, wrap=True)
-        redmine_id_2 = binder_obj.to_backend(self.redmine_timesheet.id)
+        redmine_id = binder_obj.to_external(
+            self.redmine_timesheet.openerp_id, wrap=True)
+        redmine_id_2 = binder_obj.to_external(self.redmine_timesheet)
 
         self.assertEqual(redmine_id, redmine_id_2)
         self.assertEqual(redmine_id, 123)
