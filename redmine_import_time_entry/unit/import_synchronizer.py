@@ -11,7 +11,7 @@ from odoo.addons.connector.exception import ConnectorException
 from odoo.addons.connector_redmine.backend import redmine
 from odoo.addons.connector_redmine.connector import get_environment
 from odoo.addons.connector_redmine.unit.import_synchronizer import (
-    RedmineBatchImportSynchronizer, RedmineImporter,
+    RedmineBatchImporter, RedmineImporter,
     import_record)
 from odoo.addons.connector.exception import MappingError
 
@@ -19,7 +19,7 @@ from datetime import datetime
 
 
 @redmine
-class TimeEntryBatchImportSynchronizer(RedmineBatchImportSynchronizer):
+class TimeEntryBatchImportSynchronizer(RedmineBatchImporter):
 
     _model_name = 'redmine.account.analytic.line'
 
@@ -119,7 +119,7 @@ def import_single_user_time_entries(
 ):
     """ Import time entries for a single user """
     env = get_environment('redmine.account.analytic.line', backend)
-    importer = env.get_connector_unit(RedmineBatchImportSynchronizer)
+    importer = env.get_connector_unit(RedmineBatchImporter)
 
     filters = {
         'login': login,

@@ -55,7 +55,7 @@ class RedmineImporter(synchronizer.Importer):
         If it returns None, the import will continue normally.
         :returns: None | str | unicode
         """
-    return
+        return
 
     def _get_binding_id(self):
         """Return the binding id from the redmine id"""
