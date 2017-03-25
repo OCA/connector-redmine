@@ -7,6 +7,7 @@
 Odoo modules to connect with Redmine (http://redmine.org) based on various scenario.
 
 [//]: # (addons)
+
 Available addons
 ----------------
 addon | version | summary
