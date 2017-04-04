@@ -5,8 +5,6 @@
 from odoo.tests import common
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
-from odoo.addons.connector.connector import ConnectorEnvironment
-
 from odoo.addons.connector_redmine.connector import RedmineEnvironment
 from odoo.addons.connector_redmine.unit.binder import RedmineModelBinder
 from odoo.addons.connector_redmine.unit.import_synchronizer import (

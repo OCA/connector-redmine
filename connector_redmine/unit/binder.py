@@ -3,10 +3,9 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT, ustr
+from odoo.fields import Datetime
 from odoo.addons.connector.connector import Binder
 from ..backend import redmine
-
-from datetime import datetime
 
 
 @redmine
@@ -19,7 +18,7 @@ class RedmineModelBinder(Binder):
     _odoo_field = 'odoo_id'
     _sync_date_field = 'sync_date'
 
-    def bind(self, external_id, binding_id):
+    def bind(self, external_id, binding):
         """ Create the link between an external ID and an Odoo ID and
         update the last synchronization date.
 
@@ -36,12 +35,12 @@ class RedmineModelBinder(Binder):
             "got: %s, %s" % (external_id, binding)
         )
         # avoid to trigger the export when we modify the `external_id`
-        now_fmt = fields.Datetime.now().strftime(DEFAULT_SERVER_DATETIME_FORMAT)
+        now_fmt = Datetime.now().strftime(DEFAULT_SERVER_DATETIME_FORMAT)
         if isinstance(binding, models.BaseModel):
             binding.ensure_one()
         else:
             binding = self.model.browse(binding)
         binding.with_context(connector_no_export=True).write(
-            {self._external_field: tools.ustr(external_id),
+            {self._external_field: ustr(external_id),
              self._sync_date_field: now_fmt,
              })

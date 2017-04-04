@@ -2,14 +2,13 @@
 # © 2016 Savoir-faire Linux
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from collections import defaultdict
-
 import logging
 from odoo.addons.connector.unit import synchronizer
 from odoo.addons.queue_job.job import job
 from ..connector import get_environment
 from openerp.addons.connector.exception import IDMissingInBackend
-import odoo.addons.connector.exception as cn_exception
+from odoo.tools.translate import _
+# import odoo.addons.connector.exception as cn_exception
 
 _logger = logging.getLogger(__name__)
 
