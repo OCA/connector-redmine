@@ -9,7 +9,7 @@ from ..connector import RedmineEnvironment
 from ..unit.backend_adapter import RedmineAdapter
 
 
-class redmine_backend(models.Model):
+class RedmineBackend(models.Model):
     _name = 'redmine.backend'
     _description = 'Redmine Backend'
     _inherit = 'connector.backend'

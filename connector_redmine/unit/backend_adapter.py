@@ -6,8 +6,15 @@ from odoo.tools.translate import _
 import odoo.addons.connector.exception as cn_exception
 from odoo.addons.connector.unit.backend_adapter import BackendAdapter
 from odoo.tools import ustr
-from redmine import Redmine, exceptions
 from requests.exceptions import ConnectionError
+
+import logging
+_logger = logging.getLogger(__name__)
+
+try:
+    from redmine import Redmine, exceptions
+except (ImportError, IOError) as err:
+    _logger.warning('python-redmine not installed!')
 
 
 class RedmineAdapter(BackendAdapter):

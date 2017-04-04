@@ -36,10 +36,10 @@ def mock_delay(model_name, *args, **kwargs):
     return import_record(model_name, *args, **kwargs)
 
 
-class test_import_time_entries(common.TransactionCase):
+class TestImportTimeEntries(common.TransactionCase):
 
     def setUp(self):
-        super(test_import_time_entries, self).setUp()
+        super(TestImportTimeEntries, self).setUp()
         self.backend_model = self.env['redmine.backend']
         self.user_model = self.env["res.users"]
         self.employee_model = self.env['hr.employee']
