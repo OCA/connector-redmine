@@ -53,9 +53,20 @@ class TimeEntryImportMapper(RedmineImportMapper):
 
         account = accounts[0]
 
+        to_invoice = account.to_invoice.id
+        # check if redmine has a no-bill admin flag set
+        fields = record['custom_fields']
+        custom_field = u'Admin flags'
+        admin_flag = next((
+            field.value for field in project.custom_fields
+            if field.name == custom_field), False)
+        # u'2' is magic for no-bill
+        if admin_flag and admin_flag == u'2':
+            to_invoice = False
+
         return {
             'account_id': account.id,
-            'to_invoice': account.to_invoice.id,
+            'to_invoice': to_invoice,
         }
 
     @mapping
