@@ -51,6 +51,13 @@ class TimeEntryImportMapper(RedmineImportMapper):
                     'project_name': record['project_name'],
                 })
 
+        # Check that the account and the user have the same company
+        user_id = self.user_id(record)['user_id']
+        user = self.env['res.users'].browse(user_id)
+        if user.company_id != account.company_id:
+            raise MappingError(_('Cross-company import attempted!'))
+	    # FIXME: it would be nicer to silently drop this particular entry
+
         account = accounts[0]
 
         to_invoice = account.to_invoice.id
