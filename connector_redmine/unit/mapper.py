@@ -5,10 +5,14 @@
 from datetime import datetime
 
 from odoo import fields
-from odoo.addons.connector.unit.mapper import ImportMapper, mapping
+from odoo.addons.connector.unit.mapper import mapping
+from odoo.addons.component.core import AbstractComponent
 
 
-class RedmineImportMapper(ImportMapper):
+class RedmineImportMapper(AbstractComponent):
+    _name = 'redmine.import.mapper'
+    _inherit = 'base.import.mapper'
+    _usage = 'import.mapper'
 
     @mapping
     def backend_id(self, record):

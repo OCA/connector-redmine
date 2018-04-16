@@ -3,15 +3,15 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo.tools.translate import _
-from odoo.addons.connector_redmine.backend import redmine
-from odoo.addons.connector_redmine.unit.mapper import RedmineImportMapper
 from odoo.addons.connector.unit.mapper import mapping
 from odoo.addons.connector.exception import MappingError
+from odoo.addons.component.core import Component
 
 
-@redmine
-class TimeEntryImportMapper(RedmineImportMapper):
-    _model_name = 'redmine.account.analytic.line'
+class TimeEntryImportMapper(Component):
+    _name = 'redmine.account.analytic.line.mapper'
+    _inherit = 'redmine.import.mapper'
+    _apply_on = 'redmine.account.analytic.line'
 
     direct = [
         ('spent_on', 'date'),
@@ -36,84 +36,58 @@ class TimeEntryImportMapper(RedmineImportMapper):
 
     @mapping
     def account_id(self, record):
-        account_obj = self.env['account.analytic.account']
+        project_obj = self.env['project.project']
 
-        accounts = account_obj.search([
-            ('type', '=', 'contract'),
+        projects = project_obj.search([
             ('code', '=', record['contract_ref']),
         ])
 
-        if not accounts:
+        if not projects:
+            projects = project_obj.search([
+                ('name', '=', record['contract_ref']),
+            ])
+
+        if not projects:
             raise MappingError(
-                _('No analytic account found for the Redmine project '
+                _('No project found for '
                     '%(contract_ref)s - %(project_name)s.') % {
                     'contract_ref': record['contract_ref'],
                     'project_name': record['project_name'],
                 })
+        if len(projects) > 1:
+            raise MappingError(_(
+                "Too many projects for "
+                "%(contract_ref)s - %(project_name)s."
+            ) % {
+                    'contract_ref': record['contract_ref'],
+                    'project_name': record['project_name'],
+                })
 
-        account = accounts[0]
+        project = projects[0]
 
         return {
-            'account_id': account.id,
-            'to_invoice': account.to_invoice.id,
+            'project_id': project.id,
         }
 
     @mapping
     def user_id(self, record):
-        user = self.env['res.users'].search([
-            ('login', '=', record['user_login']),
-        ])
-
+        user = None
+        if record.get('user_login'):
+            user = self.env['res.users'].search([
+                ('login', '=', record['user_login']),
+            ])
+            if not user:
+                raise MappingError(
+                    _('No user found with login %s.') % (record['user_login']))
+        elif record.get('user_name'):
+            user = self.env['res.users'].search([
+                ('name', '=', record['user_name']),
+            ])
+            if not user:
+                raise MappingError(
+                    _('No user found with name %s.') % (record['user_name']))
         if not user:
             raise MappingError(
-                _('No user found with login %s.') % (record['user_login']))
+                _('No user found for record %s.') % (record['entry_id']))
 
         return {'user_id': user.id}
-
-    @mapping
-    def journal_id(self, record):
-        user_id = self.user_id(record)['user_id']
-        user = self.env['res.users'].browse(user_id)
-
-        if not user.employee_ids:
-            raise MappingError(
-                _('User %s has no related employee.') % user.name)
-
-        employee = user.employee_ids[0]
-
-        if not employee.journal_id:
-            raise MappingError(
-                _('Employee %s has no analytic journal.') % employee.name)
-
-        return {'journal_id': employee.journal_id.id}
-
-    @mapping
-    def general_account_id(self, record):
-        user_id = self.user_id(record)['user_id']
-
-        timesheet_model = self.env['account.analytic.line']
-        account_id = timesheet_model.with_context(
-            user_id=user_id)._getGeneralAccount()
-
-        return {
-            'general_account_id': account_id,
-        }
-
-    @mapping
-    def product_id(self, record):
-        user_id = self.user_id(record)['user_id']
-
-        timesheet_model = self.env['account.analytic.line']
-
-        product_uom_id = timesheet_model.with_context(
-            user_id=user_id)._getEmployeeUnit()
-        product_id = timesheet_model.with_context(
-            user_id=user_id)._getEmployeeProduct()
-
-        product = self.env['product.product'].browse(product_id)
-
-        return {
-            'product_id': product_id,
-            'product_uom_id': product_uom_id,
-            'amount': -record['hours'] * product.standard_price,
-        }

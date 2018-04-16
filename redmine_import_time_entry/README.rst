@@ -10,10 +10,12 @@ Connector used to import Redmine time entries as Odoo analytic timesheets in bat
 
 To use this module, you must add a custom field on your Redmine projects. You can give the name you want
 to this field, but every project must have a different value for this field.
+If you can't, or don't want to, add a custom field, you can use a standard Redmine field, like 'name'.
 
 In Odoo, you must create an analytic account for each Redmine project.
-The value of the custom field must be written in the field ref ('Reference') of the analytic account.
+The value of the Redmine's field must be written in the field ref ('Reference') of the analytic account.
 
+Be aware that the user login must be the same in both systems, or odoo user name must be equal to redmine user firstname + lastname
 
 Installation
 ============
@@ -26,7 +28,7 @@ Configuration
 
 # Go to Connectors -> Redmine -> Backends and select your Redmine backend
 
-# Enter the name of the custom field used to identify projects in Redmine
+# Enter the name of the custom field (or standardRedmine field) used to identify projects in Redmine
 
 # Click on the button to test the custom field
 
@@ -42,30 +44,15 @@ the same way you switch companies.
 Usage
 =====
 
-To use this module, you need to:
-
-#. Go to ...
-
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/169/8.0
+   :target: https://runbot.odoo-community.org/runbot/169/10.0
 
 Known issues / Roadmap
 ======================
 
 The Redmine API does not allow to fetch time entry records based on the last update field.
 For this reason, the connector fetches every records for a period of time (e.g. 2 weeks) as explained in Configuration.
-
-Timesheet Entries Update
-------------------------
-In vanilla Odoo, there is a flaw of design with the timesheet widget. When you modify a time entry using
-the widget, instead of updating the existing records, Odoo deletes all records and creates all of them from
-the begginning. Not only it has a performance impact, but it also conflicts with the Redmine Connector. This is
-why the widget is fixed in this module so that entries are updated intead of recreated.
-
-This issue has another impact. The field partner_id on analytic.timesheet.line is related and it is not readonly.
-This is a flaw of design but in vanilla Odoo, it does not cause issues because of the entries are not updated.
-Therefore, the field partner_id is set to readonly to prevent access errors.
 
 Bug Tracker
 ===========
@@ -82,6 +69,7 @@ Contributors
 ------------
 * Maxime Chambreuil <maxime.chambreuil@savoirfairelinux.com>
 * David Dufresne <david.dufresne@savoirfairelinux.com>
+* Lorenzo Battistini <lorenzo.battistini@agilebg.com>
 
 Maintainer
 ----------

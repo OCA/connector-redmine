@@ -39,13 +39,9 @@ Configuration
 Usage
 =====
 
-To use this module, you need to:
-
-#. Go to ...
-
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/169/8.0
+   :target: https://runbot.odoo-community.org/runbot/169/10.0
 
 Known issues / Roadmap
 ======================
@@ -75,6 +71,7 @@ Contributors
 * Virgil Dupras <virgil.dupras@savoirfairelinux.com>
 * Guillaume Auger <guillaume.auger@savoirfairelinux.com>
 * David Dufresne <david.dufresne@savoirfairelinux.com>
+* Lorenzo Battistini <lorenzo.battistini@agilebg.com>
 
 
 Maintainer

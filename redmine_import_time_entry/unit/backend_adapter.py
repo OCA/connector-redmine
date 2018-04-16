@@ -4,14 +4,11 @@
 
 from odoo.tools.translate import _
 import odoo.addons.connector.exception as cn_exception
-from redmine import exceptions
-from odoo.addons.connector_redmine.unit.backend_adapter import (
-    RedmineAdapter)
-from odoo.addons.connector_redmine.backend import redmine
+from redminelib import exceptions
+from odoo.addons.component.core import Component
 
 
-@redmine
-class TimeEntryAdapter(RedmineAdapter):
+class TimeEntryAdapter(Component):
     """
     Time Entry Backend Adapter for Redmine
 
@@ -20,7 +17,10 @@ class TimeEntryAdapter(RedmineAdapter):
     period of time and then filtering these by the field updated_on.
     """
 
-    _model_name = 'redmine.account.analytic.line'
+    _name = 'redmine.account.analytic.line.adapter'
+    _inherit = 'redmine.adapter'
+    _apply_on = 'redmine.account.analytic.line'
+    _collection = 'redmine.backend'
 
     def search(self, updated_from, filters):
         """
@@ -43,18 +43,12 @@ class TimeEntryAdapter(RedmineAdapter):
             ]
 
     def get_project(self, project_id):
-        project_cache = self.redmine_cache['project']
-        if project_id not in project_cache:
-            project = self.redmine_api.project.get(project_id)
-            project_cache[project_id] = project
-        return project_cache[project_id]
+        project = self.redmine_api.project.get(project_id)
+        return project
 
     def get_issue(self, issue_id):
-        issue_cache = self.redmine_cache['issue']
-        if issue_id not in issue_cache:
-            issue = self.redmine_api.issue.get(issue_id)
-            issue_cache[issue_id] = issue
-        return issue_cache[issue_id]
+        issue = self.redmine_api.issue.get(issue_id)
+        return issue
 
     def read(self, redmine_id):
         self._auth()
@@ -63,15 +57,20 @@ class TimeEntryAdapter(RedmineAdapter):
             entry = self.redmine_api.time_entry.get(redmine_id)
         except exceptions.ResourceNotFoundError:
             return None
+        except exceptions.ForbiddenError:
+            return None
 
         issue = 'issue' in dir(entry) and self.get_issue(entry.issue.id)
         project = self.get_project(entry.project.id)
 
         custom_field = self.backend_record.contract_ref
 
-        contract_ref = next((
-            field.value for field in project.custom_fields
-            if field.name == custom_field), False)
+        if hasattr(project, 'custom_fields'):
+            contract_ref = next((
+                field.value for field in project.custom_fields
+                if field.name == custom_field), False)
+        elif hasattr(project, self.backend_record.contract_ref):
+            contract_ref = getattr(project, self.backend_record.contract_ref)
 
         if not contract_ref:
             raise cn_exception.InvalidDataError(
@@ -81,9 +80,7 @@ class TimeEntryAdapter(RedmineAdapter):
                     'project': project.name
                 })
 
-        user = self.redmine_api.user.get(entry.user.id)
-
-        return {
+        res = {
             'entry_id': long(entry.id),
             'spent_on': entry.spent_on,
             'hours': entry.hours,
@@ -93,5 +90,14 @@ class TimeEntryAdapter(RedmineAdapter):
             'project_name': project.name,
             'project_id': long(project.id),
             'updated_on': entry.updated_on,
-            'user_login': user.login,
         }
+
+        user = self.redmine_api.user.get(entry.user.id)
+        if hasattr(user, 'login'):
+            res['user_login'] = user.login
+        elif hasattr(user, 'firstname') and hasattr(user, 'lastname'):
+            res['user_name'] = '%s %s' % (user.firstname, user.lastname)
+        else:
+            raise Exception("Can't find user login nor firstname nor lastname")
+
+        return res

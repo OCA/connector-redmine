@@ -5,15 +5,12 @@
 from odoo import api, fields, models
 from odoo.exceptions import Warning
 from odoo.tools.translate import _
-from ..connector import RedmineEnvironment
-from ..unit.backend_adapter import RedmineAdapter
 
 
 class RedmineBackend(models.Model):
     _name = 'redmine.backend'
     _description = 'Redmine Backend'
     _inherit = 'connector.backend'
-    _backend_type = 'redmine'
     _rec_name = 'location'
 
     def _select_versions(self):
@@ -35,25 +32,8 @@ class RedmineBackend(models.Model):
         string='Version',
         required=True
     )
-    default_lang_id = fields.Many2one(
-        'res.lang',
-        'Default Language',
-        help="If a default language is selected, the records "
-             "will be imported in the translation of this language.\n"
-             "Note that a similar configuration exists "
-             "for each storeview.")
 
     is_default = fields.Boolean('Default Redmine Service')
-    active = fields.Boolean('Active', default=True)
-
-    @api.multi
-    def get_base_adapter(self):
-        """
-        Get an adapter to test the backend connection
-        """
-        self.ensure_one()
-        environment = RedmineEnvironment(self, None)
-        return RedmineAdapter(environment)
 
     @api.multi
     def check_auth(self):
@@ -61,7 +41,8 @@ class RedmineBackend(models.Model):
         Check the authentication with Redmine
         """
         self.ensure_one()
-        adapter = self.get_base_adapter()
+        with self.work_on('redmine.backend') as work:
+            adapter = work.component(usage='backend.adapter')
 
         try:
             adapter._auth()

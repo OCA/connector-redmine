@@ -23,9 +23,8 @@
                         string="Test Authentication"
                         colspan="2"/>
                 <field name="version"/>
-                <field name="default_lang_id"/>
                 <field name="is_default"/>
-                <field name="active"/>
+                <!--<field name="active"/>-->
               </group>
             </group>
             <notebook/>

@@ -4,9 +4,8 @@
 
 from odoo import api, fields, models
 from odoo.tools.translate import _
-from odoo.addons.connector_redmine.unit.import_synchronizer import (
-    import_batch)
 from odoo.tools import ustr
+from odoo.exceptions import UserError
 
 from datetime import datetime, timedelta
 
@@ -47,28 +46,32 @@ class redmine_backend(models.Model):
         Check if the contract_ref field exists in redmine
         """
         self.ensure_one()
-        adapter = self.get_base_adapter()
+        with self.work_on('redmine.backend') as work:
+            adapter = work.component(usage='backend.adapter')
 
         try:
             adapter._auth()
         except Exception as e:
-            raise Warning(
-                type(e), _('Could not connect to Redmine: %s') % ustr(e))
+            raise UserError(
+                'Could not connect to Redmine: %s' % ustr(e))
 
         projects = adapter.redmine_api.project.all()
         exist = False
 
         if projects:
-            for cs in projects[0].custom_fields:
-                if cs['name'] == self.contract_ref:
-                    exist = True
+            if hasattr(projects[0], 'custom_fields'):
+                for cs in projects[0].custom_fields:
+                    if cs['name'] == self.contract_ref:
+                        exist = True
+            elif hasattr(projects[0], self.contract_ref):
+                exist = True
 
         if exist is True:
-            raise Warning(
-                _('Connection test succeeded'
+            raise UserError(
+                _('Connection test succeeded\n'
                   'Everything seems properly set up'))
         else:
-            raise Warning(
+            raise UserError(
                 _("Redmine backend configuration error\n"
                   "The contract # field name doesn't exist.")
             )
@@ -90,4 +93,4 @@ class redmine_backend(models.Model):
             _logger.info(
                 'Scheduling time entry batch import from Redmine '
                 'with backend %s.' % backend.name)
-            import_batch.delay(model, backend, filters=filters)
+            self.env[model].with_delay().import_batch(backend, filters=filters)

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # © 2016 Savoir-faire Linux
+# © 2018 Lorenzo Battistini - Agile Business Group
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
@@ -13,10 +14,8 @@
     'depends': [
         'connector',
         'hr_timesheet_sheet',
+        'project',
     ],
-    'external_dependencies': {
-        'python': ['redmine'],
-    },
     'data': [
         'security/ir.model.access.csv',
         'views/redmine_backend_view.xml',

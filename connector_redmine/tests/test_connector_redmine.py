@@ -149,7 +149,7 @@ class TestRedmineConnector(TransactionCase):
         binder_obj = binder.RedmineModelBinder(self.environment)
 
         redmine_id = binder_obj.to_external(
-            self.redmine_timesheet.openerp_id, wrap=True)
+            self.redmine_timesheet.odoo_id, wrap=True)
         redmine_id_2 = binder_obj.to_external(self.redmine_timesheet)
 
         self.assertEqual(redmine_id, redmine_id_2)

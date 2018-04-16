@@ -17,5 +17,5 @@ class ResUsers(models.Model):
 
     def __init__(self, pool, cr):
         super(ResUsers, self).__init__(pool, cr)
-        self.SELF_WRITEABLE_FIELDS = list(self.SELF_WRITEABLE_FIELDS)
-        self.SELF_WRITEABLE_FIELDS.extend(['redmine_backend_id'])
+        type(self).SELF_WRITEABLE_FIELDS = list(self.SELF_WRITEABLE_FIELDS)
+        type(self).SELF_WRITEABLE_FIELDS.extend(['redmine_backend_id'])

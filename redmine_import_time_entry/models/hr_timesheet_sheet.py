@@ -6,7 +6,6 @@ from odoo import api, models
 from odoo.exceptions import ValidationError
 
 from odoo.tools.translate import _
-from ..unit.import_synchronizer import import_single_user_time_entries
 
 
 class HrTimesheetSheet(models.Model):
@@ -50,8 +49,14 @@ class HrTimesheetSheet(models.Model):
                     employee.name)
             backend = user.redmine_backend_id
 
-        mapping_errors = import_single_user_time_entries(
-            backend, employee.user_id.login, self.date_from, self.date_to)
+        filters = {
+            'login': employee.user_id.login,
+            'from_date': self.date_from,
+            'to_date': self.date_to,
+        }
+        with backend.work_on('redmine.account.analytic.line') as work:
+            importer = work.component(usage='batch.importer')
+            mapping_errors = importer.run_single_user(filters=filters)
 
         if mapping_errors:
             part_1 = _(

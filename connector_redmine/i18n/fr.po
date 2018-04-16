@@ -443,7 +443,7 @@ msgid ""
 msgstr ""
 
 #. module: connector_redmine
-#: field:redmine.account.analytic.line,openerp_id:0
+#: field:redmine.account.analytic.line,odoo_id:0
 msgid "Timesheet"
 msgstr "Feuilles de temps"
 

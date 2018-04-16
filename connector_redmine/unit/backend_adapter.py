@@ -4,20 +4,20 @@
 
 from odoo.tools.translate import _
 import odoo.addons.connector.exception as cn_exception
-from odoo.addons.connector.unit.backend_adapter import BackendAdapter
 from odoo.tools import ustr
 from requests.exceptions import ConnectionError
+from odoo.addons.component.core import AbstractComponent, Component
 
 import logging
 _logger = logging.getLogger(__name__)
 
 try:
-    from redmine import Redmine, exceptions
+    from redminelib import Redmine, exceptions
 except (ImportError, IOError) as err:
     _logger.warning('python-redmine not installed!')
 
 
-class RedmineAdapter(BackendAdapter):
+class RedmineAdapter(AbstractComponent):
     """
     Backend Adapter for Redmine
 
@@ -31,6 +31,10 @@ class RedmineAdapter(BackendAdapter):
     in unit tests.
     """
 
+    _name = 'redmine.adapter'
+    _inherit = ['base.backend.adapter', 'base.connector']
+    _usage = 'backend.adapter'
+
     def _auth(self):
         auth_data = self.backend_record.read(['location', 'key'])[0]
 
@@ -41,15 +45,15 @@ class RedmineAdapter(BackendAdapter):
             )
             redmine_api.auth()
 
-        except (exceptions.AuthError, ConnectionError) as err:
+        except (exceptions.AuthError, ConnectionError) as e:
             raise cn_exception.FailedJobError(
                 _('Redmine connection Error: '
-                    'Invalid authentications key.'))
+                    'Invalid authentications key. (%s)') % e)
 
-        except (exceptions.UnknownError, exceptions.ServerError) as err:
+        except (exceptions.UnknownError, exceptions.ServerError) as e:
             raise cn_exception.NetworkRetryableError(
                 _('A network error caused the failure of the job: '
-                    '%s') % ustr(err))
+                    '%s') % ustr(e))
 
         self.redmine_api = redmine_api
 
@@ -70,6 +74,8 @@ class RedmineAdapter(BackendAdapter):
 
         return user_id
 
-    @property
-    def redmine_cache(self):
-        return self.connector_env.redmine_cache
+class BackendAdapter(Component):
+
+    _name = 'redmine.backend.adapter'
+    _inherit = 'redmine.adapter'
+    _apply_on = 'redmine.backend'
