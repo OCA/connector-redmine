@@ -76,6 +76,17 @@ class TimeEntryBatchImportSynchronizer(Component):
         return mapping_errors
 
 
+class TimeEntryBatchDeleterSynchronizer(Component):
+
+    _name = 'redmine.account.analytic.line.batch.deleter'
+    _inherit = 'redmine.importer'
+    _usage = 'batch.deleter'
+    _apply_on = 'redmine.account.analytic.line'
+
+    def get_all_records(self, filters=None):
+        return self.backend_adapter.search(None, filters)
+
+
 class TimeEntryImportSynchronizer(Component):
 
     _name = 'redmine.account.analytic.line.importer'

@@ -82,15 +82,15 @@ class redmine_backend(models.Model):
         for backend in backends:
             today = datetime.now()
             date_to = to_string(today)
-            date_from = today - timedelta(
-                days=backend.time_entry_number_of_days)
-
+            date_from = to_string(today - timedelta(
+                days=backend.time_entry_number_of_days))
             filters = {
                 'from_date': date_from,
                 'to_date': date_to,
             }
             model = 'redmine.account.analytic.line'
             _logger.info(
-                'Scheduling time entry batch import from Redmine '
+                'Scheduling time entry batch synchronization from Redmine '
                 'with backend %s.' % backend.name)
             self.env[model].with_delay().import_batch(backend, filters=filters)
+            self.env[model].with_delay().delete_batch(backend, filters=filters)
