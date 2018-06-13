@@ -17,6 +17,7 @@
                             string="Test Contract # field name"
                             colspan="2"
                         />
+                        <field name="sync_tasks" cospan="2"/>
                     </group>
                     <group>
                         <field name="time_entry_last_update"/>

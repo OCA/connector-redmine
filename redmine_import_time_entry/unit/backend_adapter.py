@@ -90,7 +90,11 @@ class TimeEntryAdapter(Component):
             'project_name': project.name,
             'project_id': long(project.id),
             'updated_on': entry.updated_on,
+            'comments': entry.comments,
         }
+
+        if self.backend_record.sync_tasks:
+            res['version'] = issue.version
 
         user = self.redmine_api.user.get(entry.user.id)
         if hasattr(user, 'login'):

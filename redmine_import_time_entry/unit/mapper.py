@@ -22,6 +22,8 @@ class TimeEntryImportMapper(Component):
     @mapping
     def name(self, record):
         name = self.backend_record.location
+        if record.get('comments'):
+            name = "%s - %s" % (record['comments'], name)
 
         issue_id = record['issue_id']
 
@@ -64,10 +66,19 @@ class TimeEntryImportMapper(Component):
                 })
 
         project = projects[0]
-
-        return {
+        res = {
             'project_id': project.id,
         }
+
+        if record.get('version'):
+            task = self.env['project.task'].search([
+                ('project_id', '=', project.id),
+                ('name', '=', record['version'])
+            ])
+            if len(task) == 1:
+                res['task_id'] = task.id
+
+        return res
 
     @mapping
     def user_id(self, record):
