@@ -51,11 +51,29 @@ class TimeEntryImportMapper(RedmineImportMapper):
                     'project_name': record['project_name'],
                 })
 
+        # Check that the account and the user have the same company
+        user_id = self.user_id(record)['user_id']
+        user = self.env['res.users'].browse(user_id)
+        if user.company_id != account.company_id:
+            raise MappingError(_('Cross-company import attempted!'))
+	    # FIXME: it would be nicer to silently drop this particular entry
+
         account = accounts[0]
+
+        to_invoice = account.to_invoice.id
+        # check if redmine has a no-bill admin flag set
+        fields = record['custom_fields']
+        custom_field = u'Admin flags'
+        admin_flag = next((
+            field.value for field in project.custom_fields
+            if field.name == custom_field), False)
+        # u'2' is magic for no-bill
+        if admin_flag and admin_flag == u'2':
+            to_invoice = False
 
         return {
             'account_id': account.id,
-            'to_invoice': account.to_invoice.id,
+            'to_invoice': to_invoice,
         }
 
     @mapping
