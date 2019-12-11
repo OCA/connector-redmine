@@ -6,4 +6,11 @@
 Odoo modules to connect with Redmine (http://redmine.org) based on various scenario.
 
 [//]: # (addons)
+Available addons
+----------------
+addon | version | summary
+--- | --- | ---
+[connector_redmine](connector_redmine/) | 8.0.1.0.0 | Redmine Connector
+[redmine_import_time_entry](redmine_import_time_entry/) | 8.0.1.0.0 | Redmine Import Time Entry
+
 [//]: # (end addons)

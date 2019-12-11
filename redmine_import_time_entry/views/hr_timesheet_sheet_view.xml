@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_timesheet_sheet_form" model="ir.ui.view">
+            <field name="name">hr.timesheet.sheet.form</field>
+            <field name="model">hr_timesheet_sheet.sheet</field>
+            <field name="inherit_id" ref="hr_timesheet_sheet.hr_timesheet_sheet_form"/>
+            <field name="arch" type="xml">
+                <field name="state" position="before">
+                    <button type="object"
+                        name="import_timesheets_from_redmine"
+                        string="Import from Redmine"
+                        states="new,draft"
+                        />
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
