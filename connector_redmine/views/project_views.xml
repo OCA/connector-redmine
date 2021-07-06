@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Project -->
+    <record id="edit_project_redmine" model="ir.ui.view">
+        <field name="name">project.project.form</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='options_active']" position="before">
+                <div>
+                    <field name="redmine_project_url" placeholder="e.g. http://redmine.url/projects/projectname/" widget="url"/>
+                    <group>
+                        <field name="last_imported_on" string="Last imported on" attrs="{'invisible':[('redmine_project_url', '=', False)]}" />
+                        <button name="import_issues_from_redmine" string="Import issues from Redmine" type="object" class="oe_highlight" attrs="{'invisible':[('redmine_project_url', '=', False)]}" />
+                    </group>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="default_redmine_user" />
+            </xpath>
+            <xpath expr="//field[@name='message_follower_ids']" position="after">
+                <field name="message_ids" widget="mail_thread" />
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Projekt Task -->
+    <record id="view_task_form2_redmine" model="ir.ui.view">
+        <field name="name">project.task.form.inherit2</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='project_id']" position="after">
+                <field name="redmine_issue_url" widget="url" />
+                <field name="last_update" />
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="before">
+                <field name="redmine_user" />
+            </xpath>
+            <!--
+                Since Odoo 12 a task can either have a parent or subtasks.
+                So, it wasn't allowed anymore to have multi-level task hierarchy.
+                Since we want this, we also want to see the subtask smartbutton and the parent.
+                -->
+            <xpath expr="//button[@name='action_subtask']" position="attributes">
+                <attribute name="attrs"/>
+            </xpath>
+            <xpath expr="//field[@name='parent_id']" position="attributes">
+                <attribute name="attrs"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_task_kanban_redmine" model="ir.ui.view">
+        <field name="name">project.task.kanban.redmine</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='project_id']" position="after">
+                <field name="redmine_issue_url" widget="url" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_task_tree2_redmine" model="ir.ui.view">
+        <field name="name">project.task.tree.redmine</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_tree2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='project_id']" position="before">
+                <field name="redmine_issue_url" widget="url" />
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Projekt Task Type -->
+    <record id="task_type_edit_redmine" model="ir.ui.view">
+        <field name="name">project.task.type.form.inherit</field>
+        <field name="model">project.task.type</field>
+        <field name="inherit_id" ref="project.task_type_edit" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="redmine_issue_state" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

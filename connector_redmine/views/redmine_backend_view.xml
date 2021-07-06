@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record id="view_redmine_backend_form" model="ir.ui.view">
+      <field name="name">redmine.backend.form</field>
+      <field name="model">redmine.backend</field>
+      <field name="arch" type="xml">
+        <form string="Redmine Backend">
+          <sheet>
+            <label for="name" class="oe_edit_only"/>
+            <h1>
+              <field name="name" class="oe_inline"/>
+            </h1>
+            <group name="redmine" string="Redmine Configuration" groups="connector.group_connector_manager">
+              <group colspan="4" col="4">
+                <field name="location" placeholder="e.g. http://redmine.url/"
+                    colspan="4"/>
+                <field name="key" colspan="2"/>
+                <button name="check_auth"
+                        type="object"
+                        class="oe_highlight"
+                        string="Test Authentication"
+                        colspan="2"/>
+                <field name="version"/>
+                <!--<field name="active"/>-->
+                <field name="proxy" placeholder="e.g. http://proxy:8081"
+                    colspan="2"/>
+                <field name="verify_ssl"/>
+              </group>
+            </group>
+            <notebook/>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="view_redmine_backend_tree" model="ir.ui.view">
+      <field name="name">redmine.backend.tree</field>
+      <field name="model">redmine.backend</field>
+      <field name="arch" type="xml">
+        <tree string="Redmine Backend">
+          <field name="name"/>
+          <field name="location"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="action_redmine_backend" model="ir.actions.act_window">
+      <field name="name">Redmine Backend</field>
+      <field name="res_model">redmine.backend</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="view_redmine_backend_tree"/>
+    </record>
+
+    <!-- Redmine project identification -->
+    <record id="view_redmine_backend_form_inherit" model="ir.ui.view">
+        <field name="name">redmine.backend.form</field>
+        <field name="model">redmine.backend</field>
+        <field name="inherit_id" ref="connector_redmine.view_redmine_backend_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='verify_ssl']" position="after">
+                <field name="contract_ref" colspan="2"/>
+                <button name="check_contract_ref"
+                        string="Test Redmine Project Identification"
+                        type="object"
+                        class="oe_highlight"
+                        colspan="2"
+                />
+            </xpath>
+        </field>
+    </record>
+
+  </data>
+</odoo>
