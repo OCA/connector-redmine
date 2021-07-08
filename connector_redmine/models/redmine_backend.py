@@ -1,7 +1,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, fields, models
-from odoo.exceptions import UserError, Warning
+from odoo import api, fields, models, exceptions
 from odoo.tools.misc import ustr
 from odoo.tools.translate import _
 
@@ -58,9 +57,9 @@ class RedmineBackend(models.Model):
         try:
             adapter._auth()
         except Exception:
-            raise Warning(_("Could not connect to Redmine."))
+            raise exceptions.Warning(_("Could not connect to Redmine."))
 
-        raise Warning(
+        raise exceptions.Warning(
             _("Connection test succeeded. " "Everything seems properly set up.")
         )
 
@@ -75,7 +74,7 @@ class RedmineBackend(models.Model):
         try:
             adapter._auth()
         except Exception as e:
-            raise UserError(_("Connection to Redmine failed: %s") % ustr(e))
+            raise exceptions.UserError(_("Connection to Redmine failed: %s") % ustr(e))
 
         projects = adapter.redmine_api.project.all()
         exist = False
@@ -91,20 +90,20 @@ class RedmineBackend(models.Model):
                 exist = True
 
         if not exist:
-            raise UserError(
+            raise exceptions.UserError(
                 _(
                     "Redmine backend configuration error:\n"
                     "The Redmine project identification name doesn't exist."
                 )
             )
         elif not assigned:
-            raise UserError(
+            raise exceptions.UserError(
                 _(
                     "Redmine backend configuration error:\n"
                     "The Redmine project identification field is not assigned in Redmine."
                 )
             )
         else:
-            raise UserError(
+            raise exceptions.UserError(
                 _("Connection test succeeded. Everything seems properly set up.")
             )

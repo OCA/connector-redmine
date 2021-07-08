@@ -17,6 +17,7 @@ class RedmineTimeEntryAdapter(Component):
     _collection = "redmine.backend"
 
     def read(self, record_id):
+        # super(RedmineTimeEntryAdapter, self).read(record_id)
         self._auth()
 
         try:

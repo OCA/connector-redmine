@@ -97,6 +97,7 @@ class RedmineIssueAdapter(Component):
         return redmine_project_ids[0]
 
     def read(self, record_id):
+        # super(RedmineIssueAdapter, self).read(record_id)
         self._auth()
 
         try:

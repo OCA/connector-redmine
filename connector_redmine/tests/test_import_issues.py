@@ -47,6 +47,7 @@ class TestImportIssues(BaseRedmineTestCase):
             "contract_ref": self.project.name,
             "updated_on": datetime(2015, 4, 8, 20, 38, 31),
             "time_entry": time_entry,
+            "entry_id": 123,
             "user_login": "user_1",
             "redmine_id": 123,
         }

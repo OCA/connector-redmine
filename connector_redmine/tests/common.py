@@ -28,14 +28,12 @@ class BaseRedmineTestCase(TransactionComponentCase):
         self.project_model = self.env["project.project"]
         self.task_model = self.env["project.task"]
         self.issue_model = self.env["redmine.issue"]
-
         self.user_1 = self.user_model.create(
             {
                 "name": "User 1",
                 "login": "user_1",
             }
         )
-
         self.project = self.project_model.create(
             {
                 "name": "Project_1",
@@ -53,7 +51,6 @@ class BaseRedmineTestCase(TransactionComponentCase):
             }
         )
         self.account = self.project.analytic_account_id
-
         self.project_2 = self.project_model.create(
             {
                 "name": "Project_2",
@@ -62,11 +59,8 @@ class BaseRedmineTestCase(TransactionComponentCase):
                 "redmine_project_url": "http://localhost:3000/projects/project2",
             }
         )
-
         self.account_2 = self.project_2.analytic_account_id
-
         self.product = self.product_model.search([("type", "=", "service")])[0]
-
         self.general_account = self.general_account_model.create(
             {
                 # 'type': 'other',
@@ -76,13 +70,11 @@ class BaseRedmineTestCase(TransactionComponentCase):
                 "user_type_id": self.ref("account.data_account_type_expenses"),
             }
         )
-
         self.product.write(
             {
                 "property_account_expense_id": self.general_account.id,
             }
         )
-
         self.employee = self.employee_model.create(
             {
                 "name": "Employee 1",
@@ -91,7 +83,6 @@ class BaseRedmineTestCase(TransactionComponentCase):
                 # 'product_id': self.product.id,
             }
         )
-
         self.backend = self.backend_model.create(
             {
                 "name": "redmine_test",
@@ -102,11 +93,8 @@ class BaseRedmineTestCase(TransactionComponentCase):
                 # "location": "http://localhost:3000/",
             }
         )
-
-
         self.now = datetime.now()
         self.date_now = datetime.now().date()
-
         self.issue = self.issue_model.create(
             {
                 "name": "Redmine issue",
@@ -116,7 +104,6 @@ class BaseRedmineTestCase(TransactionComponentCase):
                 "sync_date": self.now,
             }
         )
-
         self.timesheet_vals = {
             "redmine_id": 123,
             "updated_on": self.now,
@@ -132,5 +119,4 @@ class BaseRedmineTestCase(TransactionComponentCase):
             "unit_amount": 5,
             "name": "Test",
         }
-
         self.redmine_timesheet = self.redmine_model.create(self.timesheet_vals)

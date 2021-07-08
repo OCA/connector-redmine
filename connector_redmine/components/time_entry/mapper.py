@@ -68,7 +68,7 @@ class RedmineTimeEntryImportMapper(Component):
 
     @mapping
     def redmine_time_entry_id(self, record):
-        return {"redmine_time_entry_id": record["redmine_id"]}
+        return {"redmine_time_entry_id": record["entry_id"]}
 
     @mapping
     def task_id(self, record):

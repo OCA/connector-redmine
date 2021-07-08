@@ -6,7 +6,7 @@ import odoo.addons.component.exception as cn_exception  # port to v12
 from odoo.addons.component.core import AbstractComponent
 from odoo.tools import ustr
 from odoo.tools.translate import _
-from requests.exceptions import ConnectionError
+from requests import exceptions
 
 _logger = logging.getLogger(__name__)
 
@@ -49,7 +49,7 @@ class RedmineAdapter(AbstractComponent):
             )
             redmine_api.auth()
 
-        except (exceptions.AuthError, ConnectionError) as e:
+        except (exceptions.AuthError, exceptions.ConnectionError) as e:
             raise cn_exception.FailedJobError(
                 _("Redmine connection Error: " "Invalid authentications key. (%s)") % e
             )
