@@ -1,0 +1,1087 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* connector_redmine
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-07-05 14:51+0000\n"
+"PO-Revision-Date: 2021-07-05 14:51+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/models/redmine_backend.py:16
+#, python-format
+msgid "1.3 and higher"
+msgstr "1.3 und höher"
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/components/base/adapter.py:59
+#, python-format
+msgid "A network error caused the failure of the job: %s"
+msgstr "Ein Netzwerkfehler hat einen Fehler im Job: %s verursacht."
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__access_warning
+msgid "Access warning"
+msgstr "Zugriffswarnung"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__message_needaction
+msgid "Action Needed"
+msgstr "Aktion notwendig"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__active
+msgid "Active"
+msgstr "Aktiv"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__activity_ids
+msgid "Activities"
+msgstr "Aktivitäten"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__activity_state
+msgid "Activity State"
+msgstr "Aktivitätsstatus"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__allow_timesheets
+msgid "Allow timesheets"
+msgstr "Zeitnachweise erlauben"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_account_analytic_line__amount
+msgid "Amount"
+msgstr "Betrag"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_account_analytic_line__account_id
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__analytic_account_active
+msgid "Analytic Account"
+msgstr "Analysekonto"
+
+#. module: connector_redmine
+#: model:ir.model,name:connector_redmine.model_account_analytic_line
+msgid "Analytic Line"
+msgstr "Analytischer Buchungssatz"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_project_task__user_id
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__user_id
+msgid "Assigned to"
+msgstr "Zugewiesen an"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__date_assign
+msgid "Assigning Date"
+msgstr "Zuweisungsdatum"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__message_attachment_count
+msgid "Attachment Count"
+msgstr "# Anhänge"
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_redmine_issue__attachment_ids
+msgid "Attachment that don't come from message."
+msgstr "Anhang, der nicht von der Nachricht stammt."
+
+#. module: connector_redmine
+#: model:ir.ui.menu,name:connector_redmine.menu_redmine_backend
+msgid "Backends"
+msgstr ""
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_redmine_issue__subtask_project_id
+msgid "Choosing a sub-tasks project will both enable sub-tasks and set their default project (possibly the project itself)"
+msgstr "Indem Sie ein Unteraufgaben-Projekt auswählen, werden Unteraufgaben aktiviert und es wird deren Standard-Projekt festgelegt (eventuell das Projekt selbst)."
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__color
+msgid "Color Index"
+msgstr "Farbkennzeichnung"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_account_analytic_line__company_id
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__company_id
+msgid "Company"
+msgstr "Unternehmen"
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_redmine_issue__total_hours_spent
+msgid "Computed as: Time Spent + Sub-tasks Hours."
+msgstr "Berechnet als: Zeitaufwand + Stunden für Unteraufgaben."
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_redmine_issue__subtask_planned_hours
+msgid "Computed using sum of hours planned of all subtasks created from main task. Usually these hours are less or equal to the Planned Hours (of main task)."
+msgstr "Berechnet aus der Summe der geplanten Stunden aller Teilaufgaben, die aus der Hauptaufgabe erstellt wurden. In der Regel sind diese Stunden kleiner oder gleich den geplanten Stunden (der Hauptaufgabe)."
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_redmine_issue__effective_hours
+msgid "Computed using the sum of the task work done."
+msgstr "Berechnet auf Basis der Summe der abgearbeiteten Aufgaben."
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/models/redmine_backend.py:64
+#: code:addons/connector_redmine/models/redmine_backend.py:109
+#, python-format
+msgid "Connection test succeeded. Everything seems properly set up."
+msgstr "Verbindungstest war erfolgreich. Alles scheint korrekt eingerichtet zu sein."
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/models/redmine_backend.py:78
+#, python-format
+msgid "Connection to Redmine failed: %s"
+msgstr "Die Verbindung zu Redmine ist fehlgeschlagen: %s"
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/models/redmine_backend.py:61
+#, python-format
+msgid "Could not connect to Redmine."
+msgstr "Es konnte keine Verbindung zur Redmine aufgebaut werden."
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__displayed_image_id
+msgid "Cover Image"
+msgstr "Titelbild"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_account_analytic_line__create_uid
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_backend__create_uid
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__create_uid
+msgid "Created by"
+msgstr "Erstellt von"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_account_analytic_line__create_date
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_backend__create_date
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__create_date
+msgid "Created on"
+msgstr "Erstellt am"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_account_analytic_line__currency_id
+msgid "Currency"
+msgstr "Währung"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__partner_id
+msgid "Customer"
+msgstr "Kunde"
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_redmine_issue__access_url
+msgid "Customer Portal URL"
+msgstr "Kundenportal-URL"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_account_analytic_line__date
+msgid "Date"
+msgstr "Datum"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__date_deadline
+msgid "Deadline"
+msgstr "Frist"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_project_project__default_redmine_user
+msgid "Default Redmine User"
+msgstr "Standard-Redmine-Benutzer"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_account_analytic_line__department_id
+msgid "Department"
+msgstr "Abteilung"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_account_analytic_line__name
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__description
+msgid "Description"
+msgstr "Beschreibung"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_account_analytic_line__display_name
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_backend__display_name
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_binding__display_name
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__display_name
+msgid "Display Name"
+msgstr "Anzeigename"
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_project_task__progress
+#: model:ir.model.fields,help:connector_redmine.field_redmine_issue__progress
+msgid "Display progress of current task."
+msgstr "Das Feld zeigt den Fortschritt der Aufgabe an."
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_project_project__last_imported_on
+msgid "During last issue import this was the date and time of the last updated issue."
+msgstr "Während des letzten Ticket-Imports war dies das Datum und die Zeit, zu der das Ticket in Redmine zuletzt geändert wurde."
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_project_task__last_update
+#: model:ir.model.fields,help:connector_redmine.field_redmine_issue__last_update
+msgid "During last issue import this was the date and time this issue was last updated in Redmine."
+msgstr ""
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_account_analytic_line__last_update
+#: model:ir.model.fields,help:connector_redmine.field_redmine_account_analytic_line__last_update
+msgid "During last issue import this was the date and time this time entry was last updated in Redmine."
+msgstr "Während des letzten Ticket-Imports war dies das Datum und die Zeit, zu der das Ticket in Redmine zuletzt geändert wurde."
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__email_from
+msgid "Email"
+msgstr "E-Mail"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_account_analytic_line__employee_id
+msgid "Employee"
+msgstr "Mitarbeiter"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__date_end
+msgid "Ending Date"
+msgstr "Enddatum"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__message_follower_ids
+msgid "Followers"
+msgstr "Abonnenten"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "Abonnenten (Kanäle)"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Abonnenten (Partner)"
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_redmine_issue__sequence
+msgid "Gives the sequence order when displaying a list of tasks."
+msgstr "Die Reihenfolge der Liste der Aufgaben."
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_account_analytic_line__group_id
+msgid "Group"
+msgstr "Gruppe"
+
+#. module: connector_redmine
+#: selection:project.task,priority:0
+msgid "High"
+msgstr "Hoch"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__effective_hours
+msgid "Hours Spent"
+msgstr "Geleistete Stunden"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_account_analytic_line__id
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_backend__id
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_binding__id
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__id
+msgid "ID"
+msgstr ""
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_account_analytic_line__redmine_id
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_binding__redmine_id
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__redmine_id
+msgid "ID in Redmine"
+msgstr ""
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_redmine_issue__message_unread
+msgid "If checked new messages require your attention."
+msgstr "Falls markiert, benötigen neue Nachrichten Ihre Kenntnisnahme."
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_redmine_issue__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Falls markiert, benötigen neue Nachrichten Ihre Kenntnisnahme."
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_redmine_issue__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Das Senden mancher Nachrichten ist fehlgeschlagen wenn dieses Fenster angekreuzt ist."
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_redmine_issue__analytic_account_active
+msgid "If the active field is set to False, it will allow you to hide the account without removing it."
+msgstr "Mit Aktivierung wird die Anzeige für das Finanzkonto verborgen, ohne es löschen zu müssen."
+
+#. module: connector_redmine
+#: selection:project.task,priority:0
+msgid "Immediately"
+msgstr ""
+
+#. module: connector_redmine
+#: model_terms:ir.ui.view,arch_db:connector_redmine.edit_project_redmine
+msgid "Import issues from Redmine"
+msgstr "Redmine-Tickets importieren"
+
+#. module: connector_redmine
+#: model:ir.actions.server,name:connector_redmine.ir_cron_import_issue_ir_actions_server
+#: model:ir.cron,cron_name:connector_redmine.ir_cron_import_issue
+#: model:ir.cron,name:connector_redmine.ir_cron_import_issue
+msgid "Import issues from all projects"
+msgstr "Tickets von allen Projekten importieren"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_project_task__planned_hours
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__planned_hours
+msgid "Initially Planned Hours"
+msgstr "Ursprünglich geplante Stunden"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__message_is_follower
+msgid "Is Follower"
+msgstr "Ist ein Abonnent"
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_project_task__planned_hours
+#: model:ir.model.fields,help:connector_redmine.field_redmine_issue__planned_hours
+msgid "It is the time planned to achieve the task. If this document has sub-tasks, it means the time needed to achieve this tasks and its childs."
+msgstr "Es ist die geplante Zeit, um die Aufgabe zu erfüllen. Wenn dieses Dokument Teilaufgaben hat, bedeutet dies die Zeit, die benötigt wird, um diese Aufgaben und ihre Unteraufgaben zu erfüllen."
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__legend_blocked
+msgid "Kanban Blocked Explanation"
+msgstr "Erläuterung zu gesperrtem Kanban "
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__legend_normal
+msgid "Kanban Ongoing Explanation"
+msgstr "Erläuterung zu Kanban in Bearbeitung"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__kanban_state
+msgid "Kanban State"
+msgstr "Kanban-Status"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__kanban_state_label
+msgid "Kanban State Label"
+msgstr "Kanban Statuslabel"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__legend_done
+msgid "Kanban Valid Explanation"
+msgstr "Erläuterung zu gültigem Kanban "
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_backend__key
+msgid "Key"
+msgstr "Schlüssel"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_account_analytic_line____last_update
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_backend____last_update
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_binding____last_update
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue____last_update
+msgid "Last Modified on"
+msgstr "Zuletzt geändert am"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__date_last_stage_update
+msgid "Last Stage Update"
+msgstr "Aktuellste Stufenaktualisierung"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_account_analytic_line__sync_date
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_binding__sync_date
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__sync_date
+msgid "Last Synchronization Date"
+msgstr "Datum der letzten Synchronisation"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_account_analytic_line__updated_on
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_binding__updated_on
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__updated_on
+msgid "Last Update in Redmine"
+msgstr "Zuletzt in Redmine aktualisiert am"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_account_analytic_line__write_uid
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_backend__write_uid
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__write_uid
+msgid "Last Updated by"
+msgstr "Zuletzt aktualisiert durch"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_account_analytic_line__write_date
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_backend__write_date
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__write_date
+msgid "Last Updated on"
+msgstr "Zuletzt aktualisiert am"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_project_project__last_imported_on
+#: model_terms:ir.ui.view,arch_db:connector_redmine.edit_project_redmine
+msgid "Last imported on"
+msgstr "Zuletzt importiert am"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_account_analytic_line__last_update
+#: model:ir.model.fields,field_description:connector_redmine.field_project_task__last_update
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_account_analytic_line__last_update
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__last_update
+msgid "Last updated on"
+msgstr "Zuletzt aktualisiert am"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_backend__location
+msgid "Location"
+msgstr "Redmine-URL"
+
+#. module: connector_redmine
+#: selection:project.task,priority:0
+msgid "Low"
+msgstr "Niedrig"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Hauptanhänge"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__attachment_ids
+msgid "Main Attachments"
+msgstr "Hauptanhänge"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__message_has_error
+msgid "Message Delivery error"
+msgstr "Error beim senden der Nachricht"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__message_ids
+msgid "Messages"
+msgstr "Nachrichten"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_backend__name
+msgid "Name"
+msgstr "Bezeichnung"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Frist für die nächste Aktivität"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__activity_summary
+msgid "Next Activity Summary"
+msgstr "Zusammenfassung der nächsten Aktivität"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__activity_type_id
+msgid "Next Activity Type"
+msgstr "Typ der nächsten Aktivität"
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/components/issue/mapper.py:133
+#: code:addons/connector_redmine/components/time_entry/mapper.py:56
+#, python-format
+msgid "No Odoo project with name '%s' exists."
+msgstr "Es existiert in Odoo kein Projekt mit Namen '%s'."
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/models/project.py:90
+#, python-format
+msgid "No Redmine backend configured that has this location: %s."
+msgstr "Es existiert kein Redmine-Backend mit dieser URL: %s."
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/components/base/adapter.py:76
+#, python-format
+msgid "No user with login %s found in Redmine."
+msgstr "Es existiert kein User mit dem Login %s in Redmine."
+
+#. module: connector_redmine
+#: selection:project.task,priority:0
+msgid "Normal"
+msgstr "Mittel"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__notes
+msgid "Notes"
+msgstr "Notizen"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Anzahl der Aktionen"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__message_has_error_counter
+msgid "Number of error"
+msgstr "Fehlernummer"
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_redmine_issue__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Anzahl der Nachrichten, die eine Aktion erfordern"
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_redmine_issue__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Anzahl der Nachrichten mit einem Fehler beim Senden."
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_redmine_issue__message_unread_counter
+msgid "Number of unread messages"
+msgstr "Anzahl ungelesener Nachrichten"
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_redmine_issue__legend_blocked
+msgid "Override the default value displayed for the blocked state for kanban selection, when the task or issue is in that stage."
+msgstr "Überschreiben Sie den Standard Wert für den Blockade Status in der Kanban Auswahl, wenn die Aufgabe oder der Vorfall in dieser Stufe ist."
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_redmine_issue__legend_done
+msgid "Override the default value displayed for the done state for kanban selection, when the task or issue is in that stage."
+msgstr "Überschreiben Sie den Standard Wert für den Erledigt Status in der Kanban Auswahl, wenn die Aufgabe oder der Vorfall in dieser Stufe ist."
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_redmine_issue__legend_normal
+msgid "Override the default value displayed for the normal state for kanban selection, when the task or issue is in that stage."
+msgstr "Überschreiben Sie den Standard Wert für den Normal Status in der Kanban Auswahl, wenn die Aufgabe oder der Vorfall in dieser Stufe ist."
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__parent_id
+msgid "Parent Task"
+msgstr "Hauptaufgabe"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_account_analytic_line__partner_id
+msgid "Partner"
+msgstr "Partner"
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_project_task_type__redmine_issue_state
+msgid "Please enter which Redmine Issue-State shall be mapped to this task type."
+msgstr "Geben Sie hier den Redmine-Ticketstatus ein, der dieser Projektstufe entsprechen soll."
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__access_url
+msgid "Portal Access URL"
+msgstr "Portalzugriff-URL"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_project_task__priority
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__priority
+msgid "Priority"
+msgstr "Priorität"
+
+#. module: connector_redmine
+#: model:ir.model,name:connector_redmine.model_project_project
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_account_analytic_line__project_id
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__project_id
+msgid "Project"
+msgstr "Projekt"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__manager_id
+msgid "Project Manager"
+msgstr "Projektmanager"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_backend__proxy
+msgid "Proxy"
+msgstr ""
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_account_analytic_line__unit_amount
+msgid "Quantity"
+msgstr "Menge"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__rating_ids
+msgid "Rating"
+msgstr "Bewertung"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__rating_last_feedback
+msgid "Rating Last Feedback"
+msgstr "Bewertung letztes Feedback"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__rating_last_image
+msgid "Rating Last Image"
+msgstr "Bewertung letztes Bild"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__rating_last_value
+msgid "Rating Last Value"
+msgstr "Bewertung letzten Werte"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__rating_count
+msgid "Rating count"
+msgstr "Bewertung Anzahl"
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_redmine_issue__rating_last_feedback
+msgid "Reason of the rating"
+msgstr "Begründung der Bewertung"
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/components/base/synchronizer.py:74
+#, python-format
+msgid "Record does no longer exist in Redmine."
+msgstr "Der Datensatz existiert nicht mehr in Redmine."
+
+#. module: connector_redmine
+#: model:ir.ui.menu,name:connector_redmine.menu_redmine_root
+msgid "Redmine"
+msgstr ""
+
+#. module: connector_redmine
+#: model:ir.actions.act_window,name:connector_redmine.action_redmine_backend
+#: model:ir.model,name:connector_redmine.model_redmine_backend
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_account_analytic_line__backend_id
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_binding__backend_id
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__backend_id
+#: model_terms:ir.ui.view,arch_db:connector_redmine.view_redmine_backend_form
+#: model_terms:ir.ui.view,arch_db:connector_redmine.view_redmine_backend_tree
+msgid "Redmine Backend"
+msgstr "Redmine-Backend"
+
+#. module: connector_redmine
+#: model:ir.model,name:connector_redmine.model_redmine_binding
+msgid "Redmine Binding (Abstract)"
+msgstr "Redmine-Verbindung (Abtrakt)"
+
+#. module: connector_redmine
+#: model_terms:ir.ui.view,arch_db:connector_redmine.view_redmine_backend_form
+msgid "Redmine Configuration"
+msgstr "Redmine-Konfiguration"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_account_analytic_line__redmine_time_entry_id
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_account_analytic_line__redmine_time_entry_id
+msgid "Redmine ID"
+msgstr "Redmine-ID"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_project_task__redmine_issue_url
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_account_analytic_line__issue_id
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__redmine_issue_url
+msgid "Redmine Issue"
+msgstr "Redmine-Ticket"
+
+#. module: connector_redmine
+#: model:ir.model,name:connector_redmine.model_redmine_issue
+msgid "Redmine Issue Binding"
+msgstr "Redmine-Ticket-Verbindung"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_project_task_type__redmine_issue_state
+msgid "Redmine Issue State"
+msgstr "Redmine-Ticketstatus"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_project_project__redmine_project_url
+msgid "Redmine Project"
+msgstr "Redmine-Projekt"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_backend__contract_ref
+msgid "Redmine Project Identification"
+msgstr "Redmine-Projektidentifikation"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__timesheet_ids
+msgid "Redmine Time Entries"
+msgstr "Redmine-Zeiterfassungen"
+
+#. module: connector_redmine
+#: model:ir.model,name:connector_redmine.model_redmine_account_analytic_line
+msgid "Redmine Time Entry Binding"
+msgstr "Redmine-Zeiterfassungsverbindung"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_project_task__redmine_user
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__redmine_user
+msgid "Redmine User"
+msgstr "Redmine-Benutzer"
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/models/redmine_backend.py:102
+#, python-format
+msgid "Redmine backend configuration error:\n"
+"The Redmine project identification field is not assigned in Redmine."
+msgstr "Redmine-Backend-Konfigurationsfehler:\n"
+"Das Feld für die Redmine-Projektidentikation ist im Redmine nicht ausgefüllt."
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/models/redmine_backend.py:95
+#, python-format
+msgid "Redmine backend configuration error:\n"
+"The Redmine project identification name doesn't exist."
+msgstr "Redmine-Backend-Konfigurationsfehler:\n"
+"Der Name des Feldes für die Redmine-Projektidentikation existiert im Redmine nicht."
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/components/base/adapter.py:54
+#, python-format
+msgid "Redmine connection Error: Invalid authentications key. (%s)"
+msgstr "Redmine-Verbindungsfehler: Ungültiger Authentifizierungsschlüssel. (%s)"
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/components/issue/adapter.py:139
+#: code:addons/connector_redmine/components/time_entry/adapter.py:56
+#, python-format
+msgid "Redmine-Issue: %s - The user %s does not exist in Redmine anymore."
+msgstr "Redmine-Ticket: %s - Der Benutzer %s existiert in Redmine nicht mehr."
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__remaining_hours
+msgid "Remaining Hours"
+msgstr "Verbleibende Stunden"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__activity_user_id
+msgid "Responsible User"
+msgstr "Verantwortlicher Benutzer"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__access_token
+msgid "Security Token"
+msgstr "Sicherheitstoken"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__sequence
+msgid "Sequence"
+msgstr "Nummernfolge"
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/models/project.py:60
+#, python-format
+msgid "Some issues were not imported from Redmine."
+msgstr "Einige Tickets wurden nicht von Redmine importiert."
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__stage_id
+msgid "Stage"
+msgstr "Stufe"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__date_start
+msgid "Starting Date"
+msgstr "Startdatum"
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_redmine_issue__activity_state
+msgid "Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr "Der Status hängt von den Aktivitäten ab.\n"
+"Überfällig: Das Fälligkeitsdatum der Aktivität ist überschritten.\n"
+"Heute: Die Aktivität findet heute statt.\n"
+"Geplant: Die Aktivitäten findet in der Zukunft statt."
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__subtask_project_id
+msgid "Sub-task Project"
+msgstr "Unteraufgaben-Projekt"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__subtask_count
+msgid "Sub-task count"
+msgstr "Anzahl Unteraufgaben"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__child_ids
+msgid "Sub-tasks"
+msgstr "Unteraufgaben"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__subtask_effective_hours
+msgid "Sub-tasks Hours Spent"
+msgstr "Aufgewendete Stunden für Unteraufgaben"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__subtask_planned_hours
+msgid "Subtasks"
+msgstr "Teilaufgaben"
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_redmine_issue__subtask_effective_hours
+msgid "Sum of actually spent hours on the subtask(s)"
+msgstr "Dies ist die Summe der tatsächlich aufgewendeten Stunden in Unteraufgaben."
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_account_analytic_line__tag_ids
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__tag_ids
+msgid "Tags"
+msgstr "Stichwörter"
+
+#. module: connector_redmine
+#: model:ir.model,name:connector_redmine.model_project_task
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_account_analytic_line__task_id
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__odoo_id
+msgid "Task"
+msgstr "Aufgabe"
+
+#. module: connector_redmine
+#: model:ir.model,name:connector_redmine.model_project_task_type
+msgid "Task Stage"
+msgstr "Aufgabenstufe"
+
+#. module: connector_redmine
+#: model_terms:ir.ui.view,arch_db:connector_redmine.view_redmine_backend_form
+msgid "Test Authentication"
+msgstr "Authentifikation testen"
+
+#. module: connector_redmine
+#: model_terms:ir.ui.view,arch_db:connector_redmine.view_redmine_backend_form_inherit
+msgid "Test Redmine Project Identification"
+msgstr "Redmine-Projektidentifikation testen"
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/components/issue/adapter.py:126
+#: code:addons/connector_redmine/components/time_entry/adapter.py:46
+#, python-format
+msgid "The field %(field)s is not set in Redmine for project %(project)s."
+msgstr "Das Feld %(field)s ist in Redmine für das Projekt %(project)s nicht gesetzt."
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/components/issue/mapper.py:137
+#: code:addons/connector_redmine/components/time_entry/mapper.py:60
+#, python-format
+msgid "There are more Odoo projects with name '%s'."
+msgstr "Es existieren mehrere Odoo-Projekte mit dem Namen '%s'."
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/components/issue/mapper.py:171
+#, python-format
+msgid "There are more project task types for the given project '%s' that match the Redmine state '%s'.\n"
+"Check for example these types: '%s' and '%s'."
+msgstr "Es existieren mehrere Projekt-Stufen für das Projekt '%s' die dem Redmine-Status '%s' entsprechen.\n"
+"Prüfen Sie beispielsweise diese Stufen: '%s' und '%s'."
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/components/issue/adapter.py:93
+#, python-format
+msgid "There is more than one Redmine project with given name: '%s' or URL: '%s'."
+msgstr "Es existieren mehrere Redmine-Projekte mit dem Namen: '%s' oder der URL: '%s'."
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/components/issue/mapper.py:211
+#: code:addons/connector_redmine/components/time_entry/mapper.py:128
+#, python-format
+msgid "There is more than one user in Odoo with login name: '%s' or name: '%s'."
+msgstr "Es existieren in Odoo mehrere Benutzer mit dem Login-Namen: '%s' oder dem Namen: '%s'."
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/components/issue/adapter.py:71
+#, python-format
+msgid "There is no Redmine project URL given to identify correct redmine project."
+msgstr "Es wurde keine Redmine-Projekt-URL angegeben, um das richtige Redmine-Projekt zu identifizieren."
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/components/issue/adapter.py:86
+#, python-format
+msgid "There is no Redmine project with given name: '%s' or URL: '%s'."
+msgstr "Es existiert kein Redmine-Projekt mit dem Namen: '%s' oder der URL: '%s'."
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/components/issue/mapper.py:160
+#, python-format
+msgid "There is no project task type for the given project '%s' that matches the Redmine state '%s'.\n"
+"Add the Redmine state to an existing project task type or create a new one.\n"
+"Make also sure that the task type is available for this project."
+msgstr "Es existiert keine Projekt-Stufe für das Projekt '%s', das dem Redmine-Status '%s' entspricht.\n"
+"Fügen Sie den Redmine-Status zu existierenden Projekt-Stufen hinzu oder erstellen Sie eine neue Stufe.\n"
+"Beachten Sie dabei auch, dass die Projekt-Stufe für das Projekt verwendet wird."
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/components/time_entry/mapper.py:119
+#, python-format
+msgid "There is no user in Odoo with login name: '%s' or name: '%s'.\n"
+"And there is also no default Redmine user set for this project."
+msgstr "Es existiert in Odoo kein Benutzer mit dem Login-Namen: '%s' oder dem Namen: '%s'.\n"
+"Und für das Projekt ist auch kein Standard-Redmine-Benutzer angegeben."
+
+#. module: connector_redmine
+#: code:addons/connector_redmine/components/time_entry/mapper.py:105
+#, python-format
+msgid "There is no user in Odoo with login name: '%s' or name: '%s'.\n"
+"The project's default user will be set for the time entry."
+msgstr "Es existiert in Odoo kein Benutzer mit dem Login-Namen: '%s' oder dem Namen: '%s'.\n"
+"Der Standard-Redmine-Benutzer des Projekts wird an dem Zeiteintrag gesetzt."
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_redmine_issue__email_cc
+msgid "These email addresses will be added to the CC field of all inbound\n"
+"        and outbound emails for this record before being sent. Separate multiple email addresses with a comma"
+msgstr "Diese E-Mail-Adressen werden werden zum CC-Feld aller ein-\n"
+"  und ausgehenden E-Mails für diesen Datensatz vor dem Senden hinzugefügt. Mehrere E-Mail-Adressen mit einem Komma abtrennen"
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_redmine_issue__email_from
+msgid "These people will receive email."
+msgstr "Diese Personen erhalten E-Mails"
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_project_task__redmine_user
+#: model:ir.model.fields,help:connector_redmine.field_redmine_issue__redmine_user
+msgid "This is the name of the assigned Redmine User. It is set, if the Redmine user is no Odoo user."
+msgstr "Das ist der Name des zugewiesenen Redmine-Benutzers. Wenn es ausgefüllt ist, gibt es den Redmine User nicht in Odoo."
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_redmine_backend__contract_ref
+msgid "This is the name of the field added in Redmine used to relate a Redmine project to an Odoo project.\n"
+"Each Redmine project must have an unique value for this attribute."
+msgstr "Das ist der Name des Feldes, das im Redmine hinzugefügt wurde, um das Redmine-Projekt mit einem Odoo-Projekt zu verbinden.\n"
+"Jedes Redmine-Projekt muss einen eindeutigen Wert für dieses Attribut haben."
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_project_project__default_redmine_user
+msgid "This is the user who will be set to tasks and account analytic lines if the Redmine user does not match any Odoo user, when importing issues from Redmine."
+msgstr "Das ist der Benutzer, der beim Ticket-Import aus Redmine an den Aufgaben und Zeiteinträgen gesetzt wird, wenn der eigentliche Redmine-Benutzer keinem Odoo-Benutzer entspricht."
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_account_analytic_line__odoo_id
+msgid "Timesheet"
+msgstr "Zeiterfassung"
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_redmine_issue__allow_timesheets
+msgid "Timesheets can be logged on this task."
+msgstr "Zeiterfassungen können für diese Aufgabe vorgenommen werden."
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__name
+msgid "Title"
+msgstr "Titel"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__total_hours_spent
+msgid "Total Hours"
+msgstr "Gesamtstunden"
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_redmine_issue__remaining_hours
+msgid "Total remaining time, can be re-estimated periodically by the assignee of the task."
+msgstr "Verbleibende Gesamtzeit, kann periodisch neu berechnet werden durch den zugewiesenen verantwortlichen Mitarbeiter."
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_account_analytic_line__product_uom_id
+msgid "Unit of Measure"
+msgstr "Mengeneinheit"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__message_unread
+msgid "Unread Messages"
+msgstr "Ungelesene Nachrichten"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Zähler der ungelesenen Nachrichten"
+
+#. module: connector_redmine
+#: selection:project.task,priority:0
+msgid "Urgent"
+msgstr ""
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_account_analytic_line__user_id
+msgid "User"
+msgstr "Benutzer"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__user_email
+msgid "User Email"
+msgstr "Benutzer E-Mail"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_backend__verify_ssl
+msgid "Verify SSL"
+msgstr "SSL verifizieren"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_backend__version
+msgid "Version"
+msgstr ""
+
+#. module: connector_redmine
+#: selection:project.task,priority:0
+msgid "Very High"
+msgstr "Sehr hoch"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__email_cc
+msgid "Watchers Emails"
+msgstr "E-Mails des Abonnenten"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__website_message_ids
+msgid "Website Messages"
+msgstr "Website-Nachrichten"
+
+#. module: connector_redmine
+#: model:ir.model.fields,help:connector_redmine.field_redmine_issue__website_message_ids
+msgid "Website communication history"
+msgstr "Website-Kommunikationshistorie"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_project_task__progress
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__progress
+msgid "Working Time Recorded"
+msgstr "Erfasste Arbeitszeit"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__working_days_open
+msgid "Working days to assign"
+msgstr "Zuzuweisende Arbeitstage"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__working_days_close
+msgid "Working days to close"
+msgstr "Arbeitstage bis Abschluss"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__working_hours_open
+msgid "Working hours to assign"
+msgstr "Zuzuweisende Arbeitsstunden"
+
+#. module: connector_redmine
+#: model:ir.model.fields,field_description:connector_redmine.field_redmine_issue__working_hours_close
+msgid "Working hours to close"
+msgstr "Arbeitsstunden bis Abschluss"
+
+#. module: connector_redmine
+#: model_terms:ir.ui.view,arch_db:connector_redmine.view_redmine_backend_form
+msgid "e.g. http://proxy:8081"
+msgstr "z.B. http://proxy:8081"
+
+#. module: connector_redmine
+#: model_terms:ir.ui.view,arch_db:connector_redmine.view_redmine_backend_form
+msgid "e.g. http://redmine.url/"
+msgstr "z.B. http://redmine.url/"
+
+#. module: connector_redmine
+#: model_terms:ir.ui.view,arch_db:connector_redmine.edit_project_redmine
+msgid "e.g. http://redmine.url/projects/projectname/"
+msgstr "z.B. http://redmine.url/projects/projectname/"
+
